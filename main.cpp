@@ -14,7 +14,7 @@ int main(int argc, char* argv[])
     //readconf("C:/00XXY/2-DataWS/011BEPSTerrainLab/0_BTLWS30/Conf/33_2009_Climate&BTL.con",&BH_SubParams1,&BH_SubParams1a,&BH_SubParams2,&rcode);
     //readconf("C:/00XXY/2-DataWS/011BEPSTerrainLab/0_BTLWS30/Conf/xxy_test.con",&BH_SubParams1,&BH_SubParams1a,&BH_SubParams2,&rcode);
     //readconf("C:/00XXY/2-DataWS/011BEPSTerrainLab/0_ARunWS/38_120_Climate&BTL.con",&BH_SubParams1,&BH_SubParams1a,&BH_SubParams2,&rcode);
-    readconf("E:/BTL/model/BTLforWang/BTLrun.con",&BH_SubParams1,&BH_SubParams1a,&BH_SubParams2,&rcode);
+    readconf("../../config0/BTLrun.con",&BH_SubParams1,&BH_SubParams1a,&BH_SubParams2,&rcode);
 
     //readconf("BTLrun.con",&BH_SubParams1,&BH_SubParams1a,&BH_SubParams2,&rcode);
 
