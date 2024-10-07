@@ -11,7 +11,7 @@ void readconf(char *conf,BH_SubParams1_t* BH_SubParams1,BH_SubParams1a_t* BH_Sub
     char field_descr[255];
     FILE* fcon;
 
-    if ((fcon = fopen(conf,"r")) == NULL)
+    if ((fcon = fopen(conf,"r")) == nullptr)
     {
         printf("Unable to open <%s>...\n", conf);
         *rcode = NOPERROR;
@@ -19,37 +19,37 @@ void readconf(char *conf,BH_SubParams1_t* BH_SubParams1,BH_SubParams1a_t* BH_Sub
     }
 
     field_descr[0]='\0';
-    fscanf(fcon,"%s %s", &field_descr, &ss1);
+    fscanf(fcon,"%s %s", &field_descr, &ss1);   //jday_start
     field_descr[0]='\0';
-    fscanf(fcon,"%s %s", &field_descr, &ss2);
+    fscanf(fcon,"%s %s", &field_descr, &ss2);   //jday_end
     field_descr[0]='\0';
-    fscanf(fcon,"%s %s", &field_descr, &ss3);
+    fscanf(fcon,"%s %s", &field_descr, &ss3);   //nlines
     field_descr[0]='\0';
-    fscanf(fcon,"%s %s", &field_descr, &ss4);
+    fscanf(fcon,"%s %s", &field_descr, &ss4);   //npixels
     field_descr[0]='\0';
-    fscanf(fcon,"%s %s", &field_descr, &ss5);
+    fscanf(fcon,"%s %s", &field_descr, &ss5);   //iXsize
     field_descr[0]='\0';
-    fscanf(fcon,"%s %s", &field_descr, &ss6);
+    fscanf(fcon,"%s %s", &field_descr, &ss6);   //iYsize
     field_descr[0]='\0';
-    fscanf(fcon,"%s %s", &field_descr, &ss7);
+    fscanf(fcon,"%s %s", &field_descr, &ss7);   //factor
     field_descr[0]='\0';
-    fscanf(fcon,"%s %s", &field_descr, &ss8);
+    fscanf(fcon,"%s %s", &field_descr, &ss8);   //ULLat
     field_descr[0]='\0';
-    fscanf(fcon,"%s %s", &field_descr, &ss9);
+    fscanf(fcon,"%s %s", &field_descr, &ss9);   //ULLong
     field_descr[0]='\0';
-    fscanf(fcon,"%s %s", &field_descr, &ss10);
+    fscanf(fcon,"%s %s", &field_descr, &ss10);   //LRLat
     field_descr[0]='\0';
-    fscanf(fcon,"%s %s", &field_descr, &ss11);
+    fscanf(fcon,"%s %s", &field_descr, &ss11);   //LRLong
     field_descr[0]='\0';
-    fscanf(fcon,"%s %s", &field_descr, &ss12);
+    fscanf(fcon,"%s %s", &field_descr, &ss12);   //InitialSnowDEN
     field_descr[0]='\0';
-    fscanf(fcon,"%s %s", &field_descr, &ss13);
+    fscanf(fcon,"%s %s", &field_descr, &ss13);   //InitialSWE
     field_descr[0]='\0';
-    fscanf(fcon,"%s %s", &field_descr, &ss14);
+    fscanf(fcon,"%s %s", &field_descr, &ss14);   //inputpath
     field_descr[0]='\0';
-    fscanf(fcon,"%s %s", &field_descr, &ss15);
+    fscanf(fcon,"%s %s", &field_descr, &ss15);   //outpath
     field_descr[0]='\0';
-    fscanf(fcon,"%s %s", &field_descr, &ss16);
+    fscanf(fcon,"%s %s", &field_descr, &ss16);   //caculatePattern
     fclose(fcon);
 
 //***********************************************Start of input parameters **********************************************
@@ -273,42 +273,42 @@ void readconf(char *conf,BH_SubParams1_t* BH_SubParams1,BH_SubParams1a_t* BH_Sub
     BH_SubParams1->SoilTextureIndexVals[11].soil_K0H	  = 10.0;
 
     // test
-    BH_SubParams1->SoilTextureIndexVals[2].mytexture		= 30;
-    BH_SubParams1->SoilTextureIndexVals[2].pore_index		= 0.03;
-    BH_SubParams1->SoilTextureIndexVals[2].soil_b			= 4.90;
-    BH_SubParams1->SoilTextureIndexVals[2].suction_head	    = 0.45;
-    BH_SubParams1->SoilTextureIndexVals[2].soil_K0		    = 50;
-    BH_SubParams1->SoilTextureIndexVals[2].max_z			= 0.7;
-    BH_SubParams1->SoilTextureIndexVals[2].wilting_pt		= 0.10;
-    BH_SubParams1->SoilTextureIndexVals[2].field_cap		= 0.21;
-    BH_SubParams1->SoilTextureIndexVals[2].porosity		    = 0.435;
-    BH_SubParams1->SoilTextureIndexVals[2].MaxiGs		    = 0.002;
-    BH_SubParams1->SoilTextureIndexVals[2].soil_K0H		    = 6;
-
-    BH_SubParams1->SoilTextureIndexVals[3].mytexture		= 40;
-    BH_SubParams1->SoilTextureIndexVals[3].pore_index		= 0.005;
-    BH_SubParams1->SoilTextureIndexVals[3].soil_b			= 5.30;
-    BH_SubParams1->SoilTextureIndexVals[3].suction_head  	= 0.786;
-    BH_SubParams1->SoilTextureIndexVals[3].soil_K0		    = 3;
-    BH_SubParams1->SoilTextureIndexVals[3].max_z		 	= 0.7;
-    BH_SubParams1->SoilTextureIndexVals[3].wilting_pt		= 0.13;
-    BH_SubParams1->SoilTextureIndexVals[3].field_cap		= 0.33;
-    BH_SubParams1->SoilTextureIndexVals[3].porosity		    = 0.501;
-    BH_SubParams1->SoilTextureIndexVals[3].MaxiGs		    = 0.004;
-    BH_SubParams1->SoilTextureIndexVals[3].soil_K0H		    = 3;
-
-
-    BH_SubParams1->SoilTextureIndexVals[11].mytexture	    = 120;
-    BH_SubParams1->SoilTextureIndexVals[11].pore_index	    = 0.050;
-    BH_SubParams1->SoilTextureIndexVals[11].soil_b		    = 6.00;
-    BH_SubParams1->SoilTextureIndexVals[11].suction_head    = 0.2;
-    BH_SubParams1->SoilTextureIndexVals[11].soil_K0		    = 50;
-    BH_SubParams1->SoilTextureIndexVals[11].max_z		    = 0.7;
-    BH_SubParams1->SoilTextureIndexVals[11].wilting_pt	    = 0.15;
-    BH_SubParams1->SoilTextureIndexVals[11].field_cap	    = 0.6;
-    BH_SubParams1->SoilTextureIndexVals[11].porosity	    = 0.83;
-    BH_SubParams1->SoilTextureIndexVals[11].MaxiGs		    = 0.002;
-    BH_SubParams1->SoilTextureIndexVals[11].soil_K0H	    = 50.0;
+    // BH_SubParams1->SoilTextureIndexVals[2].mytexture		= 30;
+    // BH_SubParams1->SoilTextureIndexVals[2].pore_index		= 0.03;
+    // BH_SubParams1->SoilTextureIndexVals[2].soil_b			= 4.90;
+    // BH_SubParams1->SoilTextureIndexVals[2].suction_head	    = 0.45;
+    // BH_SubParams1->SoilTextureIndexVals[2].soil_K0		    = 50;
+    // BH_SubParams1->SoilTextureIndexVals[2].max_z			= 0.7;
+    // BH_SubParams1->SoilTextureIndexVals[2].wilting_pt		= 0.10;
+    // BH_SubParams1->SoilTextureIndexVals[2].field_cap		= 0.21;
+    // BH_SubParams1->SoilTextureIndexVals[2].porosity		    = 0.435;
+    // BH_SubParams1->SoilTextureIndexVals[2].MaxiGs		    = 0.002;
+    // BH_SubParams1->SoilTextureIndexVals[2].soil_K0H		    = 6;
+    //
+    // BH_SubParams1->SoilTextureIndexVals[3].mytexture		= 40;
+    // BH_SubParams1->SoilTextureIndexVals[3].pore_index		= 0.005;
+    // BH_SubParams1->SoilTextureIndexVals[3].soil_b			= 5.30;
+    // BH_SubParams1->SoilTextureIndexVals[3].suction_head  	= 0.786;
+    // BH_SubParams1->SoilTextureIndexVals[3].soil_K0		    = 3;
+    // BH_SubParams1->SoilTextureIndexVals[3].max_z		 	= 0.7;
+    // BH_SubParams1->SoilTextureIndexVals[3].wilting_pt		= 0.13;
+    // BH_SubParams1->SoilTextureIndexVals[3].field_cap		= 0.33;
+    // BH_SubParams1->SoilTextureIndexVals[3].porosity		    = 0.501;
+    // BH_SubParams1->SoilTextureIndexVals[3].MaxiGs		    = 0.004;
+    // BH_SubParams1->SoilTextureIndexVals[3].soil_K0H		    = 3;
+    //
+    //
+    // BH_SubParams1->SoilTextureIndexVals[11].mytexture	    = 120;
+    // BH_SubParams1->SoilTextureIndexVals[11].pore_index	    = 0.050;
+    // BH_SubParams1->SoilTextureIndexVals[11].soil_b		    = 6.00;
+    // BH_SubParams1->SoilTextureIndexVals[11].suction_head    = 0.2;
+    // BH_SubParams1->SoilTextureIndexVals[11].soil_K0		    = 50;
+    // BH_SubParams1->SoilTextureIndexVals[11].max_z		    = 0.7;
+    // BH_SubParams1->SoilTextureIndexVals[11].wilting_pt	    = 0.15;
+    // BH_SubParams1->SoilTextureIndexVals[11].field_cap	    = 0.6;
+    // BH_SubParams1->SoilTextureIndexVals[11].porosity	    = 0.83;
+    // BH_SubParams1->SoilTextureIndexVals[11].MaxiGs		    = 0.002;
+    // BH_SubParams1->SoilTextureIndexVals[11].soil_K0H	    = 50.0;
 
     //set biology parameters
 

@@ -6,6 +6,7 @@
 #include "stdlib.h"
 #include "tchar.h"
 
+//向输出文件名称中插入数字编号：先拆分_tsplitpath，后插入_tcscat，再重组_makepath
 void insert_day_number(char* szFileName,const char* szInFileName, int iDayNumber)
 {
     char drive[255];
@@ -13,6 +14,9 @@ void insert_day_number(char* szFileName,const char* szInFileName, int iDayNumber
     char fname[255];
     char ext[255];
     char szNumber[8];
+
+	//_stprintf( char *buffer, const char *format, ... );:此函数有三个类型参数，第一个是buffer，指向目标缓冲区的指针，用于存放格式化后的字符串；第二个是format，格式字符串，指定如何将参数插入到字符串中；第三个是可变数量的参数，它们将按照 format 字符串中指定的顺序和格式被插入到字符串中。
+
     //get string representation of number:
     _stprintf(szNumber,"%d",iDayNumber);
 
@@ -25,6 +29,7 @@ void insert_day_number(char* szFileName,const char* szInFileName, int iDayNumber
     //build new path:
     _makepath(szFileName,drive,dir,fname,ext);
 }
+
 
 void remove_day_number(char* szFileName,const char* szInFileName, int iDayNumber)
 {
@@ -40,7 +45,7 @@ void remove_day_number(char* szFileName,const char* szInFileName, int iDayNumber
 
 	//get string representation of day number and the length of such string:
 	_stprintf(day_number,"%d",iDayNumber);
-	iDayNumberStringLength = _tcslen(day_number);
+	iDayNumberStringLength = _tcslen(day_number); //计算数字长度
 
 	//split current path into components:
 	_tsplitpath(szInFileName,drive,dir,fname,ext);
@@ -48,7 +53,7 @@ void remove_day_number(char* szFileName,const char* szInFileName, int iDayNumber
 	//make sure the day number is appended to the end of file name;
 	//if it is, cut it out, else have erroneous input:
 	bool bError = true;
-	if ((iFileNameLength=_tcslen(fname))>=3)
+	if ((iFileNameLength=_tcslen(fname))>=3) //若文件名称长度大于等于3
 	{
 		if (!_tcscmp(&fname[iFileNameLength-iDayNumberStringLength],day_number))
 		{
@@ -66,6 +71,8 @@ void remove_day_number(char* szFileName,const char* szInFileName, int iDayNumber
 	if (bError)
 		_tcscpy(szFileName,szInFileName);
 }
+
+//将与土壤参数有关的缓冲区变量赋值给Soil_t*类型的结构体
 void AssembleSoilArray(int iLength,float* K0_decay_m,float* soil_b,float* saturation_suction,
 								float* saturated_Kv,float* saturated_Ks,float* saturation_deficit,float* unsaturated_storage,
 								float* water_table,float* soil_temp, float* pondwater,float* Max_depth_Z,
@@ -130,6 +137,7 @@ void AssembleSoilArray(int iLength,float* K0_decay_m,float* soil_b,float* satura
 	}
 }
 
+//将Soil_t*类型的结构体内的变量赋值给与土壤参数有关的缓冲区变量
 void DisassembleSoilArray(int iLength,float* K0_decay_m,float* soil_b,float* saturation_suction,
 						float* saturated_Kv,		float* saturated_Ks,float* saturation_deficit,float* unsaturated_storage,
 						float* water_table,float* soil_temp,float* pondwater,float* Max_depth_Z,
@@ -192,6 +200,8 @@ void DisassembleSoilArray(int iLength,float* K0_decay_m,float* soil_b,float* sat
 		Max_depth_Z[i]					= soil[i].Max_depth_Z;
 	}
 }
+
+//将与冠层通量有关的缓冲区变量赋值给Canopy_t*类型的结构体
 void	AssembleCanopyArray(int iLength,float* canopy_evaporation,
 							float* canopy_transpiration_unsat,float* canopy_transpiration_sat,
 							float* canopy_intercepted,float* litter_evaporation,
@@ -210,6 +220,7 @@ void	AssembleCanopyArray(int iLength,float* canopy_evaporation,
 	}
 }
 
+//将Canopy_t*类型的结构体赋值给与冠层通量有关的缓冲区变量
 void	DisassembleCanopyArray(int iLength,float* canopy_evaporation,
 							float* canopy_transpiration_unsat,float* canopy_transpiration_sat,
 							float* canopy_intercepted,float* litter_evaporation,
@@ -227,7 +238,8 @@ void	DisassembleCanopyArray(int iLength,float* canopy_evaporation,
 		soil_evaporation[i]				= canopy[i].soil_evaporation;
 	}
 }
-// Energy routines added 2005-May-3  MM/Ajit
+
+// 能量通量集合
 void	AssembleEnergyArray(int iLength,
 						//	 float* climate_snowmelt,
 							float *NRFlux,
@@ -243,6 +255,7 @@ void	AssembleEnergyArray(int iLength,
 	}
 }
 
+// 能量通量拆分
 void	DisassembleEnergyArray(int iLength,
 							float* NRFlux,
 							float* sensibleHeatFlux,
@@ -258,11 +271,7 @@ void	DisassembleEnergyArray(int iLength,
 	}
 }
 
-
-
-
-
-// snow routines added 2005-May-3  MM/Ajit
+// 雪参数集合
 void	AssembleSnowArray(int iLength,
 						//	 float* climate_snowmelt,
 							float*   swe,
@@ -278,6 +287,7 @@ void	AssembleSnowArray(int iLength,
 	}
 }
 
+// 雪参数拆分
 void	DisassembleSnowArray(int iLength,
 							float* swe,
 							float* depth,

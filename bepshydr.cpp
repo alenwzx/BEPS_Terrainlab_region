@@ -528,170 +528,170 @@ void BepsHydrCalculate(BH_SubParams1_t* BH_SubParams1,BH_SubParams1a_t* BH_SubPa
 
     nl=pv->nlines;
     np=pv->npixels;
-    if (	((temp_uc_buff		    =(unsigned char*)malloc(np*sizeof(unsigned char)))	==NULL)
-            ||	((climate_rad_r		=(short int*)malloc(np*sizeof(short int)))			==NULL)
-            ||	((climate_rad_f		=(short int*)malloc(np*sizeof(short int)))			==NULL)
-            ||	((climate_ti		=(short int*)malloc(np*sizeof(short int)))			==NULL)
-            ||	((climate_tm		=(short int*)malloc(np*sizeof(short int)))			==NULL)
-            ||	((climate_prec		=(short int*)malloc(np*sizeof(short int)))			==NULL)
-            ||	((climate_dew		=(short int*)malloc(np*sizeof(short int)))			==NULL)
-            ||	((climate_wind		=(short int*)malloc(np*sizeof(short int)))			==NULL)
-            ||	((waterin        	=(float*)    malloc(np*sizeof( float)))			    ==NULL)
-            ||	((lc				=(unsigned char*)malloc(np*sizeof(unsigned char)))	==NULL)
-            ||	((lai				=(double*)malloc(np*sizeof(double)))				==NULL)
-            ||	((lon				=(double*)malloc(np*sizeof(double)))				==NULL)
-            ||	((lat				=(double*)malloc(np*sizeof(double)))				==NULL)
-            ||	((pFloatOutput		=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((xSoil				=(double*)malloc(SIZEX*sizeof(double)))				==NULL)
-            ||	((xx				=(struct xvalue*)malloc(np*sizeof(struct xvalue)))				==NULL)
-            ||	((sdat				=(struct climatedata*)malloc(np*sizeof(struct climatedata)))	==NULL)
-            ||	((canopy				    =(Canopy_t*)malloc(np*sizeof(Canopy_t)))			==NULL)
-            ||	((canopy_ET         		=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((canopy_stomata         	=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((canopy_evaporation		=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((canopy_transpiration_unsat=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((canopy_transpiration_sat	=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((canopy_intercepted		=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((canopy_litter_evaporation	=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((canopy_moss_transpiration	=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((canopy_soil_evaporation	=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((canopy_UT	                 =(float*)malloc(np*sizeof(float)))				    ==NULL)
-            ||	((energy					=(Energy*)malloc(np*sizeof(Energy)))	            ==NULL)
-            ||	((NRFlux		            =(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((sensibleHeatFlux	        =(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((latentHeatFlux	       	=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((Daily_GPP		                =(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((Daily_NPP		         	    =(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((Daily_NEP		            	=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((Daily_Ra		         	    =(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((Daily_Rh		            	=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((soil_texture					=(unsigned char*)malloc(np*sizeof(unsigned char)))	==NULL)
-            ||	((soil_surf_k0v					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((soil_surf_k0h					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((soil_init_z					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((soil_init_temp				=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((carbon_pool1					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((carbon_pool2					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((carbon_pool3					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((carbon_pool4					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((carbon_pool5					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((carbon_pool6					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((carbon_pool7					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((carbon_pool8					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((carbon_pool9					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((biomass_pool1					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((biomass_pool2					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((biomass_pool3					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((biomass_pool4					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((soil_depth					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((soil							=(Soil_t*)malloc(np*sizeof(Soil_t)))				==NULL)
-            ||	((soil_3r						=(Soil_t*)malloc(3*np*sizeof(Soil_t)))				==NULL)
-            ||	((soil_K0_decay_m				=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((soil_b						=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((soil_saturation_suction		=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((soil_saturated_Kv				=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((soil_saturated_Kh				=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((soil_saturation_deficit		=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((soil_unsaturated_storage		=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((soil_water_table				=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((buff_soil_temp				=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((buffer_nitrogen				=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((buffer_CNcd					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((buffer_CNssd					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((buffer_CNsmd					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((buffer_CNfsd					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((buffer_CNfmd					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((buffer_CNsm					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((buffer_CNm					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((buffer_CNs					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((buffer_CNp					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((buffer_CNw					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((buffer_CNfr					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((buffer_CNl					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((buff_ST_Ly1					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((buff_ST_Ly2					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((buff_ST_Ly3					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((buff_ST_Ly4					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((buff_ST_Ly5					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((buff_ST_Ly6					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((buff_pool1					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((buff_pool2					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((buff_pool3					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((buff_pool4					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((buff_pool5					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((buff_pool6					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((buff_pool7					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((buff_pool8					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((buff_pool9					=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((bio_pool1						=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((bio_pool2						=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((bio_pool3						=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((bio_pool4						=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((soil_pondwater				=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((soil_Max_depth_Z				=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((soil_capillary_rise			=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((soil_percolation				=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((soil_K0_decay_m_3r			=(float*)malloc(3*np*sizeof(float)))				==NULL)
-            ||	((soil_b_3r						=(float*)malloc(3*np*sizeof(float)))				==NULL)
-            ||	((soil_saturation_suction_3r	=(float*)malloc(3*np*sizeof(float)))				==NULL)
-            ||	((soil_saturated_Kv_3r			=(float*)malloc(3*np*sizeof(float)))				==NULL)
-            ||	((soil_saturated_Kh_3r			=(float*)malloc(3*np*sizeof(float)))				==NULL)
-            ||	((soil_saturation_deficit_3r	=(float*)malloc(3*np*sizeof(float)))				==NULL)
-            ||	((soil_unsaturated_storage_3r	=(float*)malloc(3*np*sizeof(float)))				==NULL)
-            ||	((soil_water_table_3r			=(float*)malloc(3*np*sizeof(float)))				==NULL)
-            ||	((soil_temp_3r					=(float*)malloc(3*np*sizeof(float)))				==NULL)
-            ||	((soil_nitrogen_3r				=(float*)malloc(3*np*sizeof(float)))			    ==NULL)
-            ||	((soil_pool1_3r					=(float*)malloc(3*np*sizeof(float)))				==NULL)
-            ||	((soil_CNcd_3r					=(float*)malloc(3*np*sizeof(float)))				==NULL)
-            ||	((soil_CNssd_3r					=(float*)malloc(3*np*sizeof(float)))				==NULL)
-            ||	((soil_CNsmd_3r					=(float*)malloc(3*np*sizeof(float)))				==NULL)
-            ||	((soil_CNfsd_3r					=(float*)malloc(3*np*sizeof(float)))				==NULL)
-            ||	((soil_CNfmd_3r					=(float*)malloc(3*np*sizeof(float)))				==NULL)
-            ||	((soil_CNsm_3r					=(float*)malloc(3*np*sizeof(float)))				==NULL)
-            ||	((soil_CNm_3r					=(float*)malloc(3*np*sizeof(float)))				==NULL)
-            ||	((soil_CNs_3r					=(float*)malloc(3*np*sizeof(float)))				==NULL)
-            ||	((soil_CNp_3r					=(float*)malloc(3*np*sizeof(float)))				==NULL)
-            ||	((soil_CNw_3r					=(float*)malloc(3*np*sizeof(float)))				==NULL)
-            ||	((soil_CNfr_3r					=(float*)malloc(3*np*sizeof(float)))				==NULL)
-            ||	((soil_CNl_3r					=(float*)malloc(3*np*sizeof(float)))				==NULL)
-            ||	((soil_ST_Ly1_3r				=(float*)malloc(3*np*sizeof(float)))				==NULL)
-            ||	((soil_ST_Ly2_3r				=(float*)malloc(3*np*sizeof(float)))				==NULL)
-            ||	((soil_ST_Ly3_3r				=(float*)malloc(3*np*sizeof(float)))				==NULL)
-            ||	((soil_ST_Ly4_3r				=(float*)malloc(3*np*sizeof(float)))				==NULL)
-            ||	((soil_ST_Ly5_3r				=(float*)malloc(3*np*sizeof(float)))				==NULL)
-            ||	((soil_ST_Ly6_3r				=(float*)malloc(3*np*sizeof(float)))				==NULL)
-            ||	((soil_pool2_3r					=(float*)malloc(3*np*sizeof(float)))				==NULL)
-            ||	((soil_pool3_3r					=(float*)malloc(3*np*sizeof(float)))				==NULL)
-            ||	((soil_pool4_3r					=(float*)malloc(3*np*sizeof(float)))				==NULL)
-            ||	((soil_pool5_3r					=(float*)malloc(3*np*sizeof(float)))				==NULL)
-            ||	((soil_pool6_3r					=(float*)malloc(3*np*sizeof(float)))				==NULL)
-            ||	((soil_pool7_3r					=(float*)malloc(3*np*sizeof(float)))				==NULL)
-            ||	((soil_pool8_3r					=(float*)malloc(3*np*sizeof(float)))				==NULL)
-            ||	((soil_pool9_3r					=(float*)malloc(3*np*sizeof(float)))				==NULL)
-            ||	((soil_bio_pool1_3r					=(float*)malloc(3*np*sizeof(float)))			==NULL)
-            ||	((soil_bio_pool2_3r					=(float*)malloc(3*np*sizeof(float)))			==NULL)
-            ||	((soil_bio_pool3_3r					=(float*)malloc(3*np*sizeof(float)))			==NULL)
-            ||	((soil_bio_pool4_3r					=(float*)malloc(3*np*sizeof(float)))			==NULL)
-            ||	((soil_pondwater_3r			=(float*)malloc(3*np*sizeof(float)))				    ==NULL)
-            ||	((soil_Max_depth_Z_3r			=(float*)malloc(3*np*sizeof(float)))				==NULL)
-            ||	((g_model						=(double *)malloc(SIZEG*sizeof(double)))			==NULL)
-            ||	((z_model						=(double *)malloc(SIZEZ*sizeof(double)))			==NULL)
-            ||	((Array_Elevation_3r			=(float*)malloc(3*np*sizeof(float)))				==NULL)
-            ||	((Array_WElevation_3r			=(float*)malloc(3*np*sizeof(float)))				==NULL)// 19June2006, updating WT with previous WT
-            ||	((Array_Label_3r				=(int*)malloc(3*np*sizeof(int)))					==NULL)
-            ||	((watershed						=(unsigned char*)malloc(np*sizeof(unsigned char)))	==NULL)
-            ||	((runoff_total					=(float*)malloc(np*sizeof(float)))					==NULL)	 // cancelled 24 jun
-            ||	((runoff_baseflow				=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((runoff_total_inflow			=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((runoff_total_outflow			=(float*)malloc(np*sizeof(float)))					==NULL)
-            ||	((soil_resp_x				=(float*)malloc(np*sizeof(float)))					    ==NULL)
-            ||	(( snow				=(Snow_t*)malloc(np*sizeof(Snow_t)))	                        ==NULL)
-            ||	(( curr_snowdepth     	=(float*)malloc(np*sizeof(float)))							==NULL)
-            ||	(( curr_snowdensity     =(float*)malloc(np*sizeof(float)))							==NULL)
-            ||	(( curr_snowSWE      	=(float*)malloc(np*sizeof(float)))							==NULL)
-            ||	(( prev_snowdepth     	=(float*)malloc(np*sizeof(float)))							==NULL)
-            ||	(( prev_snowdensity     =(float*)malloc(np*sizeof(float)))							==NULL)
-            ||	(( prev_snowSWE      	=(float*)malloc(np*sizeof(float)))							==NULL))
+    if (	((temp_uc_buff		    =(unsigned char*)malloc(np*sizeof(unsigned char)))	== nullptr)
+            ||	((climate_rad_r		=(short int*)malloc(np*sizeof(short int)))			== nullptr)
+            ||	((climate_rad_f		=(short int*)malloc(np*sizeof(short int)))			== nullptr)
+            ||	((climate_ti		=(short int*)malloc(np*sizeof(short int)))			== nullptr)
+            ||	((climate_tm		=(short int*)malloc(np*sizeof(short int)))			== nullptr)
+            ||	((climate_prec		=(short int*)malloc(np*sizeof(short int)))			== nullptr)
+            ||	((climate_dew		=(short int*)malloc(np*sizeof(short int)))			== nullptr)
+            ||	((climate_wind		=(short int*)malloc(np*sizeof(short int)))			== nullptr)
+            ||	((waterin        	=(float*)    malloc(np*sizeof( float)))			    == nullptr)
+            ||	((lc				=(unsigned char*)malloc(np*sizeof(unsigned char)))	== nullptr)
+            ||	((lai				=(double*)malloc(np*sizeof(double)))				== nullptr)
+            ||	((lon				=(double*)malloc(np*sizeof(double)))				== nullptr)
+            ||	((lat				=(double*)malloc(np*sizeof(double)))				== nullptr)
+            ||	((pFloatOutput		=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((xSoil				=(double*)malloc(SIZEX*sizeof(double)))				== nullptr)
+            ||	((xx				=(struct xvalue*)malloc(np*sizeof(struct xvalue)))				== nullptr)
+            ||	((sdat				=(struct climatedata*)malloc(np*sizeof(struct climatedata)))	== nullptr)
+            ||	((canopy				    =(Canopy_t*)malloc(np*sizeof(Canopy_t)))			== nullptr)
+            ||	((canopy_ET         		=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((canopy_stomata         	=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((canopy_evaporation		=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((canopy_transpiration_unsat=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((canopy_transpiration_sat	=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((canopy_intercepted		=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((canopy_litter_evaporation	=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((canopy_moss_transpiration	=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((canopy_soil_evaporation	=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((canopy_UT	                 =(float*)malloc(np*sizeof(float)))				    == nullptr)
+            ||	((energy					=(Energy*)malloc(np*sizeof(Energy)))	            == nullptr)
+            ||	((NRFlux		            =(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((sensibleHeatFlux	        =(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((latentHeatFlux	       	=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((Daily_GPP		                =(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((Daily_NPP		         	    =(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((Daily_NEP		            	=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((Daily_Ra		         	    =(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((Daily_Rh		            	=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((soil_texture					=(unsigned char*)malloc(np*sizeof(unsigned char)))	== nullptr)
+            ||	((soil_surf_k0v					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((soil_surf_k0h					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((soil_init_z					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((soil_init_temp				=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((carbon_pool1					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((carbon_pool2					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((carbon_pool3					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((carbon_pool4					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((carbon_pool5					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((carbon_pool6					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((carbon_pool7					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((carbon_pool8					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((carbon_pool9					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((biomass_pool1					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((biomass_pool2					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((biomass_pool3					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((biomass_pool4					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((soil_depth					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((soil							=(Soil_t*)malloc(np*sizeof(Soil_t)))				== nullptr)
+            ||	((soil_3r						=(Soil_t*)malloc(3*np*sizeof(Soil_t)))				== nullptr)
+            ||	((soil_K0_decay_m				=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((soil_b						=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((soil_saturation_suction		=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((soil_saturated_Kv				=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((soil_saturated_Kh				=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((soil_saturation_deficit		=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((soil_unsaturated_storage		=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((soil_water_table				=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((buff_soil_temp				=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((buffer_nitrogen				=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((buffer_CNcd					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((buffer_CNssd					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((buffer_CNsmd					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((buffer_CNfsd					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((buffer_CNfmd					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((buffer_CNsm					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((buffer_CNm					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((buffer_CNs					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((buffer_CNp					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((buffer_CNw					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((buffer_CNfr					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((buffer_CNl					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((buff_ST_Ly1					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((buff_ST_Ly2					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((buff_ST_Ly3					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((buff_ST_Ly4					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((buff_ST_Ly5					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((buff_ST_Ly6					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((buff_pool1					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((buff_pool2					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((buff_pool3					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((buff_pool4					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((buff_pool5					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((buff_pool6					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((buff_pool7					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((buff_pool8					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((buff_pool9					=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((bio_pool1						=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((bio_pool2						=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((bio_pool3						=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((bio_pool4						=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((soil_pondwater				=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((soil_Max_depth_Z				=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((soil_capillary_rise			=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((soil_percolation				=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((soil_K0_decay_m_3r			=(float*)malloc(3*np*sizeof(float)))				== nullptr)
+            ||	((soil_b_3r						=(float*)malloc(3*np*sizeof(float)))				== nullptr)
+            ||	((soil_saturation_suction_3r	=(float*)malloc(3*np*sizeof(float)))				== nullptr)
+            ||	((soil_saturated_Kv_3r			=(float*)malloc(3*np*sizeof(float)))				== nullptr)
+            ||	((soil_saturated_Kh_3r			=(float*)malloc(3*np*sizeof(float)))				== nullptr)
+            ||	((soil_saturation_deficit_3r	=(float*)malloc(3*np*sizeof(float)))				== nullptr)
+            ||	((soil_unsaturated_storage_3r	=(float*)malloc(3*np*sizeof(float)))				== nullptr)
+            ||	((soil_water_table_3r			=(float*)malloc(3*np*sizeof(float)))				== nullptr)
+            ||	((soil_temp_3r					=(float*)malloc(3*np*sizeof(float)))				== nullptr)
+            ||	((soil_nitrogen_3r				=(float*)malloc(3*np*sizeof(float)))			    == nullptr)
+            ||	((soil_pool1_3r					=(float*)malloc(3*np*sizeof(float)))				== nullptr)
+            ||	((soil_CNcd_3r					=(float*)malloc(3*np*sizeof(float)))				== nullptr)
+            ||	((soil_CNssd_3r					=(float*)malloc(3*np*sizeof(float)))				== nullptr)
+            ||	((soil_CNsmd_3r					=(float*)malloc(3*np*sizeof(float)))				== nullptr)
+            ||	((soil_CNfsd_3r					=(float*)malloc(3*np*sizeof(float)))				== nullptr)
+            ||	((soil_CNfmd_3r					=(float*)malloc(3*np*sizeof(float)))				== nullptr)
+            ||	((soil_CNsm_3r					=(float*)malloc(3*np*sizeof(float)))				== nullptr)
+            ||	((soil_CNm_3r					=(float*)malloc(3*np*sizeof(float)))				== nullptr)
+            ||	((soil_CNs_3r					=(float*)malloc(3*np*sizeof(float)))				== nullptr)
+            ||	((soil_CNp_3r					=(float*)malloc(3*np*sizeof(float)))				== nullptr)
+            ||	((soil_CNw_3r					=(float*)malloc(3*np*sizeof(float)))				== nullptr)
+            ||	((soil_CNfr_3r					=(float*)malloc(3*np*sizeof(float)))				== nullptr)
+            ||	((soil_CNl_3r					=(float*)malloc(3*np*sizeof(float)))				== nullptr)
+            ||	((soil_ST_Ly1_3r				=(float*)malloc(3*np*sizeof(float)))				== nullptr)
+            ||	((soil_ST_Ly2_3r				=(float*)malloc(3*np*sizeof(float)))				== nullptr)
+            ||	((soil_ST_Ly3_3r				=(float*)malloc(3*np*sizeof(float)))				== nullptr)
+            ||	((soil_ST_Ly4_3r				=(float*)malloc(3*np*sizeof(float)))				== nullptr)
+            ||	((soil_ST_Ly5_3r				=(float*)malloc(3*np*sizeof(float)))				== nullptr)
+            ||	((soil_ST_Ly6_3r				=(float*)malloc(3*np*sizeof(float)))				== nullptr)
+            ||	((soil_pool2_3r					=(float*)malloc(3*np*sizeof(float)))				== nullptr)
+            ||	((soil_pool3_3r					=(float*)malloc(3*np*sizeof(float)))				== nullptr)
+            ||	((soil_pool4_3r					=(float*)malloc(3*np*sizeof(float)))				== nullptr)
+            ||	((soil_pool5_3r					=(float*)malloc(3*np*sizeof(float)))				== nullptr)
+            ||	((soil_pool6_3r					=(float*)malloc(3*np*sizeof(float)))				== nullptr)
+            ||	((soil_pool7_3r					=(float*)malloc(3*np*sizeof(float)))				== nullptr)
+            ||	((soil_pool8_3r					=(float*)malloc(3*np*sizeof(float)))				== nullptr)
+            ||	((soil_pool9_3r					=(float*)malloc(3*np*sizeof(float)))				== nullptr)
+            ||	((soil_bio_pool1_3r					=(float*)malloc(3*np*sizeof(float)))			== nullptr)
+            ||	((soil_bio_pool2_3r					=(float*)malloc(3*np*sizeof(float)))			== nullptr)
+            ||	((soil_bio_pool3_3r					=(float*)malloc(3*np*sizeof(float)))			== nullptr)
+            ||	((soil_bio_pool4_3r					=(float*)malloc(3*np*sizeof(float)))			== nullptr)
+            ||	((soil_pondwater_3r			=(float*)malloc(3*np*sizeof(float)))				    == nullptr)
+            ||	((soil_Max_depth_Z_3r			=(float*)malloc(3*np*sizeof(float)))				== nullptr)
+            ||	((g_model						=(double *)malloc(SIZEG*sizeof(double)))			== nullptr)
+            ||	((z_model						=(double *)malloc(SIZEZ*sizeof(double)))			== nullptr)
+            ||	((Array_Elevation_3r			=(float*)malloc(3*np*sizeof(float)))				== nullptr)
+            ||	((Array_WElevation_3r			=(float*)malloc(3*np*sizeof(float)))				== nullptr)// 19June2006, updating WT with previous WT
+            ||	((Array_Label_3r				=(int*)malloc(3*np*sizeof(int)))					== nullptr)
+            ||	((watershed						=(unsigned char*)malloc(np*sizeof(unsigned char)))	== nullptr)
+            ||	((runoff_total					=(float*)malloc(np*sizeof(float)))					== nullptr)	 // cancelled 24 jun
+            ||	((runoff_baseflow				=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((runoff_total_inflow			=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((runoff_total_outflow			=(float*)malloc(np*sizeof(float)))					== nullptr)
+            ||	((soil_resp_x				=(float*)malloc(np*sizeof(float)))					    == nullptr)
+            ||	(( snow				=(Snow_t*)malloc(np*sizeof(Snow_t)))	                        == nullptr)
+            ||	(( curr_snowdepth     	=(float*)malloc(np*sizeof(float)))							== nullptr)
+            ||	(( curr_snowdensity     =(float*)malloc(np*sizeof(float)))							== nullptr)
+            ||	(( curr_snowSWE      	=(float*)malloc(np*sizeof(float)))							== nullptr)
+            ||	(( prev_snowdepth     	=(float*)malloc(np*sizeof(float)))							== nullptr)
+            ||	(( prev_snowdensity     =(float*)malloc(np*sizeof(float)))							== nullptr)
+            ||	(( prev_snowSWE      	=(float*)malloc(np*sizeof(float)))							== nullptr))
     {
         printf("\n Error in allocating memory");
         exit(0);
@@ -753,71 +753,71 @@ void BepsHydrCalculate(BH_SubParams1_t* BH_SubParams1,BH_SubParams1a_t* BH_SubPa
     insert_day_number(szPrevDaySnowdensityFileName	,BH_SubParams1a->szOutFileNameSnowdensity,pv->jday_start-1);
 // printf("%s",BH_SubParams1->szInFileNameSoilTexture);
 
-    if(((soil_K0_decay_m_ptr			        =fopen(SoilK0DecayMFileName							,"wb"))	==NULL)
-            ||	((soil_saturation_suction_ptr	=fopen(SoilSatSuctionFileName						,"wb"))	==NULL)
-            ||	((soil_saturated_Kv_ptr			        =fopen(SoilSatKvFileName								,"wb"))	==NULL)
-            ||	((soil_saturated_Kh_ptr			        =fopen(SoilSatKhFileName								,"wb"))	==NULL)
-            ||	((soil_Max_depth_Z_ptr					=fopen(BH_SubParams1a->szOutFileNameSoilMaxDepthZ		,"wb"))	==NULL)
-            ||	((soil_b_ptr							=fopen(BH_SubParams1a->szOutFileNameSoilB				,"wb"))	==NULL)
-            ||  ((prev_day_soil_saturation_deficit_ptr	=fopen(szPrevDaySoilSatDeficitFileName		,"wb"))	==NULL)
-            ||	((prev_day_soil_unsaturated_storage_ptr	=fopen(szPrevDaySoilUnsatStorageFileName	,"wb"))	==NULL)
-            ||	((prev_day_soil_water_table_ptr			=fopen(szPrevDaySoilWaterTableFileName		,"wb"))	==NULL)
-            ||	((prev_day_soil_temp_ptr			=fopen(szPrevDaySoilTempFileName		,"wb"))	==NULL)
-            ||	((prev_day_nitrogen_ptr			=fopen(szPrevDayNitrogenFileName		,"wb"))	==NULL)
-            ||	((prev_day_CNcd_ptr		=fopen(szPrevDayCNcdFileName				,"wb"))	==NULL)
-            ||	((prev_day_CNssd_ptr		=fopen(szPrevDayCNssdFileName			,"wb"))	==NULL)
-            ||	((prev_day_CNsmd_ptr		=fopen(szPrevDayCNsmdFileName			,"wb"))	==NULL)
-            ||	((prev_day_CNfsd_ptr		=fopen(szPrevDayCNfsdFileName			,"wb"))	==NULL)
-            ||	((prev_day_CNfmd_ptr		=fopen(szPrevDayCNfmdFileName			,"wb"))	==NULL)
-            ||	((prev_day_CNsm_ptr			=fopen(szPrevDayCNsmFileName			,"wb"))	==NULL)
-            ||	((prev_day_CNm_ptr			=fopen(szPrevDayCNmFileName				,"wb"))	==NULL)
-            ||	((prev_day_CNs_ptr			=fopen(szPrevDayCNsFileName				,"wb"))	==NULL)
-            ||	((prev_day_CNp_ptr			=fopen(szPrevDayCNpFileName				,"wb"))	==NULL)
-            ||	((prev_day_CNw_ptr			=fopen(szPrevDayCNwFileName				,"wb"))	==NULL)
-            ||	((prev_day_CNfr_ptr			=fopen(szPrevDayCNfrFileName			,"wb"))	==NULL)
-            ||	((prev_day_CNl_ptr			=fopen(szPrevDayCNlFileName				,"wb"))	==NULL)
-            ||	((prev_day_ST_Ly1_ptr			=fopen(szPrevDayST_Ly1FileName			,"wb"))	==NULL)
-            ||	((prev_day_ST_Ly2_ptr			=fopen(szPrevDayST_Ly2FileName			,"wb"))	==NULL)
-            ||	((prev_day_ST_Ly3_ptr			=fopen(szPrevDayST_Ly3FileName			,"wb"))	==NULL)
-            ||	((prev_day_ST_Ly4_ptr			=fopen(szPrevDayST_Ly4FileName			,"wb"))	==NULL)
-            ||	((prev_day_ST_Ly5_ptr			=fopen(szPrevDayST_Ly5FileName			,"wb"))	==NULL)
-            ||	((prev_day_ST_Ly6_ptr			=fopen(szPrevDayST_Ly6FileName			,"wb"))	==NULL)
-            ||	((prev_day_pool1_ptr				=fopen(szPrevDayPool1FileName		,"wb"))	==NULL)
-            ||	((prev_day_pool2_ptr				=fopen(szPrevDayPool2FileName		,"wb"))	==NULL)
-            ||	((prev_day_pool3_ptr				=fopen(szPrevDayPool3FileName		,"wb"))	==NULL)
-            ||	((prev_day_pool4_ptr				=fopen(szPrevDayPool4FileName		,"wb"))	==NULL)
-            ||	((prev_day_pool5_ptr				=fopen(szPrevDayPool5FileName		,"wb"))	==NULL)
-            ||	((prev_day_pool6_ptr				=fopen(szPrevDayPool6FileName		,"wb"))	==NULL)
-            ||	((prev_day_pool7_ptr				=fopen(szPrevDayPool7FileName		,"wb"))	==NULL)
-            ||	((prev_day_pool8_ptr				=fopen(szPrevDayPool8FileName		,"wb"))	==NULL)
-            ||	((prev_day_pool9_ptr				=fopen(szPrevDayPool9FileName		,"wb"))	==NULL)
-            ||	((prev_day_bio_pool1_ptr				=fopen(szPrevDayBiomassPool1FileName		,"wb"))	==NULL)
-            ||	((prev_day_bio_pool2_ptr				=fopen(szPrevDayBiomassPool2FileName		,"wb"))	==NULL)
-            ||	((prev_day_bio_pool3_ptr				=fopen(szPrevDayBiomassPool3FileName		,"wb"))	==NULL)
-            ||	((prev_day_bio_pool4_ptr				=fopen(szPrevDayBiomassPool4FileName		,"wb"))	==NULL)
-            ||	((prev_day_soil_pondwater_ptr		    =fopen(szPrevDaySoilPondWaterFileName		,"wb"))	==NULL)
-            ||	((prev_day_snow_swe_ptr	                =fopen(szPrevDaySWEFileName	,"wb"))	==NULL)
-            ||	((prev_day_snow_depth_ptr			    =fopen(szPrevDaySnowdepthFileName		,"wb"))	==NULL)
-            ||	((prev_day_snow_density_ptr		        =fopen(szPrevDaySnowdensityFileName		,"wb"))	==NULL)
+    if(((soil_K0_decay_m_ptr			        =fopen(SoilK0DecayMFileName							,"wb"))	== nullptr)
+            ||	((soil_saturation_suction_ptr	=fopen(SoilSatSuctionFileName						,"wb"))	== nullptr)
+            ||	((soil_saturated_Kv_ptr			        =fopen(SoilSatKvFileName								,"wb"))	== nullptr)
+            ||	((soil_saturated_Kh_ptr			        =fopen(SoilSatKhFileName								,"wb"))	== nullptr)
+            ||	((soil_Max_depth_Z_ptr					=fopen(BH_SubParams1a->szOutFileNameSoilMaxDepthZ		,"wb"))	== nullptr)
+            ||	((soil_b_ptr							=fopen(BH_SubParams1a->szOutFileNameSoilB				,"wb"))	== nullptr)
+            ||  ((prev_day_soil_saturation_deficit_ptr	=fopen(szPrevDaySoilSatDeficitFileName		,"wb"))	== nullptr)
+            ||	((prev_day_soil_unsaturated_storage_ptr	=fopen(szPrevDaySoilUnsatStorageFileName	,"wb"))	== nullptr)
+            ||	((prev_day_soil_water_table_ptr			=fopen(szPrevDaySoilWaterTableFileName		,"wb"))	== nullptr)
+            ||	((prev_day_soil_temp_ptr			=fopen(szPrevDaySoilTempFileName		,"wb"))	== nullptr)
+            ||	((prev_day_nitrogen_ptr			=fopen(szPrevDayNitrogenFileName		,"wb"))	== nullptr)
+            ||	((prev_day_CNcd_ptr		=fopen(szPrevDayCNcdFileName				,"wb"))	== nullptr)
+            ||	((prev_day_CNssd_ptr		=fopen(szPrevDayCNssdFileName			,"wb"))	== nullptr)
+            ||	((prev_day_CNsmd_ptr		=fopen(szPrevDayCNsmdFileName			,"wb"))	== nullptr)
+            ||	((prev_day_CNfsd_ptr		=fopen(szPrevDayCNfsdFileName			,"wb"))	== nullptr)
+            ||	((prev_day_CNfmd_ptr		=fopen(szPrevDayCNfmdFileName			,"wb"))	== nullptr)
+            ||	((prev_day_CNsm_ptr			=fopen(szPrevDayCNsmFileName			,"wb"))	== nullptr)
+            ||	((prev_day_CNm_ptr			=fopen(szPrevDayCNmFileName				,"wb"))	== nullptr)
+            ||	((prev_day_CNs_ptr			=fopen(szPrevDayCNsFileName				,"wb"))	== nullptr)
+            ||	((prev_day_CNp_ptr			=fopen(szPrevDayCNpFileName				,"wb"))	== nullptr)
+            ||	((prev_day_CNw_ptr			=fopen(szPrevDayCNwFileName				,"wb"))	== nullptr)
+            ||	((prev_day_CNfr_ptr			=fopen(szPrevDayCNfrFileName			,"wb"))	== nullptr)
+            ||	((prev_day_CNl_ptr			=fopen(szPrevDayCNlFileName				,"wb"))	== nullptr)
+            ||	((prev_day_ST_Ly1_ptr			=fopen(szPrevDayST_Ly1FileName			,"wb"))	== nullptr)
+            ||	((prev_day_ST_Ly2_ptr			=fopen(szPrevDayST_Ly2FileName			,"wb"))	== nullptr)
+            ||	((prev_day_ST_Ly3_ptr			=fopen(szPrevDayST_Ly3FileName			,"wb"))	== nullptr)
+            ||	((prev_day_ST_Ly4_ptr			=fopen(szPrevDayST_Ly4FileName			,"wb"))	== nullptr)
+            ||	((prev_day_ST_Ly5_ptr			=fopen(szPrevDayST_Ly5FileName			,"wb"))	== nullptr)
+            ||	((prev_day_ST_Ly6_ptr			=fopen(szPrevDayST_Ly6FileName			,"wb"))	== nullptr)
+            ||	((prev_day_pool1_ptr				=fopen(szPrevDayPool1FileName		,"wb"))	== nullptr)
+            ||	((prev_day_pool2_ptr				=fopen(szPrevDayPool2FileName		,"wb"))	== nullptr)
+            ||	((prev_day_pool3_ptr				=fopen(szPrevDayPool3FileName		,"wb"))	== nullptr)
+            ||	((prev_day_pool4_ptr				=fopen(szPrevDayPool4FileName		,"wb"))	== nullptr)
+            ||	((prev_day_pool5_ptr				=fopen(szPrevDayPool5FileName		,"wb"))	== nullptr)
+            ||	((prev_day_pool6_ptr				=fopen(szPrevDayPool6FileName		,"wb"))	== nullptr)
+            ||	((prev_day_pool7_ptr				=fopen(szPrevDayPool7FileName		,"wb"))	== nullptr)
+            ||	((prev_day_pool8_ptr				=fopen(szPrevDayPool8FileName		,"wb"))	== nullptr)
+            ||	((prev_day_pool9_ptr				=fopen(szPrevDayPool9FileName		,"wb"))	== nullptr)
+            ||	((prev_day_bio_pool1_ptr				=fopen(szPrevDayBiomassPool1FileName		,"wb"))	== nullptr)
+            ||	((prev_day_bio_pool2_ptr				=fopen(szPrevDayBiomassPool2FileName		,"wb"))	== nullptr)
+            ||	((prev_day_bio_pool3_ptr				=fopen(szPrevDayBiomassPool3FileName		,"wb"))	== nullptr)
+            ||	((prev_day_bio_pool4_ptr				=fopen(szPrevDayBiomassPool4FileName		,"wb"))	== nullptr)
+            ||	((prev_day_soil_pondwater_ptr		    =fopen(szPrevDaySoilPondWaterFileName		,"wb"))	== nullptr)
+            ||	((prev_day_snow_swe_ptr	                =fopen(szPrevDaySWEFileName	,"wb"))	== nullptr)
+            ||	((prev_day_snow_depth_ptr			    =fopen(szPrevDaySnowdepthFileName		,"wb"))	== nullptr)
+            ||	((prev_day_snow_density_ptr		        =fopen(szPrevDaySnowdensityFileName		,"wb"))	== nullptr)
  //open 2 files corresponding to original soil survey binary file for reading
-            ||	((soil_texture_file_ptr			=fopen(BH_SubParams1->szInFileNameSoilTexture					,"rb"))	==NULL)
-            ||	((soil_init_z_file_ptr			=fopen(BH_SubParams1->szInFileNameSoilInitZ					,"rb"))	==NULL)
-            ||	((soil_init_temp_file_ptr		=fopen(BH_SubParams1->szInFileNameSoilInitTemp					,"rb"))	==NULL)
-            ||	((carbon_pool1_file_ptr     	=fopen(BH_SubParams1->szInFileNameCarbonPool1					,"rb"))	==NULL)
-            ||	((carbon_pool2_file_ptr			=fopen(BH_SubParams1->szInFileNameCarbonPool2					,"rb"))	==NULL)
-            ||	((carbon_pool3_file_ptr			=fopen(BH_SubParams1->szInFileNameCarbonPool3					,"rb"))	==NULL)
-            ||	((carbon_pool4_file_ptr			=fopen(BH_SubParams1->szInFileNameCarbonPool4					,"rb"))	==NULL)
-            ||	((carbon_pool5_file_ptr			=fopen(BH_SubParams1->szInFileNameCarbonPool5					,"rb"))	==NULL)
-            ||	((carbon_pool6_file_ptr			=fopen(BH_SubParams1->szInFileNameCarbonPool6					,"rb"))	==NULL)
-            ||	((carbon_pool7_file_ptr			=fopen(BH_SubParams1->szInFileNameCarbonPool7					,"rb"))	==NULL)
-            ||	((carbon_pool8_file_ptr			=fopen(BH_SubParams1->szInFileNameCarbonPool8					,"rb"))	==NULL)
-            ||	((carbon_pool9_file_ptr			=fopen(BH_SubParams1->szInFileNameCarbonPool9					,"rb"))	==NULL)
-            ||	((biomass_pool1_file_ptr		=fopen(BH_SubParams1->szInFileNameBiomassPool1					,"rb"))	==NULL)
-            ||	((biomass_pool2_file_ptr		=fopen(BH_SubParams1->szInFileNameBiomassPool2					,"rb"))	==NULL)
-            ||	((biomass_pool3_file_ptr		=fopen(BH_SubParams1->szInFileNameBiomassPool3					,"rb"))	==NULL)
-            ||	((biomass_pool4_file_ptr		=fopen(BH_SubParams1->szInFileNameBiomassPool4					,"rb"))	==NULL)
-            ||	((soil_depth_file_ptr			=fopen(BH_SubParams1->szInFileNameSoilDepth				    	,"rb"))	==NULL)
-            ||	((fwatershed                    =fopen(BH_SubParams1->szInFileNameWatershed						,"rb"))	==NULL)
+            ||	((soil_texture_file_ptr			=fopen(BH_SubParams1->szInFileNameSoilTexture					,"rb"))	== nullptr)
+            ||	((soil_init_z_file_ptr			=fopen(BH_SubParams1->szInFileNameSoilInitZ					,"rb"))	== nullptr)
+            ||	((soil_init_temp_file_ptr		=fopen(BH_SubParams1->szInFileNameSoilInitTemp					,"rb"))	== nullptr)
+            ||	((carbon_pool1_file_ptr     	=fopen(BH_SubParams1->szInFileNameCarbonPool1					,"rb"))	== nullptr)
+            ||	((carbon_pool2_file_ptr			=fopen(BH_SubParams1->szInFileNameCarbonPool2					,"rb"))	== nullptr)
+            ||	((carbon_pool3_file_ptr			=fopen(BH_SubParams1->szInFileNameCarbonPool3					,"rb"))	== nullptr)
+            ||	((carbon_pool4_file_ptr			=fopen(BH_SubParams1->szInFileNameCarbonPool4					,"rb"))	== nullptr)
+            ||	((carbon_pool5_file_ptr			=fopen(BH_SubParams1->szInFileNameCarbonPool5					,"rb"))	== nullptr)
+            ||	((carbon_pool6_file_ptr			=fopen(BH_SubParams1->szInFileNameCarbonPool6					,"rb"))	== nullptr)
+            ||	((carbon_pool7_file_ptr			=fopen(BH_SubParams1->szInFileNameCarbonPool7					,"rb"))	== nullptr)
+            ||	((carbon_pool8_file_ptr			=fopen(BH_SubParams1->szInFileNameCarbonPool8					,"rb"))	== nullptr)
+            ||	((carbon_pool9_file_ptr			=fopen(BH_SubParams1->szInFileNameCarbonPool9					,"rb"))	== nullptr)
+            ||	((biomass_pool1_file_ptr		=fopen(BH_SubParams1->szInFileNameBiomassPool1					,"rb"))	== nullptr)
+            ||	((biomass_pool2_file_ptr		=fopen(BH_SubParams1->szInFileNameBiomassPool2					,"rb"))	== nullptr)
+            ||	((biomass_pool3_file_ptr		=fopen(BH_SubParams1->szInFileNameBiomassPool3					,"rb"))	== nullptr)
+            ||	((biomass_pool4_file_ptr		=fopen(BH_SubParams1->szInFileNameBiomassPool4					,"rb"))	== nullptr)
+            ||	((soil_depth_file_ptr			=fopen(BH_SubParams1->szInFileNameSoilDepth				    	,"rb"))	== nullptr)
+            ||	((fwatershed                    =fopen(BH_SubParams1->szInFileNameWatershed						,"rb"))	== nullptr)
            )
     {
         printf("\n Error in openfile");
@@ -898,11 +898,12 @@ void BepsHydrCalculate(BH_SubParams1_t* BH_SubParams1,BH_SubParams1a_t* BH_SubPa
 
         if (rcode!=PERROR)
         {
-            //printf("ok2\n");
+            //根据土壤的质地，确定每行像元Soil_t中土壤参数的值
             Soil_constructor(pv,soil_texture,soil_surf_k0v,soil_surf_k0h,soil_init_z,soil_init_temp,
                              carbon_pool1,carbon_pool2,carbon_pool3,carbon_pool4,carbon_pool5,carbon_pool6,carbon_pool7,carbon_pool8,carbon_pool9,
                              biomass_pool1,biomass_pool2,biomass_pool3,biomass_pool4,soil_depth,
                              BH_SubParams1->SoilTextureIndexVals,i,soil,watershed,i,buffer_nitrogen);
+            //将Soil_t中土壤参数赋值给缓冲区变量
             DisassembleSoilArray(np,soil_K0_decay_m,soil_b,soil_saturation_suction,soil_saturated_Kv,soil_saturated_Kh,
                                  soil_saturation_deficit,soil_unsaturated_storage,soil_water_table,buff_soil_temp,soil_pondwater,
                                  soil_Max_depth_Z, buff_pool1,buff_pool2,buff_pool3,buff_pool4,buff_pool5,buff_pool6,buff_pool7,buff_pool8,buff_pool9,
@@ -1048,254 +1049,254 @@ void BepsHydrCalculate(BH_SubParams1_t* BH_SubParams1,BH_SubParams1a_t* BH_SubPa
 
     if (soil_init_z_file_ptr)
         fclose(soil_init_z_file_ptr);
-    soil_init_z_file_ptr= (FILE*)NULL;
+    soil_init_z_file_ptr= (FILE*)nullptr;
 
     if (soil_init_temp_file_ptr)
         fclose(soil_init_temp_file_ptr);
-    soil_init_temp_file_ptr		= (FILE*)NULL;
+    soil_init_temp_file_ptr		= (FILE*)nullptr;
 
     if (carbon_pool1_file_ptr)
         fclose(carbon_pool1_file_ptr);
-    carbon_pool1_file_ptr		= (FILE*)NULL;
+    carbon_pool1_file_ptr		= (FILE*)nullptr;
 
     if (carbon_pool2_file_ptr)
         fclose(carbon_pool2_file_ptr);
-    carbon_pool2_file_ptr		= (FILE*)NULL;
+    carbon_pool2_file_ptr		= (FILE*)nullptr;
 
     if (carbon_pool3_file_ptr)
         fclose(carbon_pool3_file_ptr);
-    carbon_pool3_file_ptr		= (FILE*)NULL;
+    carbon_pool3_file_ptr		= (FILE*)nullptr;
 
     if (carbon_pool4_file_ptr)
         fclose(carbon_pool4_file_ptr);
-    carbon_pool4_file_ptr		= (FILE*)NULL;
+    carbon_pool4_file_ptr		= (FILE*)nullptr;
 
     if (carbon_pool5_file_ptr)
         fclose(carbon_pool5_file_ptr);
-    carbon_pool5_file_ptr		= (FILE*)NULL;
+    carbon_pool5_file_ptr		= (FILE*)nullptr;
 
     if (carbon_pool6_file_ptr)
         fclose(carbon_pool6_file_ptr);
-    carbon_pool6_file_ptr		= (FILE*)NULL;
+    carbon_pool6_file_ptr		= (FILE*)nullptr;
 
     if (carbon_pool7_file_ptr)
         fclose(carbon_pool7_file_ptr);
-    carbon_pool7_file_ptr		= (FILE*)NULL;
+    carbon_pool7_file_ptr		= (FILE*)nullptr;
 
     if (carbon_pool8_file_ptr)
         fclose(carbon_pool8_file_ptr);
-    carbon_pool8_file_ptr		= (FILE*)NULL;
+    carbon_pool8_file_ptr		= (FILE*)nullptr;
 
     if (carbon_pool9_file_ptr)
         fclose(carbon_pool9_file_ptr);
-    carbon_pool9_file_ptr		= (FILE*)NULL;
+    carbon_pool9_file_ptr		= (FILE*)nullptr;
 
     if (biomass_pool1_file_ptr)
         fclose(biomass_pool1_file_ptr);
-    biomass_pool1_file_ptr		= (FILE*)NULL;
+    biomass_pool1_file_ptr		= (FILE*)nullptr;
 
     if (biomass_pool2_file_ptr)
         fclose(biomass_pool2_file_ptr);
-    biomass_pool2_file_ptr		= (FILE*)NULL;
+    biomass_pool2_file_ptr		= (FILE*)nullptr;
 
     if (biomass_pool3_file_ptr)
         fclose(biomass_pool3_file_ptr);
-    biomass_pool3_file_ptr		= (FILE*)NULL;
+    biomass_pool3_file_ptr		= (FILE*)nullptr;
 
     if (biomass_pool4_file_ptr)
         fclose(biomass_pool4_file_ptr);
-    biomass_pool4_file_ptr		= (FILE*)NULL;
+    biomass_pool4_file_ptr		= (FILE*)nullptr;
 
     if (soil_depth_file_ptr)
         fclose(soil_depth_file_ptr);
-    soil_depth_file_ptr			= (FILE*)NULL;
+    soil_depth_file_ptr			= (FILE*)nullptr;
 
     if (soil_Max_depth_Z_ptr)
         fclose(soil_Max_depth_Z_ptr);
-    soil_Max_depth_Z_ptr = (FILE*)NULL;
+    soil_Max_depth_Z_ptr = (FILE*)nullptr;
     if (soil_b_ptr)
         fclose(soil_b_ptr);
-    soil_b_ptr = (FILE*)NULL;
+    soil_b_ptr = (FILE*)nullptr;
     if (fwatershed)
         fclose(fwatershed);
-    fwatershed = (FILE*)NULL;
+    fwatershed = (FILE*)nullptr;
 
     if (soil_K0_decay_m_ptr)
         fclose(soil_K0_decay_m_ptr);
-    soil_K0_decay_m_ptr = (FILE*)NULL;
+    soil_K0_decay_m_ptr = (FILE*)nullptr;
 
     if (soil_saturation_suction_ptr)
         fclose(soil_saturation_suction_ptr);
-    soil_saturation_suction_ptr = (FILE*)NULL;
+    soil_saturation_suction_ptr = (FILE*)nullptr;
 
     if (soil_saturated_Kv_ptr)
         fclose(soil_saturated_Kv_ptr);
-    soil_saturated_Kv_ptr = (FILE*)NULL;
+    soil_saturated_Kv_ptr = (FILE*)nullptr;
 
     if (soil_saturated_Kh_ptr)
         fclose(soil_saturated_Kh_ptr);
-    soil_saturated_Kh_ptr = (FILE*)NULL;
+    soil_saturated_Kh_ptr = (FILE*)nullptr;
 
     if (prev_day_soil_saturation_deficit_ptr)
         fclose(prev_day_soil_saturation_deficit_ptr);
-    prev_day_soil_saturation_deficit_ptr = (FILE*)NULL;
+    prev_day_soil_saturation_deficit_ptr = (FILE*)nullptr;
 
     if (prev_day_soil_unsaturated_storage_ptr)
         fclose(prev_day_soil_unsaturated_storage_ptr);
-    prev_day_soil_unsaturated_storage_ptr = (FILE*)NULL;
+    prev_day_soil_unsaturated_storage_ptr = (FILE*)nullptr;
 
     if (prev_day_soil_water_table_ptr)
         fclose(prev_day_soil_water_table_ptr);
-    prev_day_soil_water_table_ptr = (FILE*)NULL;
+    prev_day_soil_water_table_ptr = (FILE*)nullptr;
 
     if (prev_day_soil_temp_ptr)
         fclose(prev_day_soil_temp_ptr);
-    prev_day_soil_temp_ptr = (FILE*)NULL; //2nov2006
+    prev_day_soil_temp_ptr = (FILE*)nullptr; //2nov2006
 
     if (prev_day_nitrogen_ptr)
         fclose(prev_day_nitrogen_ptr);
-    prev_day_nitrogen_ptr = (FILE*)NULL; //2nov2006
+    prev_day_nitrogen_ptr = (FILE*)nullptr; //2nov2006
 
     if (prev_day_CNcd_ptr)
         fclose(prev_day_CNcd_ptr);
-    prev_day_CNcd_ptr = (FILE*)NULL;
+    prev_day_CNcd_ptr = (FILE*)nullptr;
 
     if (prev_day_CNssd_ptr)
         fclose(prev_day_CNssd_ptr);
-    prev_day_CNssd_ptr = (FILE*)NULL;
+    prev_day_CNssd_ptr = (FILE*)nullptr;
 
     if (prev_day_CNsmd_ptr)
         fclose(prev_day_CNsmd_ptr);
-    prev_day_CNsmd_ptr = (FILE*)NULL;
+    prev_day_CNsmd_ptr = (FILE*)nullptr;
 
     if (prev_day_CNfsd_ptr)
         fclose(prev_day_CNfsd_ptr);
-    prev_day_CNfsd_ptr = (FILE*)NULL;
+    prev_day_CNfsd_ptr = (FILE*)nullptr;
 
     if (prev_day_CNfmd_ptr)
         fclose(prev_day_CNfmd_ptr);
-    prev_day_CNfmd_ptr = (FILE*)NULL;
+    prev_day_CNfmd_ptr = (FILE*)nullptr;
 
     if (prev_day_CNsm_ptr)
         fclose(prev_day_CNsm_ptr);
-    prev_day_CNsm_ptr = (FILE*)NULL;
+    prev_day_CNsm_ptr = (FILE*)nullptr;
 
     if (prev_day_CNm_ptr)
         fclose(prev_day_CNm_ptr);
-    prev_day_CNm_ptr = (FILE*)NULL;
+    prev_day_CNm_ptr = (FILE*)nullptr;
 
     if (prev_day_CNs_ptr)
         fclose(prev_day_CNs_ptr);
-    prev_day_CNs_ptr = (FILE*)NULL;
+    prev_day_CNs_ptr = (FILE*)nullptr;
 
     if (prev_day_CNp_ptr)
         fclose(prev_day_CNp_ptr);
-    prev_day_CNp_ptr= (FILE*)NULL;
+    prev_day_CNp_ptr= (FILE*)nullptr;
 
     if (prev_day_CNw_ptr)
         fclose(prev_day_CNw_ptr);
-    prev_day_CNw_ptr = (FILE*)NULL;
+    prev_day_CNw_ptr = (FILE*)nullptr;
 
     if (prev_day_CNfr_ptr)
         fclose(prev_day_CNfr_ptr);
-    prev_day_CNfr_ptr = (FILE*)NULL;
+    prev_day_CNfr_ptr = (FILE*)nullptr;
 
     if (prev_day_CNl_ptr)
         fclose(prev_day_CNl_ptr);
-    prev_day_CNl_ptr = (FILE*)NULL;
+    prev_day_CNl_ptr = (FILE*)nullptr;
 
 
     if (prev_day_ST_Ly1_ptr)
         fclose(prev_day_ST_Ly1_ptr);
-    prev_day_ST_Ly1_ptr = (FILE*)NULL;
+    prev_day_ST_Ly1_ptr = (FILE*)nullptr;
 
     if (prev_day_ST_Ly2_ptr)
         fclose(prev_day_ST_Ly2_ptr);
-    prev_day_ST_Ly2_ptr = (FILE*)NULL;
+    prev_day_ST_Ly2_ptr = (FILE*)nullptr;
 
     if (prev_day_ST_Ly3_ptr)
         fclose(prev_day_ST_Ly3_ptr);
-    prev_day_ST_Ly3_ptr = (FILE*)NULL;
+    prev_day_ST_Ly3_ptr = (FILE*)nullptr;
 
     if (prev_day_ST_Ly4_ptr)
         fclose(prev_day_ST_Ly4_ptr);
-    prev_day_ST_Ly4_ptr = (FILE*)NULL;
+    prev_day_ST_Ly4_ptr = (FILE*)nullptr;
 
     if (prev_day_ST_Ly5_ptr)
         fclose(prev_day_ST_Ly5_ptr);
-    prev_day_ST_Ly5_ptr = (FILE*)NULL;
+    prev_day_ST_Ly5_ptr = (FILE*)nullptr;
 
     if (prev_day_ST_Ly6_ptr)
         fclose(prev_day_ST_Ly6_ptr);
-    prev_day_ST_Ly6_ptr = (FILE*)NULL;
+    prev_day_ST_Ly6_ptr = (FILE*)nullptr;
 
     if (prev_day_pool1_ptr)
         fclose(prev_day_pool1_ptr);
-    prev_day_pool1_ptr = (FILE*)NULL;
+    prev_day_pool1_ptr = (FILE*)nullptr;
 
     if (prev_day_pool2_ptr)
         fclose(prev_day_pool2_ptr);
-    prev_day_pool2_ptr = (FILE*)NULL;
+    prev_day_pool2_ptr = (FILE*)nullptr;
 
     if (prev_day_pool3_ptr)
         fclose(prev_day_pool3_ptr);
-    prev_day_pool3_ptr = (FILE*)NULL;
+    prev_day_pool3_ptr = (FILE*)nullptr;
 
     if (prev_day_pool4_ptr)
         fclose(prev_day_pool4_ptr);
-    prev_day_pool4_ptr = (FILE*)NULL;
+    prev_day_pool4_ptr = (FILE*)nullptr;
 
     if (prev_day_pool5_ptr)
         fclose(prev_day_pool5_ptr);
-    prev_day_pool5_ptr = (FILE*)NULL;
+    prev_day_pool5_ptr = (FILE*)nullptr;
 
     if (prev_day_pool6_ptr)
         fclose(prev_day_pool6_ptr);
-    prev_day_pool6_ptr = (FILE*)NULL;
+    prev_day_pool6_ptr = (FILE*)nullptr;
 
     if (prev_day_pool7_ptr)
         fclose(prev_day_pool7_ptr);
-    prev_day_pool7_ptr = (FILE*)NULL;
+    prev_day_pool7_ptr = (FILE*)nullptr;
 
     if (prev_day_pool8_ptr)
         fclose(prev_day_pool8_ptr);
-    prev_day_pool8_ptr = (FILE*)NULL;
+    prev_day_pool8_ptr = (FILE*)nullptr;
 
     if (prev_day_pool9_ptr)
         fclose(prev_day_pool9_ptr);
-    prev_day_pool9_ptr = (FILE*)NULL;
+    prev_day_pool9_ptr = (FILE*)nullptr;
 
     if (prev_day_bio_pool1_ptr)
         fclose(prev_day_bio_pool1_ptr);
-    prev_day_bio_pool1_ptr = (FILE*)NULL;
+    prev_day_bio_pool1_ptr = (FILE*)nullptr;
 
     if (prev_day_bio_pool2_ptr)
         fclose(prev_day_bio_pool2_ptr);
-    prev_day_bio_pool2_ptr = (FILE*)NULL;
+    prev_day_bio_pool2_ptr = (FILE*)nullptr;
 
     if (prev_day_bio_pool3_ptr)
         fclose(prev_day_bio_pool3_ptr);
-    prev_day_bio_pool3_ptr = (FILE*)NULL;
+    prev_day_bio_pool3_ptr = (FILE*)nullptr;
 
     if (prev_day_bio_pool4_ptr)
         fclose(prev_day_bio_pool4_ptr);
-    prev_day_bio_pool4_ptr = (FILE*)NULL;
+    prev_day_bio_pool4_ptr = (FILE*)nullptr;
 
     if (prev_day_soil_pondwater_ptr) //pond
         fclose(prev_day_soil_pondwater_ptr);//pond
-    prev_day_soil_pondwater_ptr = (FILE*)NULL;//pond
+    prev_day_soil_pondwater_ptr = (FILE*)nullptr;//pond
 
     if (prev_day_snow_swe_ptr)
         fclose(prev_day_snow_swe_ptr);
-    prev_day_snow_swe_ptr = (FILE*)NULL;
+    prev_day_snow_swe_ptr = (FILE*)nullptr;
 
     if (prev_day_snow_depth_ptr)
         fclose(prev_day_snow_depth_ptr);
-    prev_day_snow_depth_ptr = (FILE*)NULL;
+    prev_day_snow_depth_ptr = (FILE*)nullptr;
 
     if (prev_day_snow_density_ptr)
         fclose(prev_day_snow_density_ptr);
-    prev_day_snow_density_ptr = (FILE*)NULL;
+    prev_day_snow_density_ptr = (FILE*)nullptr;
 
     /*=========================END Soil_constructor() block====================================*/
     /*=========================END Soil_constructor() block====================================*/
@@ -1303,15 +1304,15 @@ void BepsHydrCalculate(BH_SubParams1_t* BH_SubParams1,BH_SubParams1a_t* BH_SubPa
     // 打开 LC LAI DEM watershed maxdepthZ soilB 常数文件
     if (rcode!=PERROR)
     {
-        if(	((lcfile_ptr=fopen(BH_SubParams1->szInFileNameLC									,"rb")) == NULL)
-                ||	((fwatershed=fopen(BH_SubParams1->szInFileNameWatershed						,"rb"))	== NULL)
-                ||	((Dem_ptr=fopen(BH_SubParams1->szInFileNameDEM								,"rb"))	== NULL)
-                ||	((soil_Max_depth_Z_ptr=fopen(BH_SubParams1a->szOutFileNameSoilMaxDepthZ		,"rb"))	== NULL)
-                ||	((soil_b_ptr=fopen(BH_SubParams1a->szOutFileNameSoilB						,"rb"))	== NULL)
-                ||  ((soil_K0_decay_m_ptr			        =fopen(SoilK0DecayMFileName			,"rb"))	==NULL)
-                ||	((soil_saturation_suction_ptr	        =fopen(SoilSatSuctionFileName		,"rb"))	==NULL)
-                ||	((soil_saturated_Kv_ptr		    	    =fopen(SoilSatKvFileName			,"rb"))	==NULL)
-                ||	((soil_saturated_Kh_ptr		    	    =fopen(SoilSatKhFileName			,"rb"))	==NULL)
+        if(	((lcfile_ptr=fopen(BH_SubParams1->szInFileNameLC									,"rb")) == nullptr)
+                ||	((fwatershed=fopen(BH_SubParams1->szInFileNameWatershed						,"rb"))	== nullptr)
+                ||	((Dem_ptr=fopen(BH_SubParams1->szInFileNameDEM								,"rb"))	== nullptr)
+                ||	((soil_Max_depth_Z_ptr=fopen(BH_SubParams1a->szOutFileNameSoilMaxDepthZ		,"rb"))	== nullptr)
+                ||	((soil_b_ptr=fopen(BH_SubParams1a->szOutFileNameSoilB						,"rb"))	== nullptr)
+                ||  ((soil_K0_decay_m_ptr			        =fopen(SoilK0DecayMFileName			,"rb"))	== nullptr)
+                ||	((soil_saturation_suction_ptr	        =fopen(SoilSatSuctionFileName		,"rb"))	== nullptr)
+                ||	((soil_saturated_Kv_ptr		    	    =fopen(SoilSatKvFileName			,"rb"))	== nullptr)
+                ||	((soil_saturated_Kh_ptr		    	    =fopen(SoilSatKhFileName			,"rb"))	== nullptr)
           )
             rcode=PERROR;
     }
@@ -1472,58 +1473,58 @@ void BepsHydrCalculate(BH_SubParams1_t* BH_SubParams1,BH_SubParams1a_t* BH_SubPa
         insert_day_number(szClimateDailyLAI	,BH_SubParams1->szInFileNameLAI	,modisday);
         //printf("rcode1:%d\n",rcode);
 
-        if(	((prev_day_soil_saturation_deficit_ptr=fopen(szPrevDaySoilSatDeficitFileName,"rb"))	==NULL)
-                ||	((prev_day_soil_unsaturated_storage_ptr=fopen(szPrevDaySoilUnsatStorageFileName,"rb"))	==NULL)
-                ||	((prev_day_soil_water_table_ptr=fopen(szPrevDaySoilWaterTableFileName,"rb"))	==NULL)
-                ||	((prev_day_soil_temp_ptr=fopen(szPrevDaySoilTempFileName,"rb"))==NULL)
-                ||	((prev_day_nitrogen_ptr=fopen(szPrevDayNitrogenFileName,"rb"))==NULL)
-                ||	((prev_day_CNcd_ptr		=fopen(szPrevDayCNcdFileName							,"rb"))	==NULL)
-                ||	((prev_day_CNssd_ptr	=fopen(szPrevDayCNssdFileName							,"rb"))	==NULL)
-                ||	((prev_day_CNsmd_ptr	=fopen(szPrevDayCNsmdFileName							,"rb"))	==NULL)
-                ||	((prev_day_CNfsd_ptr	=fopen(szPrevDayCNfsdFileName							,"rb"))	==NULL)
-                ||	((prev_day_CNfmd_ptr	=fopen(szPrevDayCNfmdFileName							,"rb"))	==NULL)
-                ||	((prev_day_CNsm_ptr		=fopen(szPrevDayCNsmFileName							,"rb"))	==NULL)
-                ||	((prev_day_CNm_ptr		=fopen(szPrevDayCNmFileName								,"rb"))	==NULL)
-                ||	((prev_day_CNs_ptr		=fopen(szPrevDayCNsFileName								,"rb"))	==NULL)
-                ||	((prev_day_CNp_ptr		=fopen(szPrevDayCNpFileName								,"rb"))	==NULL)
-                ||	((prev_day_CNw_ptr		=fopen(szPrevDayCNwFileName								,"rb"))	==NULL)
-                ||	((prev_day_CNfr_ptr		=fopen(szPrevDayCNfrFileName							,"rb"))	==NULL)
-                ||	((prev_day_CNl_ptr		=fopen(szPrevDayCNlFileName								,"rb"))	==NULL)
-                ||	((prev_day_ST_Ly1_ptr		=fopen(szPrevDayST_Ly1FileName						,"rb"))	==NULL)
-                ||	((prev_day_ST_Ly2_ptr		=fopen(szPrevDayST_Ly2FileName						,"rb"))	==NULL)
-                ||	((prev_day_ST_Ly3_ptr		=fopen(szPrevDayST_Ly3FileName						,"rb"))	==NULL)
-                ||	((prev_day_ST_Ly4_ptr		=fopen(szPrevDayST_Ly4FileName						,"rb"))	==NULL)
-                ||	((prev_day_ST_Ly5_ptr		=fopen(szPrevDayST_Ly5FileName						,"rb"))	==NULL)
-                ||	((prev_day_ST_Ly6_ptr		=fopen(szPrevDayST_Ly6FileName						,"rb"))	==NULL)
-                ||	((prev_day_pool1_ptr				=fopen(szPrevDayPool1FileName							,"rb"))	==NULL)
-                ||	((prev_day_pool2_ptr				=fopen(szPrevDayPool2FileName							,"rb"))	==NULL)
-                ||	((prev_day_pool3_ptr				=fopen(szPrevDayPool3FileName							,"rb"))	==NULL)
-                ||	((prev_day_pool4_ptr				=fopen(szPrevDayPool4FileName							,"rb"))	==NULL)
-                ||	((prev_day_pool5_ptr				=fopen(szPrevDayPool5FileName							,"rb"))	==NULL)
-                ||	((prev_day_pool6_ptr				=fopen(szPrevDayPool6FileName							,"rb"))	==NULL)
-                ||	((prev_day_pool7_ptr				=fopen(szPrevDayPool7FileName							,"rb"))	==NULL)
-                ||	((prev_day_pool8_ptr				=fopen(szPrevDayPool8FileName							,"rb"))	==NULL)
-                ||	((prev_day_pool9_ptr				=fopen(szPrevDayPool9FileName							,"rb"))	==NULL)
-                ||	((prev_day_bio_pool1_ptr				=fopen(szPrevDayBiomassPool1FileName							,"rb"))	==NULL)
-                ||	((prev_day_bio_pool2_ptr				=fopen(szPrevDayBiomassPool2FileName							,"rb"))	==NULL)
-                ||	((prev_day_bio_pool3_ptr				=fopen(szPrevDayBiomassPool3FileName							,"rb"))	==NULL)
-                ||	((prev_day_bio_pool4_ptr				=fopen(szPrevDayBiomassPool4FileName							,"rb"))	==NULL)
-                ||	((prev_day_soil_pondwater_ptr			=fopen(szPrevDaySoilPondWaterFileName							,"rb"))	==NULL)
-                ||	((prev_day_snow_swe_ptr      	        =fopen(szPrevDaySWEFileName						,"rb"))	==NULL)
-                ||	((prev_day_snow_depth_ptr		        =fopen(szPrevDaySnowdepthFileName							,"rb"))	==NULL)
-                ||	((prev_day_snow_density_ptr		        =fopen(szPrevDaySnowdensityFileName							,"rb"))	==NULL)
-                ||	((waterin_ptr   			            =fopen(szWaterInFileName							,"wb"))	==NULL)
+        if(	((prev_day_soil_saturation_deficit_ptr=fopen(szPrevDaySoilSatDeficitFileName,"rb"))	== nullptr)
+                ||	((prev_day_soil_unsaturated_storage_ptr=fopen(szPrevDaySoilUnsatStorageFileName,"rb"))	== nullptr)
+                ||	((prev_day_soil_water_table_ptr=fopen(szPrevDaySoilWaterTableFileName,"rb"))	== nullptr)
+                ||	((prev_day_soil_temp_ptr=fopen(szPrevDaySoilTempFileName,"rb"))== nullptr)
+                ||	((prev_day_nitrogen_ptr=fopen(szPrevDayNitrogenFileName,"rb"))== nullptr)
+                ||	((prev_day_CNcd_ptr		=fopen(szPrevDayCNcdFileName							,"rb"))	== nullptr)
+                ||	((prev_day_CNssd_ptr	=fopen(szPrevDayCNssdFileName							,"rb"))	== nullptr)
+                ||	((prev_day_CNsmd_ptr	=fopen(szPrevDayCNsmdFileName							,"rb"))	== nullptr)
+                ||	((prev_day_CNfsd_ptr	=fopen(szPrevDayCNfsdFileName							,"rb"))	== nullptr)
+                ||	((prev_day_CNfmd_ptr	=fopen(szPrevDayCNfmdFileName							,"rb"))	== nullptr)
+                ||	((prev_day_CNsm_ptr		=fopen(szPrevDayCNsmFileName							,"rb"))	== nullptr)
+                ||	((prev_day_CNm_ptr		=fopen(szPrevDayCNmFileName								,"rb"))	== nullptr)
+                ||	((prev_day_CNs_ptr		=fopen(szPrevDayCNsFileName								,"rb"))	== nullptr)
+                ||	((prev_day_CNp_ptr		=fopen(szPrevDayCNpFileName								,"rb"))	== nullptr)
+                ||	((prev_day_CNw_ptr		=fopen(szPrevDayCNwFileName								,"rb"))	== nullptr)
+                ||	((prev_day_CNfr_ptr		=fopen(szPrevDayCNfrFileName							,"rb"))	== nullptr)
+                ||	((prev_day_CNl_ptr		=fopen(szPrevDayCNlFileName								,"rb"))	== nullptr)
+                ||	((prev_day_ST_Ly1_ptr		=fopen(szPrevDayST_Ly1FileName						,"rb"))	== nullptr)
+                ||	((prev_day_ST_Ly2_ptr		=fopen(szPrevDayST_Ly2FileName						,"rb"))	== nullptr)
+                ||	((prev_day_ST_Ly3_ptr		=fopen(szPrevDayST_Ly3FileName						,"rb"))	== nullptr)
+                ||	((prev_day_ST_Ly4_ptr		=fopen(szPrevDayST_Ly4FileName						,"rb"))	== nullptr)
+                ||	((prev_day_ST_Ly5_ptr		=fopen(szPrevDayST_Ly5FileName						,"rb"))	== nullptr)
+                ||	((prev_day_ST_Ly6_ptr		=fopen(szPrevDayST_Ly6FileName						,"rb"))	== nullptr)
+                ||	((prev_day_pool1_ptr				=fopen(szPrevDayPool1FileName							,"rb"))	== nullptr)
+                ||	((prev_day_pool2_ptr				=fopen(szPrevDayPool2FileName							,"rb"))	== nullptr)
+                ||	((prev_day_pool3_ptr				=fopen(szPrevDayPool3FileName							,"rb"))	== nullptr)
+                ||	((prev_day_pool4_ptr				=fopen(szPrevDayPool4FileName							,"rb"))	== nullptr)
+                ||	((prev_day_pool5_ptr				=fopen(szPrevDayPool5FileName							,"rb"))	== nullptr)
+                ||	((prev_day_pool6_ptr				=fopen(szPrevDayPool6FileName							,"rb"))	== nullptr)
+                ||	((prev_day_pool7_ptr				=fopen(szPrevDayPool7FileName							,"rb"))	== nullptr)
+                ||	((prev_day_pool8_ptr				=fopen(szPrevDayPool8FileName							,"rb"))	== nullptr)
+                ||	((prev_day_pool9_ptr				=fopen(szPrevDayPool9FileName							,"rb"))	== nullptr)
+                ||	((prev_day_bio_pool1_ptr				=fopen(szPrevDayBiomassPool1FileName							,"rb"))	== nullptr)
+                ||	((prev_day_bio_pool2_ptr				=fopen(szPrevDayBiomassPool2FileName							,"rb"))	== nullptr)
+                ||	((prev_day_bio_pool3_ptr				=fopen(szPrevDayBiomassPool3FileName							,"rb"))	== nullptr)
+                ||	((prev_day_bio_pool4_ptr				=fopen(szPrevDayBiomassPool4FileName							,"rb"))	== nullptr)
+                ||	((prev_day_soil_pondwater_ptr			=fopen(szPrevDaySoilPondWaterFileName							,"rb"))	== nullptr)
+                ||	((prev_day_snow_swe_ptr      	        =fopen(szPrevDaySWEFileName						,"rb"))	== nullptr)
+                ||	((prev_day_snow_depth_ptr		        =fopen(szPrevDaySnowdepthFileName							,"rb"))	== nullptr)
+                ||	((prev_day_snow_density_ptr		        =fopen(szPrevDaySnowdensityFileName							,"rb"))	== nullptr)
+                ||	((waterin_ptr   			            =fopen(szWaterInFileName							,"wb"))	== nullptr)
 
-                ||	((curr_day_soil_saturation_deficit_ptr	=fopen(szCurrDaySoilSatDeficitFileName							,"wb"))	==NULL)
-                ||	((curr_day_soil_unsaturated_storage_ptr	=fopen(szCurrDaySoilUnsatStorageFileName						,"wb"))	==NULL)
-                ||	((curr_day_soil_water_table_ptr			=fopen(szCurrDaySoilWaterTableFileName							,"wb"))	==NULL)
-                ||	((curr_day_soil_temp_ptr				=fopen(szCurrDaySoilTempFileName							,"wb"))	==NULL)
-                ||	((curr_day_ST_Ly1_ptr		=fopen(szCurrDayST_Ly1FileName								,"wb"))	==NULL)
-                ||	((curr_day_ST_Ly2_ptr		=fopen(szCurrDayST_Ly2FileName								,"wb"))	==NULL)
-                ||	((curr_day_ST_Ly3_ptr		=fopen(szCurrDayST_Ly3FileName								,"wb"))	==NULL)
-                ||	((curr_day_ST_Ly4_ptr		=fopen(szCurrDayST_Ly4FileName								,"wb"))	==NULL)
-                ||	((curr_day_ST_Ly5_ptr		=fopen(szCurrDayST_Ly5FileName								,"wb"))	==NULL)
-                ||	((curr_day_ST_Ly6_ptr		=fopen(szCurrDayST_Ly6FileName								,"wb"))	==NULL)
+                ||	((curr_day_soil_saturation_deficit_ptr	=fopen(szCurrDaySoilSatDeficitFileName							,"wb"))	== nullptr)
+                ||	((curr_day_soil_unsaturated_storage_ptr	=fopen(szCurrDaySoilUnsatStorageFileName						,"wb"))	== nullptr)
+                ||	((curr_day_soil_water_table_ptr			=fopen(szCurrDaySoilWaterTableFileName							,"wb"))	== nullptr)
+                ||	((curr_day_soil_temp_ptr				=fopen(szCurrDaySoilTempFileName							,"wb"))	== nullptr)
+                ||	((curr_day_ST_Ly1_ptr		=fopen(szCurrDayST_Ly1FileName								,"wb"))	== nullptr)
+                ||	((curr_day_ST_Ly2_ptr		=fopen(szCurrDayST_Ly2FileName								,"wb"))	== nullptr)
+                ||	((curr_day_ST_Ly3_ptr		=fopen(szCurrDayST_Ly3FileName								,"wb"))	== nullptr)
+                ||	((curr_day_ST_Ly4_ptr		=fopen(szCurrDayST_Ly4FileName								,"wb"))	== nullptr)
+                ||	((curr_day_ST_Ly5_ptr		=fopen(szCurrDayST_Ly5FileName								,"wb"))	== nullptr)
+                ||	((curr_day_ST_Ly6_ptr		=fopen(szCurrDayST_Ly6FileName								,"wb"))	== nullptr)
 
 // //取消注释
 //                ||	((curr_day_nitrogen_ptr				=fopen(szCurrDayNitrogenFileName							,"wb"))	==NULL)
@@ -1554,42 +1555,42 @@ void BepsHydrCalculate(BH_SubParams1_t* BH_SubParams1,BH_SubParams1a_t* BH_SubPa
 //                ||	((curr_day_bio_pool4_ptr				=fopen(szCurrDayBiomassPool4FileName							,"wb"))	==NULL)
 //  //取消注释
 
-                ||	((curr_day_soil_pondwater_ptr			=fopen(szCurrDaySoilPondWaterFileName							,"wb"))	==NULL)
-                ||	((curr_day_snow_swe_ptr             	=fopen(szCurrDaySWEFileName						,"wb"))	==NULL)
-                ||	((curr_day_snow_depth_ptr		        =fopen(szCurrDaySnowdepthFileName							,"wb"))	==NULL)
-                ||	((curr_day_snow_density_ptr		        =fopen(szCurrDaySnowdensityFileName							,"wb"))	==NULL)
-                ||	((curr_day_soil_capillary_rise_ptr		=fopen(szCurrDaySoilCapillaryRiseFileName						,"wb"))	==NULL)
-                ||	((curr_day_soil_percolation_ptr			=fopen(szCurrDaySoilPercolationFileName							,"wb"))	==NULL)
-                ||	((canopy_ET_ptr			            	=fopen(szCanopyDailyFileNameET					,"wb")) ==NULL)
-                ||	((canopy_evaporation_ptr				=fopen(szCanopyDailyFileNameEvaporation							,"wb")) ==NULL)
-                ||	((canopy_transpiration_unsat_ptr		=fopen(szCanopyDailyFileNameTranspUnsat							,"wb")) ==NULL)
-                ||	((canopy_transpiration_sat_ptr			=fopen(szCanopyDailyFileNameTranspSat							,"wb")) ==NULL)
-                ||	((canopy_intercepted_ptr				=fopen(szCanopyDailyFileNameIntercepted							,"wb")) ==NULL)
-                ||	((canopy_litter_evaporation_ptr			=fopen(szCanopyDailyFileNameLitterEvaporation					,"wb")) ==NULL)
-                ||	((canopy_moss_transpiration_ptr			=fopen(szCanopyDailyFileNameMossTransp							,"wb")) ==NULL)
-                ||	((canopy_soil_evaporation_ptr			=fopen(szCanopyDailyFileNameSoilEvaporation						,"wb")) ==NULL)
-                ||	((canopy_UT_ptr			                =fopen(szCanopyDailyFileNameUT						,"wb")) ==NULL)
-                ||	((canopy_Stomata_ptr			        =fopen(szCanopyDailyFileNameStomata					,"wb")) ==NULL)
-                ||	(( NRFlux_ptr			        =fopen(szEnergyDailyFileNameNRFlux						,"wb")) ==NULL)
-                ||	(( sensibleHeatFlux_ptr			=fopen(szEnergyDailyFileNameSensibleHeatFlux			,"wb")) ==NULL)
-                ||	(( latentHeatFlux_ptr			=fopen(szEnergyDailyFileNameLatentHeatFlux				,"wb")) ==NULL)
-                ||  ((Daily_GPP_ptr=fopen(szGPPDailyFileName				,"wb"))== NULL)
-                ||  ((Daily_NPP_ptr=fopen(szNPPDailyFileName				,"wb"))== NULL)
-                ||  ((Daily_Ra_ptr =fopen(szRaDailyFileName				,"wb"))== NULL)
-                ||  ((Daily_Rh_ptr =fopen(szRhDailyFileName				,"wb"))== NULL)
-                ||  ((runoff_total_ptr			=fopen(szRunoffDailyFileNameTotal		,"wb"))== NULL)
-                ||	((runoff_baseflow_ptr		=fopen(szRunoffDailyFileNameBaseflow	,"wb"))== NULL)
-                ||	((runoff_total_inflow_ptr	=fopen(szRunoffDailyFileNameTotalInflow	,"wb"))== NULL)
-                ||	((Daily_NEP_ptr				=fopen(szNEPDailyFileName					,"wb"))== NULL)
-                ||	((runoff_total_outflow_ptr	=fopen(szRunoffDailyFileNameTotalOutflow,"wb"))== NULL)
-                ||	((laifile_ptr						=fopen(szClimateDailyLAI								,"rb")) ==NULL)
-                ||	((climate_rad_r_ptr						=fopen(szClimateDailyFileNameRAD_r								,"rb")) ==NULL)
-                ||	((climate_rad_f_ptr						=fopen(szClimateDailyFileNameRAD_f								,"rb")) ==NULL)
-                ||	((climate_ti_ptr						=fopen(szClimateDailyFileNameTI									,"rb")) ==NULL)
-                ||	((climate_tm_ptr						=fopen(szClimateDailyFileNameTM									,"rb")) ==NULL)
-                ||	((climate_prec_ptr						=fopen(szClimateDailyFileNamePREC								,"rb")) ==NULL)
-                ||	((climate_dew_ptr						=fopen(szClimateDailyFileNameDEW								,"rb")) ==NULL)
-                ||	((climate_wind_ptr						=fopen(szClimateDailyFileNameWIND								,"rb")) ==NULL)
+                ||	((curr_day_soil_pondwater_ptr			=fopen(szCurrDaySoilPondWaterFileName							,"wb"))	== nullptr)
+                ||	((curr_day_snow_swe_ptr             	=fopen(szCurrDaySWEFileName						,"wb"))	== nullptr)
+                ||	((curr_day_snow_depth_ptr		        =fopen(szCurrDaySnowdepthFileName							,"wb"))	== nullptr)
+                ||	((curr_day_snow_density_ptr		        =fopen(szCurrDaySnowdensityFileName							,"wb"))	== nullptr)
+                ||	((curr_day_soil_capillary_rise_ptr		=fopen(szCurrDaySoilCapillaryRiseFileName						,"wb"))	== nullptr)
+                ||	((curr_day_soil_percolation_ptr			=fopen(szCurrDaySoilPercolationFileName							,"wb"))	== nullptr)
+                ||	((canopy_ET_ptr			            	=fopen(szCanopyDailyFileNameET					,"wb")) == nullptr)
+                ||	((canopy_evaporation_ptr				=fopen(szCanopyDailyFileNameEvaporation							,"wb")) == nullptr)
+                ||	((canopy_transpiration_unsat_ptr		=fopen(szCanopyDailyFileNameTranspUnsat							,"wb")) == nullptr)
+                ||	((canopy_transpiration_sat_ptr			=fopen(szCanopyDailyFileNameTranspSat							,"wb")) == nullptr)
+                ||	((canopy_intercepted_ptr				=fopen(szCanopyDailyFileNameIntercepted							,"wb")) == nullptr)
+                ||	((canopy_litter_evaporation_ptr			=fopen(szCanopyDailyFileNameLitterEvaporation					,"wb")) == nullptr)
+                ||	((canopy_moss_transpiration_ptr			=fopen(szCanopyDailyFileNameMossTransp							,"wb")) == nullptr)
+                ||	((canopy_soil_evaporation_ptr			=fopen(szCanopyDailyFileNameSoilEvaporation						,"wb")) == nullptr)
+                ||	((canopy_UT_ptr			                =fopen(szCanopyDailyFileNameUT						,"wb")) == nullptr)
+                ||	((canopy_Stomata_ptr			        =fopen(szCanopyDailyFileNameStomata					,"wb")) == nullptr)
+                ||	(( NRFlux_ptr			        =fopen(szEnergyDailyFileNameNRFlux						,"wb")) == nullptr)
+                ||	(( sensibleHeatFlux_ptr			=fopen(szEnergyDailyFileNameSensibleHeatFlux			,"wb")) == nullptr)
+                ||	(( latentHeatFlux_ptr			=fopen(szEnergyDailyFileNameLatentHeatFlux				,"wb")) == nullptr)
+                ||  ((Daily_GPP_ptr=fopen(szGPPDailyFileName				,"wb"))== nullptr)
+                ||  ((Daily_NPP_ptr=fopen(szNPPDailyFileName				,"wb"))== nullptr)
+                ||  ((Daily_Ra_ptr =fopen(szRaDailyFileName				,"wb"))== nullptr)
+                ||  ((Daily_Rh_ptr =fopen(szRhDailyFileName				,"wb"))== nullptr)
+                ||  ((runoff_total_ptr			=fopen(szRunoffDailyFileNameTotal		,"wb"))== nullptr)
+                ||	((runoff_baseflow_ptr		=fopen(szRunoffDailyFileNameBaseflow	,"wb"))== nullptr)
+                ||	((runoff_total_inflow_ptr	=fopen(szRunoffDailyFileNameTotalInflow	,"wb"))== nullptr)
+                ||	((Daily_NEP_ptr				=fopen(szNEPDailyFileName					,"wb"))== nullptr)
+                ||	((runoff_total_outflow_ptr	=fopen(szRunoffDailyFileNameTotalOutflow,"wb"))== nullptr)
+                ||	((laifile_ptr						=fopen(szClimateDailyLAI								,"rb")) == nullptr)
+                ||	((climate_rad_r_ptr						=fopen(szClimateDailyFileNameRAD_r								,"rb")) == nullptr)
+                ||	((climate_rad_f_ptr						=fopen(szClimateDailyFileNameRAD_f								,"rb")) == nullptr)
+                ||	((climate_ti_ptr						=fopen(szClimateDailyFileNameTI									,"rb")) == nullptr)
+                ||	((climate_tm_ptr						=fopen(szClimateDailyFileNameTM									,"rb")) == nullptr)
+                ||	((climate_prec_ptr						=fopen(szClimateDailyFileNamePREC								,"rb")) == nullptr)
+                ||	((climate_dew_ptr						=fopen(szClimateDailyFileNameDEW								,"rb")) == nullptr)
+                ||	((climate_wind_ptr						=fopen(szClimateDailyFileNameWIND								,"rb")) == nullptr)
 
           )
             rcode = PERROR;
@@ -2034,121 +2035,121 @@ void BepsHydrCalculate(BH_SubParams1_t* BH_SubParams1,BH_SubParams1a_t* BH_SubPa
 
         if (climate_tm_ptr)
             fclose(climate_tm_ptr);
-        climate_tm_ptr			= (FILE*)NULL;
+        climate_tm_ptr			= (FILE*)nullptr;
 
         //Energy fluxes
         if ( NRFlux_ptr)
             fclose( NRFlux_ptr);
-        NRFlux_ptr			= (FILE*)NULL;
+        NRFlux_ptr			= (FILE*)nullptr;
         if (sensibleHeatFlux_ptr)
             fclose( sensibleHeatFlux_ptr);
-        sensibleHeatFlux_ptr			= (FILE*)NULL;
+        sensibleHeatFlux_ptr			= (FILE*)nullptr;
         if ( latentHeatFlux_ptr)
             fclose( latentHeatFlux_ptr);
-        latentHeatFlux_ptr			= (FILE*)NULL;
+        latentHeatFlux_ptr			= (FILE*)nullptr;
 
         if (canopy_ET_ptr)
             fclose(canopy_ET_ptr);
-        canopy_ET_ptr			= (FILE*)NULL;
+        canopy_ET_ptr			= (FILE*)nullptr;
 
         if (canopy_evaporation_ptr)
             fclose(canopy_evaporation_ptr);
-        canopy_evaporation_ptr			= (FILE*)NULL;
+        canopy_evaporation_ptr			= (FILE*)nullptr;
 
         if (canopy_transpiration_unsat_ptr)
             fclose(canopy_transpiration_unsat_ptr);
-        canopy_transpiration_unsat_ptr	= (FILE*)NULL;
+        canopy_transpiration_unsat_ptr	= (FILE*)nullptr;
 
         if (canopy_transpiration_sat_ptr)
             fclose(canopy_transpiration_sat_ptr);
-        canopy_transpiration_sat_ptr	= (FILE*)NULL;
+        canopy_transpiration_sat_ptr	= (FILE*)nullptr;
 
         if (canopy_intercepted_ptr)
             fclose(canopy_intercepted_ptr);
-        canopy_intercepted_ptr			= (FILE*)NULL;
+        canopy_intercepted_ptr			= (FILE*)nullptr;
 
         if (canopy_litter_evaporation_ptr)
             fclose(canopy_litter_evaporation_ptr);
-        canopy_litter_evaporation_ptr	= (FILE*)NULL;
+        canopy_litter_evaporation_ptr	= (FILE*)nullptr;
 
         if (canopy_moss_transpiration_ptr)
             fclose(canopy_moss_transpiration_ptr);
-        canopy_moss_transpiration_ptr	= (FILE*)NULL;
+        canopy_moss_transpiration_ptr	= (FILE*)nullptr;
 
         if (canopy_soil_evaporation_ptr)
             fclose(canopy_soil_evaporation_ptr);
-        canopy_soil_evaporation_ptr		= (FILE*)NULL;
+        canopy_soil_evaporation_ptr		= (FILE*)nullptr;
 
         if (canopy_UT_ptr)
             fclose(canopy_UT_ptr);
-        canopy_UT_ptr = (FILE*)NULL;
+        canopy_UT_ptr = (FILE*)nullptr;
 
         if (canopy_Stomata_ptr)
             fclose(canopy_Stomata_ptr);
-        canopy_Stomata_ptr	= (FILE*)NULL;
+        canopy_Stomata_ptr	= (FILE*)nullptr;
 
         //carbon flux files
         if(Daily_GPP_ptr)
             fclose(Daily_GPP_ptr);
-        Daily_GPP_ptr = (FILE*)NULL;
+        Daily_GPP_ptr = (FILE*)nullptr;
 
         if(Daily_NPP_ptr)
             fclose(Daily_NPP_ptr);
-        Daily_NPP_ptr = (FILE*)NULL;
+        Daily_NPP_ptr = (FILE*)nullptr;
 
 
         if(Daily_Ra_ptr)
             fclose(Daily_Ra_ptr);
-        Daily_Ra_ptr = (FILE*)NULL;
+        Daily_Ra_ptr = (FILE*)nullptr;
 
         if(Daily_Rh_ptr)
             fclose(Daily_Rh_ptr);
-        Daily_Rh_ptr			= (FILE*)NULL;
+        Daily_Rh_ptr			= (FILE*)nullptr;
 
         //snow
         if (curr_day_snow_swe_ptr)
             fclose(curr_day_snow_swe_ptr);
-        curr_day_snow_swe_ptr	= (FILE*)NULL;
+        curr_day_snow_swe_ptr	= (FILE*)nullptr;
 
         if (curr_day_snow_depth_ptr)
             fclose(curr_day_snow_depth_ptr);
-        curr_day_snow_depth_ptr	= (FILE*)NULL;
+        curr_day_snow_depth_ptr	= (FILE*)nullptr;
 
         if (curr_day_snow_density_ptr)
             fclose(curr_day_snow_density_ptr);
-        curr_day_snow_density_ptr = (FILE*)NULL;
+        curr_day_snow_density_ptr = (FILE*)nullptr;
 
         if (prev_day_snow_swe_ptr)
             fclose(prev_day_snow_swe_ptr);
-        prev_day_snow_swe_ptr	= (FILE*)NULL;
+        prev_day_snow_swe_ptr	= (FILE*)nullptr;
 
         if (prev_day_snow_depth_ptr)
             fclose(prev_day_snow_depth_ptr);
-        prev_day_snow_depth_ptr = (FILE*)NULL;
+        prev_day_snow_depth_ptr = (FILE*)nullptr;
 
         if (prev_day_snow_density_ptr)
             fclose(prev_day_snow_density_ptr);
-        prev_day_snow_density_ptr = (FILE*)NULL;
+        prev_day_snow_density_ptr = (FILE*)nullptr;
 
         if (waterin_ptr)
             fclose(waterin_ptr);
-        waterin_ptr	= (FILE*)NULL;
+        waterin_ptr	= (FILE*)nullptr;
         //printf("ok3");      //运行正常
 
         //------------------------------START TERRAINLAB PART OF EXECUTION---------------------------
         //------------------------------START TERRAINLAB PART OF EXECUTION---------------------------
 
-        if ( ((canopy_evaporation_ptr		 =fopen(szCanopyDailyFileNameEvaporation	,"rb")) ==NULL)
-                || 	((canopy_transpiration_unsat_ptr =fopen(szCanopyDailyFileNameTranspUnsat	,"rb")) ==NULL)
-                ||	((canopy_transpiration_sat_ptr	 =fopen(szCanopyDailyFileNameTranspSat		,"rb")) ==NULL)
-                ||	((canopy_intercepted_ptr		 =fopen(szCanopyDailyFileNameIntercepted	,"rb")) ==NULL)
-                ||	((canopy_litter_evaporation_ptr	 =fopen(szCanopyDailyFileNameLitterEvaporation,"rb")) ==NULL)
-                ||	((canopy_moss_transpiration_ptr	 =fopen(szCanopyDailyFileNameMossTransp		,"rb")) ==NULL)
-                ||	((canopy_soil_evaporation_ptr	 =fopen(szCanopyDailyFileNameSoilEvaporation,"rb")) ==NULL)
-                ||	((waterin_ptr	                 =fopen(szWaterInFileName,"rb")) ==NULL)                      //打开waterin
-                ||	((climate_tm_ptr	             =fopen(szClimateDailyFileNameTM,"rb")) ==NULL)
-                ||	((Daily_NPP_ptr	                 =fopen(szNPPDailyFileName,"rb")) ==NULL)
-                ||	((prev_day_snow_depth_ptr             =fopen(szPrevDaySnowdepthFileName,"rb")) ==NULL)
+        if ( ((canopy_evaporation_ptr		 =fopen(szCanopyDailyFileNameEvaporation	,"rb")) == nullptr)
+                || 	((canopy_transpiration_unsat_ptr =fopen(szCanopyDailyFileNameTranspUnsat	,"rb")) == nullptr)
+                ||	((canopy_transpiration_sat_ptr	 =fopen(szCanopyDailyFileNameTranspSat		,"rb")) == nullptr)
+                ||	((canopy_intercepted_ptr		 =fopen(szCanopyDailyFileNameIntercepted	,"rb")) == nullptr)
+                ||	((canopy_litter_evaporation_ptr	 =fopen(szCanopyDailyFileNameLitterEvaporation,"rb")) == nullptr)
+                ||	((canopy_moss_transpiration_ptr	 =fopen(szCanopyDailyFileNameMossTransp		,"rb")) == nullptr)
+                ||	((canopy_soil_evaporation_ptr	 =fopen(szCanopyDailyFileNameSoilEvaporation,"rb")) == nullptr)
+                ||	((waterin_ptr	                 =fopen(szWaterInFileName,"rb")) == nullptr)                      //打开waterin
+                ||	((climate_tm_ptr	             =fopen(szClimateDailyFileNameTM,"rb")) == nullptr)
+                ||	((Daily_NPP_ptr	                 =fopen(szNPPDailyFileName,"rb")) == nullptr)
+                ||	((prev_day_snow_depth_ptr             =fopen(szPrevDaySnowdepthFileName,"rb")) == nullptr)
            )
             rcode = PERROR;
 
@@ -2914,168 +2915,168 @@ void BepsHydrCalculate(BH_SubParams1_t* BH_SubParams1,BH_SubParams1a_t* BH_SubPa
 
         if (prev_day_soil_saturation_deficit_ptr)
             fclose(prev_day_soil_saturation_deficit_ptr);
-        prev_day_soil_saturation_deficit_ptr = (FILE*)NULL;
+        prev_day_soil_saturation_deficit_ptr = (FILE*)nullptr;
 
         if (prev_day_soil_unsaturated_storage_ptr)
             fclose(prev_day_soil_unsaturated_storage_ptr);
-        prev_day_soil_unsaturated_storage_ptr = (FILE*)NULL;
+        prev_day_soil_unsaturated_storage_ptr = (FILE*)nullptr;
 
         if (prev_day_soil_water_table_ptr)
             fclose(prev_day_soil_water_table_ptr);
-        prev_day_soil_water_table_ptr = (FILE*)NULL;
+        prev_day_soil_water_table_ptr = (FILE*)nullptr;
 
         if (prev_day_soil_temp_ptr)
             fclose(prev_day_soil_temp_ptr);
-        prev_day_soil_temp_ptr = (FILE*)NULL;
+        prev_day_soil_temp_ptr = (FILE*)nullptr;
 
         if (prev_day_nitrogen_ptr)
             fclose(prev_day_nitrogen_ptr);
-        prev_day_nitrogen_ptr = (FILE*)NULL;
+        prev_day_nitrogen_ptr = (FILE*)nullptr;
 
 
         if (prev_day_snow_depth_ptr)
             fclose(prev_day_snow_depth_ptr);
-        prev_day_snow_depth_ptr= (FILE*)NULL;
+        prev_day_snow_depth_ptr= (FILE*)nullptr;
 
 
         if (prev_day_CNcd_ptr)
             fclose(prev_day_CNcd_ptr);
-        prev_day_CNcd_ptr = (FILE*)NULL;
+        prev_day_CNcd_ptr = (FILE*)nullptr;
 
         if (prev_day_CNssd_ptr)
             fclose(prev_day_CNssd_ptr);
-        prev_day_CNssd_ptr = (FILE*)NULL;
+        prev_day_CNssd_ptr = (FILE*)nullptr;
 
         if (prev_day_CNsmd_ptr)
             fclose(prev_day_CNsmd_ptr);
-        prev_day_CNsmd_ptr = (FILE*)NULL;
+        prev_day_CNsmd_ptr = (FILE*)nullptr;
 
         if (prev_day_CNfsd_ptr)
             fclose(prev_day_CNfsd_ptr);
-        prev_day_CNfsd_ptr = (FILE*)NULL;
+        prev_day_CNfsd_ptr = (FILE*)nullptr;
 
         if (prev_day_CNfmd_ptr)
             fclose(prev_day_CNfmd_ptr);
-        prev_day_CNfmd_ptr = (FILE*)NULL;
+        prev_day_CNfmd_ptr = (FILE*)nullptr;
 
         if (prev_day_CNsm_ptr)
             fclose(prev_day_CNsm_ptr);
-        prev_day_CNsm_ptr = (FILE*)NULL;
+        prev_day_CNsm_ptr = (FILE*)nullptr;
 
         if (prev_day_CNm_ptr)
             fclose(prev_day_CNm_ptr);
-        prev_day_CNm_ptr = (FILE*)NULL;
+        prev_day_CNm_ptr = (FILE*)nullptr;
 
         if (prev_day_CNs_ptr)
             fclose(prev_day_CNs_ptr);
-        prev_day_CNs_ptr = (FILE*)NULL;
+        prev_day_CNs_ptr = (FILE*)nullptr;
 
         if (prev_day_CNp_ptr)
             fclose(prev_day_CNp_ptr);
-        prev_day_CNp_ptr = (FILE*)NULL;
+        prev_day_CNp_ptr = (FILE*)nullptr;
 
         if (prev_day_CNw_ptr)
             fclose(prev_day_CNw_ptr);
-        prev_day_CNw_ptr = (FILE*)NULL;
+        prev_day_CNw_ptr = (FILE*)nullptr;
 
         if (prev_day_CNfr_ptr)
             fclose(prev_day_CNfr_ptr);
-        prev_day_CNfr_ptr = (FILE*)NULL;
+        prev_day_CNfr_ptr = (FILE*)nullptr;
 
         if (prev_day_CNl_ptr)
             fclose(prev_day_CNl_ptr);
-        prev_day_CNl_ptr = (FILE*)NULL;
+        prev_day_CNl_ptr = (FILE*)nullptr;
 
         //printf("ok3");    运行正常
 
         if (prev_day_ST_Ly1_ptr)
             fclose(prev_day_ST_Ly1_ptr);
-        prev_day_ST_Ly1_ptr = (FILE*)NULL;
+        prev_day_ST_Ly1_ptr = (FILE*)nullptr;
 
         if (prev_day_ST_Ly2_ptr)
             fclose(prev_day_ST_Ly2_ptr);
-        prev_day_ST_Ly2_ptr = (FILE*)NULL;
+        prev_day_ST_Ly2_ptr = (FILE*)nullptr;
 
         if (prev_day_ST_Ly3_ptr)
             fclose(prev_day_ST_Ly3_ptr);
-        prev_day_ST_Ly3_ptr = (FILE*)NULL;
+        prev_day_ST_Ly3_ptr = (FILE*)nullptr;
 
         if (prev_day_ST_Ly4_ptr)
             fclose(prev_day_ST_Ly4_ptr);
-        prev_day_ST_Ly4_ptr = (FILE*)NULL;
+        prev_day_ST_Ly4_ptr = (FILE*)nullptr;
 
         if (prev_day_ST_Ly5_ptr)
             fclose(prev_day_ST_Ly5_ptr);
-        prev_day_ST_Ly5_ptr = (FILE*)NULL;
+        prev_day_ST_Ly5_ptr = (FILE*)nullptr;
 
         if (prev_day_ST_Ly6_ptr)
             fclose(prev_day_ST_Ly6_ptr);
-        prev_day_ST_Ly6_ptr = (FILE*)NULL;
+        prev_day_ST_Ly6_ptr = (FILE*)nullptr;
 
         //printf("ok3");  运行正常
 
         if (prev_day_pool1_ptr)
             fclose(prev_day_pool1_ptr);
-        prev_day_pool1_ptr = (FILE*)NULL;
+        prev_day_pool1_ptr = (FILE*)nullptr;
         if (prev_day_pool2_ptr)
             fclose(prev_day_pool2_ptr);
-        prev_day_pool2_ptr = (FILE*)NULL;
+        prev_day_pool2_ptr = (FILE*)nullptr;
         if (prev_day_pool3_ptr)
             fclose(prev_day_pool3_ptr);
-        prev_day_pool3_ptr = (FILE*)NULL;
+        prev_day_pool3_ptr = (FILE*)nullptr;
         if (prev_day_pool4_ptr)
             fclose(prev_day_pool4_ptr);
-        prev_day_pool4_ptr = (FILE*)NULL;
+        prev_day_pool4_ptr = (FILE*)nullptr;
         if (prev_day_pool5_ptr)
             fclose(prev_day_pool5_ptr);
-        prev_day_pool5_ptr = (FILE*)NULL;
+        prev_day_pool5_ptr = (FILE*)nullptr;
         if (prev_day_pool6_ptr)
             fclose(prev_day_pool6_ptr);
-        prev_day_pool6_ptr = (FILE*)NULL;
+        prev_day_pool6_ptr = (FILE*)nullptr;
         if (prev_day_pool7_ptr)
             fclose(prev_day_pool7_ptr);
-        prev_day_pool7_ptr = (FILE*)NULL;
+        prev_day_pool7_ptr = (FILE*)nullptr;
         if (prev_day_pool8_ptr)
             fclose(prev_day_pool8_ptr);
-        prev_day_pool8_ptr = (FILE*)NULL;
+        prev_day_pool8_ptr = (FILE*)nullptr;
         if (prev_day_pool9_ptr)
             fclose(prev_day_pool9_ptr);
-        prev_day_pool9_ptr = (FILE*)NULL;
+        prev_day_pool9_ptr = (FILE*)nullptr;
 
         if (prev_day_bio_pool1_ptr)
             fclose(prev_day_bio_pool1_ptr);
-        prev_day_bio_pool1_ptr = (FILE*)NULL;
+        prev_day_bio_pool1_ptr = (FILE*)nullptr;
 
 
         if (prev_day_bio_pool2_ptr)
             fclose(prev_day_bio_pool2_ptr);
-        prev_day_bio_pool2_ptr = (FILE*)NULL;
+        prev_day_bio_pool2_ptr = (FILE*)nullptr;
 
         if (prev_day_bio_pool3_ptr)
             fclose(prev_day_bio_pool3_ptr);
-        prev_day_bio_pool3_ptr = (FILE*)NULL;
+        prev_day_bio_pool3_ptr = (FILE*)nullptr;
 
         if (prev_day_bio_pool4_ptr)
             fclose(prev_day_bio_pool4_ptr);
-        prev_day_bio_pool4_ptr = (FILE*)NULL;
+        prev_day_bio_pool4_ptr = (FILE*)nullptr;
 
         if (prev_day_soil_pondwater_ptr)
             fclose(prev_day_soil_pondwater_ptr);
-        prev_day_soil_pondwater_ptr = (FILE*)NULL;
+        prev_day_soil_pondwater_ptr = (FILE*)nullptr;
 
         if (curr_day_soil_saturation_deficit_ptr)
             fclose(curr_day_soil_saturation_deficit_ptr);
-        curr_day_soil_saturation_deficit_ptr = (FILE*)NULL;
+        curr_day_soil_saturation_deficit_ptr = (FILE*)nullptr;
         if (curr_day_soil_unsaturated_storage_ptr)
             fclose(curr_day_soil_unsaturated_storage_ptr);
-        curr_day_soil_unsaturated_storage_ptr = (FILE*)NULL;
+        curr_day_soil_unsaturated_storage_ptr = (FILE*)nullptr;
         if (curr_day_soil_water_table_ptr)
             fclose(curr_day_soil_water_table_ptr);
-        curr_day_soil_water_table_ptr = (FILE*)NULL;
+        curr_day_soil_water_table_ptr = (FILE*)nullptr;
 
         if (curr_day_soil_temp_ptr)
             fclose(curr_day_soil_temp_ptr);
-        curr_day_soil_temp_ptr = (FILE*)NULL;
+        curr_day_soil_temp_ptr = (FILE*)nullptr;
 
 //// 取消过注释
 //        if (curr_day_nitrogen_ptr)
@@ -3139,27 +3140,27 @@ void BepsHydrCalculate(BH_SubParams1_t* BH_SubParams1,BH_SubParams1a_t* BH_SubPa
 
         if (curr_day_ST_Ly1_ptr)
             fclose(curr_day_ST_Ly1_ptr);
-        curr_day_ST_Ly1_ptr = (FILE*)NULL;
+        curr_day_ST_Ly1_ptr = (FILE*)nullptr;
 
         if (curr_day_ST_Ly2_ptr)
             fclose(curr_day_ST_Ly2_ptr);
-        curr_day_ST_Ly2_ptr = (FILE*)NULL;
+        curr_day_ST_Ly2_ptr = (FILE*)nullptr;
 
         if (curr_day_ST_Ly3_ptr)
             fclose(curr_day_ST_Ly3_ptr);
-        curr_day_ST_Ly3_ptr = (FILE*)NULL;
+        curr_day_ST_Ly3_ptr = (FILE*)nullptr;
 
         if (curr_day_ST_Ly4_ptr)
             fclose(curr_day_ST_Ly4_ptr);
-        curr_day_ST_Ly4_ptr = (FILE*)NULL;
+        curr_day_ST_Ly4_ptr = (FILE*)nullptr;
 
         if (curr_day_ST_Ly5_ptr)
             fclose(curr_day_ST_Ly5_ptr);
-        curr_day_ST_Ly5_ptr = (FILE*)NULL;
+        curr_day_ST_Ly5_ptr = (FILE*)nullptr;
 
         if (curr_day_ST_Ly6_ptr)
             fclose(curr_day_ST_Ly6_ptr);
-        curr_day_ST_Ly6_ptr = (FILE*)NULL;
+        curr_day_ST_Ly6_ptr = (FILE*)nullptr;
 
 //// 取消过注释
 //        if (curr_day_pool1_ptr)
@@ -3217,112 +3218,112 @@ void BepsHydrCalculate(BH_SubParams1_t* BH_SubParams1,BH_SubParams1a_t* BH_SubPa
 
         if (curr_day_soil_pondwater_ptr)
             fclose(curr_day_soil_pondwater_ptr);
-        curr_day_soil_pondwater_ptr = (FILE*)NULL;
+        curr_day_soil_pondwater_ptr = (FILE*)nullptr;
 
         if (curr_day_soil_capillary_rise_ptr)
             fclose(curr_day_soil_capillary_rise_ptr);
-        curr_day_soil_capillary_rise_ptr = (FILE*)NULL;
+        curr_day_soil_capillary_rise_ptr = (FILE*)nullptr;
 
         if (curr_day_soil_percolation_ptr)
             fclose(curr_day_soil_percolation_ptr);
-        curr_day_soil_percolation_ptr = (FILE*)NULL;
+        curr_day_soil_percolation_ptr = (FILE*)nullptr;
 
         //printf("ok3");     // 运行正常
 
         if (climate_rad_r_ptr)
             fclose(climate_rad_r_ptr);
-        climate_rad_r_ptr					= (FILE*)NULL;
+        climate_rad_r_ptr					= (FILE*)nullptr;
 
         if (climate_rad_f_ptr)
             fclose(climate_rad_f_ptr);
-        climate_rad_f_ptr					= (FILE*)NULL;
+        climate_rad_f_ptr					= (FILE*)nullptr;
 
         if (climate_ti_ptr)
             fclose(climate_ti_ptr);
-        climate_ti_ptr					= (FILE*)NULL;
+        climate_ti_ptr					= (FILE*)nullptr;
 
         if (climate_tm_ptr)
             fclose(climate_tm_ptr);
-        climate_tm_ptr					= (FILE*)NULL;
+        climate_tm_ptr					= (FILE*)nullptr;
 
         if (climate_prec_ptr)
             fclose(climate_prec_ptr);
-        climate_prec_ptr				= (FILE*)NULL;
+        climate_prec_ptr				= (FILE*)nullptr;
 
         //printf("ok3");       运行正常
 
         if (laifile_ptr)
             fclose(laifile_ptr);
-        laifile_ptr				= (FILE*)NULL;
+        laifile_ptr				= (FILE*)nullptr;
 
         if (waterin_ptr)
             fclose(waterin_ptr);
-        waterin_ptr				= (FILE*)NULL;
+        waterin_ptr				= (FILE*)nullptr;
 
         if (curr_day_snow_depth_ptr)
             fclose(curr_day_snow_depth_ptr);
-        curr_day_snow_depth_ptr= (FILE*)NULL;
+        curr_day_snow_depth_ptr= (FILE*)nullptr;
 
         if (Daily_NPP_ptr)   //npp to tl
             fclose(Daily_NPP_ptr);
-        Daily_NPP_ptr				= (FILE*)NULL;
+        Daily_NPP_ptr				= (FILE*)nullptr;
 
         if (climate_dew_ptr)
             fclose(climate_dew_ptr);
-        climate_dew_ptr					= (FILE*)NULL;
+        climate_dew_ptr					= (FILE*)nullptr;
 
         if (climate_wind_ptr)
             fclose(climate_wind_ptr);
-        climate_wind_ptr					= (FILE*)NULL;
+        climate_wind_ptr					= (FILE*)nullptr;
 
         if (canopy_evaporation_ptr)
             fclose(canopy_evaporation_ptr);
-        canopy_evaporation_ptr			= (FILE*)NULL;
+        canopy_evaporation_ptr			= (FILE*)nullptr;
 
         if (canopy_Stomata_ptr)
             fclose(canopy_Stomata_ptr);
-        canopy_Stomata_ptr			= (FILE*)NULL;
+        canopy_Stomata_ptr			= (FILE*)nullptr;
 
         //printf("ok3");      运行正常
 
         if (canopy_transpiration_unsat_ptr)
             fclose(canopy_transpiration_unsat_ptr);
-        canopy_transpiration_unsat_ptr	= (FILE*)NULL;
+        canopy_transpiration_unsat_ptr	= (FILE*)nullptr;
         if (canopy_transpiration_sat_ptr)
             fclose(canopy_transpiration_sat_ptr);
-        canopy_transpiration_sat_ptr	= (FILE*)NULL;
+        canopy_transpiration_sat_ptr	= (FILE*)nullptr;
         if (canopy_intercepted_ptr)
             fclose(canopy_intercepted_ptr);
-        canopy_intercepted_ptr			= (FILE*)NULL;
+        canopy_intercepted_ptr			= (FILE*)nullptr;
         if (canopy_litter_evaporation_ptr)
             fclose(canopy_litter_evaporation_ptr);
-        canopy_litter_evaporation_ptr	= (FILE*)NULL;
+        canopy_litter_evaporation_ptr	= (FILE*)nullptr;
         if (canopy_moss_transpiration_ptr)
             fclose(canopy_moss_transpiration_ptr);
-        canopy_moss_transpiration_ptr	= (FILE*)NULL;
+        canopy_moss_transpiration_ptr	= (FILE*)nullptr;
         if (canopy_soil_evaporation_ptr)
             fclose(canopy_soil_evaporation_ptr);
-        canopy_soil_evaporation_ptr		= (FILE*)NULL;
+        canopy_soil_evaporation_ptr		= (FILE*)nullptr;
 
         if (runoff_total_ptr)
             fclose(runoff_total_ptr);
-        runoff_total_ptr				=(FILE*)NULL;
+        runoff_total_ptr				=(FILE*)nullptr;
         if (runoff_baseflow_ptr)
             fclose(runoff_baseflow_ptr);
-        runoff_baseflow_ptr				=(FILE*)NULL;
+        runoff_baseflow_ptr				=(FILE*)nullptr;
 
         //  printf("ok3");  运行正常
 
         if (Daily_NEP_ptr)
             fclose(Daily_NEP_ptr);
-        Daily_NEP_ptr				=(FILE*)NULL;
+        Daily_NEP_ptr				=(FILE*)nullptr;
 
         if (runoff_total_inflow_ptr)
             fclose(runoff_total_inflow_ptr);
-        runoff_total_inflow_ptr			=(FILE*)NULL;
+        runoff_total_inflow_ptr			=(FILE*)nullptr;
         if (runoff_total_outflow_ptr)
             fclose(runoff_total_outflow_ptr);
-        runoff_total_outflow_ptr		=(FILE*)NULL;
+        runoff_total_outflow_ptr		=(FILE*)nullptr;
 
         //printf("ok3");  //运行正常
 

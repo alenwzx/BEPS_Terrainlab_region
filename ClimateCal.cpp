@@ -141,32 +141,32 @@ void ClimateCalculate(BH_SubParams1_t* BH_SubParams1,BH_SubParams1a_t* BH_SubPar
     //initialization:
     counter						= 0;
     rcode						= 0;
-    climate_rad_r				= NULL;
-    climate_rad_f				= NULL;
-    climate_ti					= NULL;
-    climate_tm					= NULL;
-    climate_tmean				= NULL;    //自行添加
-    climate_prec				= NULL;
-    climate_dew					= NULL;
-    climate_wind				= NULL;
-    climate_snowd				= NULL;
-    climate_watert				= NULL;
-    pfAltitude					= NULL;
-    pfGradient					= NULL;
-    pfAzimuth					= NULL;
-    basetemp					= NULL;
-    base_ptr					= NULL;
-    dem_ptr						= NULL;
-    slope_ptr					= NULL;
-    aspect_ptr					= NULL;
-    climate_rad_r_ptr			= NULL;
-    climate_rad_f_ptr			= NULL;
-    climate_ti_ptr				= NULL;
-    climate_tm_ptr				= NULL;
-    climate_tmean_ptr			= NULL;   //自行添加
-    climate_prec_ptr			= NULL;
-    climate_dew_ptr				= NULL;
-    climate_wind_ptr			= NULL;
+    climate_rad_r				= nullptr;
+    climate_rad_f				= nullptr;
+    climate_ti					= nullptr;
+    climate_tm					= nullptr;
+    climate_tmean				= nullptr;    //自行添加
+    climate_prec				= nullptr;
+    climate_dew					= nullptr;
+    climate_wind				= nullptr;
+    climate_snowd				= nullptr;
+    climate_watert				= nullptr;
+    pfAltitude					= nullptr;
+    pfGradient					= nullptr;
+    pfAzimuth					= nullptr;
+    basetemp					= nullptr;
+    base_ptr					= nullptr;
+    dem_ptr						= nullptr;
+    slope_ptr					= nullptr;
+    aspect_ptr					= nullptr;
+    climate_rad_r_ptr			= nullptr;
+    climate_rad_f_ptr			= nullptr;
+    climate_ti_ptr				= nullptr;
+    climate_tm_ptr				= nullptr;
+    climate_tmean_ptr			= nullptr;   //自行添加
+    climate_prec_ptr			= nullptr;
+    climate_dew_ptr				= nullptr;
+    climate_wind_ptr			= nullptr;
 
     v.jday_start				= BH_SubParams1->iDayStart;		//150
     v.jday_end					= BH_SubParams1->iDayEnd;			//152
@@ -181,23 +181,23 @@ void ClimateCalculate(BH_SubParams1_t* BH_SubParams1,BH_SubParams1a_t* BH_SubPar
 
 
 
-    if (	((pfAltitude		= new float[pv->npixels])		== NULL)
-            ||	((pfGradient		= new float[pv->npixels])		== NULL)
-            ||	((pfAzimuth			= new float[pv->npixels])		== NULL)
-            ||	((climate_rad_r		= new short int[pv->npixels])		== NULL)
-            ||	((climate_rad_f		= new short int[pv->npixels])		== NULL)
-            ||	((climate_ti		= new short int[pv->npixels])		== NULL)
-            ||	((climate_tm		= new short int[pv->npixels])		== NULL)
-            ||	((climate_tmean		= new short int[pv->npixels])		== NULL)   //自行添加
-            ||	((climate_prec		= new short int[pv->npixels])		== NULL)
-            ||	((climate_dew		= new short int[pv->npixels])		== NULL)
-            ||	((climate_wind		= new short int[pv->npixels])		== NULL)
-            ||	((basetemp			= new base_t[pv->jday_end - pv->jday_start + 1])==NULL))
+    if (	((pfAltitude		= new float[pv->npixels])		== nullptr)
+            ||	((pfGradient		= new float[pv->npixels])		== nullptr)
+            ||	((pfAzimuth			= new float[pv->npixels])		== nullptr)
+            ||	((climate_rad_r		= new short int[pv->npixels])		== nullptr)
+            ||	((climate_rad_f		= new short int[pv->npixels])		== nullptr)
+            ||	((climate_ti		= new short int[pv->npixels])		== nullptr)
+            ||	((climate_tm		= new short int[pv->npixels])		== nullptr)
+            ||	((climate_tmean		= new short int[pv->npixels])		== nullptr)   //自行添加
+            ||	((climate_prec		= new short int[pv->npixels])		== nullptr)
+            ||	((climate_dew		= new short int[pv->npixels])		== nullptr)
+            ||	((climate_wind		= new short int[pv->npixels])		== nullptr)
+            ||	((basetemp			= new base_t[pv->jday_end - pv->jday_start + 1])== nullptr))
         rcode = PERROR;
-    else if (((base_ptr			=fopen(BH_SubParams1->szInFileNameBaseClimate	,"rb"))==NULL)
-             ||	((dem_ptr			=fopen(BH_SubParams1->szInFileNameDEM			,"rb"))==NULL)
-             ||	((slope_ptr			=fopen(BH_SubParams1->szInFileNameSlope		,"rb"))==NULL)
-             ||	((aspect_ptr		=fopen(BH_SubParams1->szInFileNameAspect		,"rb"))==NULL))
+    else if (((base_ptr			=fopen(BH_SubParams1->szInFileNameBaseClimate	,"rb"))== nullptr)
+             ||	((dem_ptr			=fopen(BH_SubParams1->szInFileNameDEM			,"rb"))== nullptr)
+             ||	((slope_ptr			=fopen(BH_SubParams1->szInFileNameSlope		,"rb"))== nullptr)
+             ||	((aspect_ptr		=fopen(BH_SubParams1->szInFileNameAspect		,"rb"))== nullptr))
         rcode = PERROR;
 
     if (rcode!=PERROR)
@@ -250,7 +250,7 @@ void ClimateCalculate(BH_SubParams1_t* BH_SubParams1,BH_SubParams1a_t* BH_SubPar
         }//end of iTime for-loop
 
         fclose(base_ptr);
-        base_ptr = NULL;
+        base_ptr = nullptr;
 
         //站点区域插值
 
@@ -269,14 +269,14 @@ void ClimateCalculate(BH_SubParams1_t* BH_SubParams1,BH_SubParams1a_t* BH_SubPar
             insert_day_number(szClimateOutFileNameDEW,BH_SubParams1a->szOutFileNameClimateDew,iDay);
             insert_day_number(szClimateOutFileNameWIND,BH_SubParams1a->szOutFileNameClimateWind,iDay);
 
-            if(((climate_rad_r_ptr	=fopen(szClimateOutFileNameRAD_r	,"wb"))==NULL)
-                    ||	((climate_rad_f_ptr	=fopen(szClimateOutFileNameRAD_f	,"wb"))==NULL)
-                    ||  ((climate_ti_ptr	=fopen(szClimateOutFileNameTI		,"wb"))==NULL)
-                    ||  ((climate_tm_ptr	=fopen(szClimateOutFileNameTM		,"wb"))==NULL)
-                    ||  ((climate_tmean_ptr	=fopen(szClimateOutFileNameTMEAN	,"wb"))==NULL)     //自行添加
-                    ||  ((climate_prec_ptr	=fopen(szClimateOutFileNamePREC		,"wb"))==NULL)
-                    ||  ((climate_dew_ptr	=fopen(szClimateOutFileNameDEW		,"wb"))==NULL)
-                    ||  ((climate_wind_ptr	=fopen(szClimateOutFileNameWIND		,"wb"))==NULL)
+            if(((climate_rad_r_ptr	=fopen(szClimateOutFileNameRAD_r	,"wb"))== nullptr)
+                    ||	((climate_rad_f_ptr	=fopen(szClimateOutFileNameRAD_f	,"wb"))== nullptr)
+                    ||  ((climate_ti_ptr	=fopen(szClimateOutFileNameTI		,"wb"))== nullptr)
+                    ||  ((climate_tm_ptr	=fopen(szClimateOutFileNameTM		,"wb"))== nullptr)
+                    ||  ((climate_tmean_ptr	=fopen(szClimateOutFileNameTMEAN	,"wb"))== nullptr)     //自行添加
+                    ||  ((climate_prec_ptr	=fopen(szClimateOutFileNamePREC		,"wb"))== nullptr)
+                    ||  ((climate_dew_ptr	=fopen(szClimateOutFileNameDEW		,"wb"))== nullptr)
+                    ||  ((climate_wind_ptr	=fopen(szClimateOutFileNameWIND		,"wb"))== nullptr)
               )
                 rcode = PERROR;
 
@@ -386,28 +386,28 @@ void ClimateCalculate(BH_SubParams1_t* BH_SubParams1,BH_SubParams1a_t* BH_SubPar
             /*======================the end of line loop====================================*/
             if (climate_rad_r_ptr)
                 fclose(climate_rad_r_ptr);
-            climate_rad_r_ptr		= NULL;
+            climate_rad_r_ptr		= nullptr;
             if (climate_rad_f_ptr)
                 fclose(climate_rad_f_ptr);
-            climate_rad_f_ptr		= NULL;
+            climate_rad_f_ptr		= nullptr;
             if (climate_ti_ptr)
                 fclose(climate_ti_ptr);
-            climate_ti_ptr		= NULL;
+            climate_ti_ptr		= nullptr;
             if (climate_tm_ptr)
                 fclose(climate_tm_ptr);
-            climate_tm_ptr		= NULL;
+            climate_tm_ptr		= nullptr;
             if (climate_tmean_ptr)       //自行添加
                 fclose(climate_tmean_ptr);
-            climate_tmean_ptr		= NULL;
+            climate_tmean_ptr		= nullptr;
             if (climate_prec_ptr)
                 fclose(climate_prec_ptr);
-            climate_prec_ptr	= NULL;
+            climate_prec_ptr	= nullptr;
             if (climate_dew_ptr)
                 fclose(climate_dew_ptr);
-            climate_dew_ptr		= NULL;
+            climate_dew_ptr		= nullptr;
             if (climate_wind_ptr)
                 fclose(climate_wind_ptr);
-            climate_wind_ptr		= NULL;
+            climate_wind_ptr		= nullptr;
 
         }
 

@@ -1,5 +1,6 @@
 /**************************************************************************************************************
-
+    1. soilindex[k] (k ∈ 0 ~ 11) ,该结构体数组规定了12种土壤的基本属性. 声明：BepsHydrScience.h line258; 赋值：readconf.cpp line127
+    2. soil[j] (j ∈ 0 ~ pv->npixels) ，该结构体数组描述了一行像元的土壤属性. 声明：BepsHydrScience.h line207 赋值：soil_constructor.cpp
 **************************************************************************************************************/
 #include "stdafx.h"
 #include "BepsHydrScience.h"
@@ -15,35 +16,35 @@ void Soil_constructor(pubv* pv, unsigned char* soil_texture,
     short textureindex;
 
     float w,air_entry,z;
-    //float bata =0.943f;
+    // float bata =0.943f;
 
-    //starts image loop
+    // starts image loop 该循环遍历一行数据
     for (int j=0; j<pv->npixels; j++)
     {
-
+        // 设置 textureindex(∈0-11) 映射 soil_texture[j](∈10-120)
         if(soil_texture[j]>0 && soil_texture[j]<=120)
             textureindex=soil_texture[j]/10-1;
         else
             textureindex=1;
-
+        // 边界赋值
         if (watershed[j] == 0 ||soil_init_z[j]  <-10.0)
         {
-            //***illegal values modified by Mustapha
-            soil[j].K0_decay_m =soilindex[3].pore_index;// -99.0f;	//soil parameter for Kz calculation
-            soil[j].soil_b =soilindex[3].soil_b;// -99.0f;
-            soil[j].saturation_suction  =soilindex[3].suction_head;	//-99.0f;	//suction in meters when soil is saturation
-            soil[j].saturated_Kv         =soilindex[3].soil_K0;// -99.0f;	//at surface. m per day
-            soil[j].saturated_Ks         =soilindex[3].soil_K0H;// -99.0f;	//at surface. m per day
-            soil[j].saturation_deficit  =0.2;// -99.0f;	//meter. Zero at saturation
-            soil[j].water_table         =1.0;	//meter from soil surface
-            soil[j].pondwater         =0.0;	//pond为什么池塘水体设为0呢
+            soil[j].K0_decay_m          =soilindex[3].pore_index;   // -99.0f;	//soil parameter for Kz calculation
+            soil[j].soil_b              =soilindex[3].soil_b;       // -99.0f;
+            soil[j].saturation_suction  =soilindex[3].suction_head;	// -99.0f;	//suction in meters when soil is saturation
+            soil[j].saturated_Kv        =soilindex[3].soil_K0;      // -99.0f;	//at surface. m per day
+            soil[j].saturated_Ks        =soilindex[3].soil_K0H;     // -99.0f;	//at surface. m per day
+            soil[j].saturation_deficit  =0.2;                       // -99.0f;	//meter. Zero at saturation
+            soil[j].water_table         =1.0;	                    //meter from soil surface
+            soil[j].pondwater           =0.0;	                    //pond 为什么池塘水体设为0呢?这个设置应该针对的是研究区外的边界点
             soil[j].unsaturated_storage =soilindex[textureindex].field_cap*soil[j].water_table ;// -99.0f;	//meter	....MEM: of water in the unsaturated zone!!!
-            soil[j].Max_depth_Z         =2.0;// -99.0f;	//meter	//ori 1.0 on 23jun
+            soil[j].Max_depth_Z         =2.0;                       // -99.0f;	//meter	//ori 1.0 on 23jun
         }
+        //研究区内赋值
         else
         {
-
-            for(int k=0; k<12; k++) //find a corresponding texture name, then calculate values for other items
+            //find a corresponding texture name, then calculate values for other items ,根据 mytexture(∈10-120),soil_texture[j](∈10-120) 的一致性，遍历寻找对应的土壤类型并为赋予土壤属性值
+            for(int k=0; k<12; k++)
             {
                 if ((int)soil_texture[j] == soilindex[k].mytexture)	//***Added by Andriy
                 {
@@ -52,13 +53,13 @@ void Soil_constructor(pubv* pv, unsigned char* soil_texture,
                     soil[j].saturation_suction	= (float)soilindex[k].suction_head;
                     soil[j].saturated_Kv		= (float)soilindex[k].soil_K0;
                     soil[j].saturated_Ks		= (float)soilindex[k].soil_K0H;
-
-                    if (soil_depth[j]	<= -9999.0f)
+                    /*土壤深度*/
+                    if (soil_depth[j]	<= -9999.0f) //soil-depth.bin 设置成-9999.0f即可
                         soil[j].Max_depth_Z		= (float)soilindex[k].max_z;
                     else
                         soil[j].Max_depth_Z		= (float)soil_depth[j];
 
-
+                    /*初始地下水深度*/
                     if(soil_init_z[j] <= -9999.0f)   //if 9999, use the default
                         soil[j].water_table		= -999;//(float) (soil[j].Max_depth_Z/2.0);
                     else
@@ -79,7 +80,7 @@ void Soil_constructor(pubv* pv, unsigned char* soil_texture,
                         soil[j].poolb3	    = (float)biomass_pool3[j];
                         soil[j].poolb4	    = (float)biomass_pool4[j];
                         soil[j].nitrogen	= 0.013;//(float)buffer_nitrogen[j];
-                        soil[j].CNcd_m=180.26; //these should be initialized using intec values
+                        soil[j].CNcd_m=180.26;//these should be initialized using intec values
                         soil[j].CNssd_m=65.32;
                         soil[j].CNsmd_m=15.32;
                         soil[j].CNfsd_m=30.32;
@@ -105,25 +106,22 @@ void Soil_constructor(pubv* pv, unsigned char* soil_texture,
 
             w=0.92f;	//wetnees value between 0.9 and 1.0. See Clapp and Hornberger, 1978
             air_entry = soil[j].saturation_suction*(float)pow(w,(double)-soil[j].K0_decay_m);
+
+            //不饱和区土壤深度Z
             z = MIN(soil[j].water_table, soil[j].Max_depth_Z);
-            if (z > 0)
-            {
+            if (z > 0)//存在不饱和区
+            {   //不饱和区土壤田间含水量
                 soil[j].unsaturated_storage	= (float)soilindex[textureindex].field_cap*z;
+                //土壤饱和差
                 soil[j].saturation_deficit	= (float)(MIN(soilindex[textureindex].porosity,1))*z - soil[j].unsaturated_storage;
             }
-            else
+            else//不存在不饱和区
             {
                 soil[j].saturation_deficit = z;
                 soil[j].unsaturated_storage=0.0;
             }
         }//end of if-else block within the for loop
 
-        /*if(line==245 && j==137)
-        {
-            soil[j].unsaturated_storage=soil[j].unsaturated_storage;
-
-        }*/
-
-    }//end of j loop
+    }//end of j loop 结束行像元的遍历
 
 }//end of the function
