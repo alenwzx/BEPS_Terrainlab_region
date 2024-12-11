@@ -44,6 +44,7 @@ outpath----Enter the address of the folder where the output data will be stored
 caculatePattern---- 0, only difference the meteorological data; 1, only perform beps simulation; 2, perform both  
 
 Reference：
+
 Chen, Jing M., Xiaoyong Chen, Weimin Ju, and Xiaoyuan Geng. “Distributed Hydrological Model for Mapping Evapotranspiration Using Remote Sensing Inputs.” Journal of Hydrology 305, no. 1–4 (April 2005): 15–39. https://doi.org/10.1016/j.jhydrol.2004.08.029.
 
 Govind, Ajit, Jing Ming Chen, Hank Margolis, Weimin Ju, Oliver Sonnentag, and Marc-André Giasson. “A Spatially Explicit Hydro-Ecological Modeling Framework (BEPS-TerrainLab V2.0): Model Description and Test in a Boreal Ecosystem in Eastern North America.” Journal of Hydrology 367, no. 3–4 (April 2009): 200–216. https://doi.org/10.1016/j.jhydrol.2009.01.006.
