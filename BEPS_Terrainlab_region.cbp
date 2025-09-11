@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="BTL" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/BTL011WS30" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/BTL011WS30" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+		</Compiler>
+		<Unit filename="BepsHydrScience.h" />
+		<Unit filename="ClimateCal.cpp" />
+		<Unit filename="StdAfx.cpp" />
+		<Unit filename="StdAfx.h" />
+		<Unit filename="base_flow.cpp" />
+		<Unit filename="bepshydr.cpp" />
+		<Unit filename="carbon.cpp" />
+		<Unit filename="compute_cap_rise.cpp" />
+		<Unit filename="compute_daylength.cpp" />
+		<Unit filename="compute_solar_zenith.cpp" />
+		<Unit filename="compute_unsat_zone_drainage.cpp" />
+		<Unit filename="current_tz.cpp" />
+		<Unit filename="doflux.cpp" />
+		<Unit filename="doxx.cpp" />
+		<Unit filename="insert_day_number.cpp" />
+		<Unit filename="inter.cpp" />
+		<Unit filename="main.cpp" />
+		<Unit filename="melt.cpp" />
+		<Unit filename="model.cpp" />
+		<Unit filename="penmon.cpp" />
+		<Unit filename="ra.cpp" />
+		<Unit filename="radiation_ratio.cpp" />
+		<Unit filename="readb.cpp" />
+		<Unit filename="readclim.cpp" />
+		<Unit filename="readconf.cpp" />
+		<Unit filename="readinsoil.cpp" />
+		<Unit filename="readlai.cpp" />
+		<Unit filename="rs.cpp" />
+		<Unit filename="rsoil.cpp" />
+		<Unit filename="soil_constructor.cpp" />
+		<Unit filename="soil_temp.cpp" />
+		<Unit filename="soil_water_balance2.cpp" />
+		<Unit filename="soilresp.cpp" />
+		<Unit filename="zcomp.cpp" />
+		<Extensions />
+	</Project>
+</CodeBlocks_project_file>

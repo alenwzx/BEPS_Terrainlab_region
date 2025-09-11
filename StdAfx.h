@@ -10,6 +10,10 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <cmath>
 
 // TODO: reference additional headers your program requires here
 

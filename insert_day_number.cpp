@@ -6,6 +6,7 @@
 #include "stdlib.h"
 #include "tchar.h"
 
+//向输出文件名称中插入数字编号：先拆分_tsplitpath，后插入_tcscat，再重组_makepath
 void insert_day_number(char* szFileName,const char* szInFileName, int iDayNumber)
 {
     char drive[255];
@@ -13,6 +14,9 @@ void insert_day_number(char* szFileName,const char* szInFileName, int iDayNumber
     char fname[255];
     char ext[255];
     char szNumber[8];
+
+	//_stprintf( char *buffer, const char *format, ... );:此函数有三个类型参数，第一个是buffer，指向目标缓冲区的指针，用于存放格式化后的字符串；第二个是format，格式字符串，指定如何将参数插入到字符串中；第三个是可变数量的参数，它们将按照 format 字符串中指定的顺序和格式被插入到字符串中。
+
     //get string representation of number:
     _stprintf(szNumber,"%d",iDayNumber);
 
@@ -25,6 +29,7 @@ void insert_day_number(char* szFileName,const char* szInFileName, int iDayNumber
     //build new path:
     _makepath(szFileName,drive,dir,fname,ext);
 }
+
 
 void remove_day_number(char* szFileName,const char* szInFileName, int iDayNumber)
 {
@@ -40,7 +45,7 @@ void remove_day_number(char* szFileName,const char* szInFileName, int iDayNumber
 
 	//get string representation of day number and the length of such string:
 	_stprintf(day_number,"%d",iDayNumber);
-	iDayNumberStringLength = _tcslen(day_number);
+	iDayNumberStringLength = _tcslen(day_number); //计算数字长度
 
 	//split current path into components:
 	_tsplitpath(szInFileName,drive,dir,fname,ext);
@@ -48,7 +53,7 @@ void remove_day_number(char* szFileName,const char* szInFileName, int iDayNumber
 	//make sure the day number is appended to the end of file name;
 	//if it is, cut it out, else have erroneous input:
 	bool bError = true;
-	if ((iFileNameLength=_tcslen(fname))>=3)
+	if ((iFileNameLength=_tcslen(fname))>=3) //若文件名称长度大于等于3
 	{
 		if (!_tcscmp(&fname[iFileNameLength-iDayNumberStringLength],day_number))
 		{
@@ -66,79 +71,165 @@ void remove_day_number(char* szFileName,const char* szInFileName, int iDayNumber
 	if (bError)
 		_tcscpy(szFileName,szInFileName);
 }
-void AssembleSoilArray(int iLength,float* K0_decay_m,float* soil_b,float* saturation_suction,
-								float* saturated_Kv,float* saturated_Ks,float* saturation_deficit,float* unsaturated_storage,
-								float* water_table,float* soil_temp, float* pondwater,float* Max_depth_Z,
-								float*pool1,float*pool2,float*pool3,float*pool4,float*pool5,float*pool6,float*pool7,float*pool8,float*pool9,
-								float*poolb1,float*poolb2,float*poolb3,float*poolb4,float* nitrogen,
-								float* CNcd_m,float* CNssd_m,float* CNsmd_m,float* CNfsd_m,float* CNfmd_m,
-								float* CNsm_m,float* CNm_m,float* CNs_m,float* CNp_m,float* CNw_m,float* CNfr_m,
-								float* CNl_m,
-								float*ST_Layer_1,float*ST_Layer_2,float*ST_Layer_3,float*ST_Layer_4,float*ST_Layer_5,float*ST_Layer_6,
-								Soil_t* soil)
-{															/*pond*//* 2nov2006*/
-	for (int i=0;i<iLength;i++)
-	{
-		soil[i].K0_decay_m				= K0_decay_m[i];
-		soil[i].soil_b					= soil_b[i];
-		soil[i].saturation_suction		= saturation_suction[i];
-		soil[i].saturated_Kv				= saturated_Kv[i];
-		soil[i].saturated_Ks				= saturated_Ks[i];
 
-		soil[i].saturation_deficit		= saturation_deficit[i];
-		soil[i].unsaturated_storage		= unsaturated_storage[i];
-		soil[i].water_table				=water_table[i];
-		soil[i].soil_temp				=soil_temp[i];
-		soil[i].pool1				=pool1[i];
-		soil[i].pool2				=pool2[i];
-		soil[i].pool3				=pool3[i];
-		soil[i].pool4				=pool4[i];
-		soil[i].pool5				=pool5[i];
-		soil[i].pool6				=pool6[i];
-		soil[i].pool7				=pool7[i];
-		soil[i].pool8				=pool8[i];
-		soil[i].pool9				=pool9[i];
-		soil[i].poolb1			=poolb1[i];
-		soil[i].poolb2			=poolb2[i];
-		soil[i].poolb3			=poolb3[i];
-		soil[i].poolb4			=poolb4[i];
-		soil[i].nitrogen		=nitrogen[i];
+//将与土壤参数有关的缓冲区变量赋值给Soil_t*类型的结构体
+void AssembleSoilArray(
+    int iLength,
+    float* K0_decay_m, float* soil_b, float* saturation_suction,
+    float* saturated_Kv, float* saturated_Ks, float* saturation_deficit, float* unsaturated_storage,
+    float* water_table, float* soil_temp, float* pondwater, float* Max_depth_Z,
+    float* pool1, float* pool2, float* pool3, float* pool4, float* pool5, float* pool6, float* pool7, float* pool8, float* pool9,
+    float* poolb1, float* poolb2, float* poolb3, float* poolb4, float* nitrogen,
+    float* CNcd_m, float* CNssd_m, float* CNsmd_m, float* CNfsd_m, float* CNfmd_m,
+    float* CNsm_m, float* CNm_m, float* CNs_m, float* CNp_m, float* CNw_m, float* CNfr_m,
+    float* CNl_m,
+    float* ST_Layer_1, float* ST_Layer_2, float* ST_Layer_3, float* ST_Layer_4, float* ST_Layer_5, float* ST_Layer_6, float* soil_thetam,
+    Soil_t* soil,
+    const Soil_index_t* soilindex, const unsigned char* landcover, const unsigned char* soil_texture
+) {
+    for (int i = 0; i < iLength; i++) {
+        // 原有AssembleSoilArray赋值 ...
+        soil[i].K0_decay_m = K0_decay_m[i];
+        soil[i].soil_b = soil_b[i];
+        soil[i].saturation_suction = saturation_suction[i];
+        soil[i].saturated_Kv = saturated_Kv[i];
+        soil[i].saturated_Ks = saturated_Ks[i];
+        soil[i].saturation_deficit = saturation_deficit[i];
+        soil[i].unsaturated_storage = unsaturated_storage[i];
+        soil[i].water_table = water_table[i];
+        soil[i].soil_temp = soil_temp[i];
+        soil[i].pool1 = pool1[i];
+        soil[i].pool2 = pool2[i];
+        soil[i].pool3 = pool3[i];
+        soil[i].pool4 = pool4[i];
+        soil[i].pool5 = pool5[i];
+        soil[i].pool6 = pool6[i];
+        soil[i].pool7 = pool7[i];
+        soil[i].pool8 = pool8[i];
+        soil[i].pool9 = pool9[i];
+        soil[i].poolb1 = poolb1[i];
+        soil[i].poolb2 = poolb2[i];
+        soil[i].poolb3 = poolb3[i];
+        soil[i].poolb4 = poolb4[i];
+        soil[i].nitrogen = nitrogen[i];
+        soil[i].CNcd_m = CNcd_m[i];
+        soil[i].CNssd_m = CNssd_m[i];
+        soil[i].CNsmd_m = CNsmd_m[i];
+        soil[i].CNfsd_m = CNfsd_m[i];
+        soil[i].CNfmd_m = CNfmd_m[i];
+        soil[i].CNsm_m = CNsm_m[i];
+        soil[i].CNm_m = CNm_m[i];
+        soil[i].CNs_m = CNs_m[i];
+        soil[i].CNp_m = CNp_m[i];
+        soil[i].CNw_m = CNw_m[i];
+        soil[i].CNfr_m = CNfr_m[i];
+        soil[i].CNl_m = CNl_m[i];
+        soil[i].ST_Layer_1 = ST_Layer_1[i];
+        soil[i].ST_Layer_2 = ST_Layer_2[i];
+        soil[i].ST_Layer_3 = ST_Layer_3[i];
+        soil[i].ST_Layer_4 = ST_Layer_4[i];
+        soil[i].ST_Layer_5 = ST_Layer_5[i];
+        soil[i].ST_Layer_6 = ST_Layer_6[i];
+        soil[i].pondwater = pondwater[i];
+        soil[i].Max_depth_Z = Max_depth_Z[i];
+        // 新增：迁移自soil_constructor.cpp的变量初始化
+        short textureindex;
+        if (soil_texture[i] > 0 && soil_texture[i] <= 120)
+            textureindex = soil_texture[i] / 10 - 1;
+        else
+            textureindex = 1;
+        for (int k = 0; k < MAX_LAYERS; k++) {
+            soil[i].thermal_cond[k] = 8.0f;
+            soil[i].theta_vfc[k] = (float)soilindex[textureindex].field_cap[k];
+            soil[i].theta_vwp[k] = (float)soilindex[textureindex].wilting_pt;
+            soil[i].fei[k] = (float)soilindex[textureindex].porosity[k];
+            soil[i].b[k] = (float)soilindex[textureindex].soil_b[k];
+            soil[i].pn[k] = (float)soilindex[textureindex].soil_b[k];
+            soil[i].pm[k] = 1.0f - 1.0f / soil[i].pn[k];
+            soil[i].Ksat[k] = (float)soilindex[textureindex].soil_K0[k] / kstep;
+            soil[i].psi_sat[k] = (float)soilindex[textureindex].suction_head[k];
+            soil[i].ice_ratio[k] = 0;
+        }
+        soil[i].soil_r = (float)(1 / soilindex[textureindex].MaxiGs);
+        // 土地覆盖相关
+        if (landcover) {
+            switch (landcover[i]) {
+                case 2:
+                case 4:
+                    soil[i].psi_min = 10.0;
+                    soil[i].alpha = 1.5;
+                    break;
+                default:
+                    soil[i].psi_min = 33.0;
+                    soil[i].alpha = 0.4;
+                    break;
+            }
+        }
+        soil[i].n_layer = MAX_LAYERS;
+        soil[i].flag = 1;
+        // soil[i].Zp = soil[i].pondwater;
+        soil[i].Zsp = 0.0f;
+        soil[i].f_soilwater = 1;
+        // 分层深度
+    	soil[i].d_soil[0] = 0.10f; // 0-10cm
+    	soil[i].d_soil[1] = 0.10f; //11-20cm(center:15cm)
+    	soil[i].d_soil[2] = 0.20f; //21-40cm(center:30cm)
+    	soil[i].d_soil[3] = 0.20f; //41-60cm(center:50cm)
+    	soil[i].d_soil[4] = 4.20f;
 
-		soil[i].CNcd_m=CNcd_m[i];
-		soil[i].CNssd_m=CNssd_m[i];
-		soil[i].CNsmd_m=CNsmd_m[i];
-		soil[i].CNfsd_m=CNfsd_m[i];
-		soil[i].CNfmd_m=CNfmd_m[i];
-		soil[i].CNsm_m=CNsm_m[i];
-		soil[i].CNm_m=CNm_m[i];
-		soil[i].CNs_m=CNs_m[i];
-		soil[i].CNp_m=CNp_m[i];
-		soil[i].CNw_m=CNw_m[i];
-		soil[i].CNfr_m=CNfr_m[i];
-		soil[i].CNl_m=CNl_m[i];
+    	// soil[i].d_soil[0] = 1.00f;
+    	// soil[i].d_soil[1] = 1.00f;
+    	// soil[i].d_soil[2] = 2.00f;
+    	// soil[i].d_soil[3] = 4.00f;
+    	// soil[i].d_soil[4] = 8.00f;
 
-		soil[i].ST_Layer_1=ST_Layer_1[i];
-		soil[i].ST_Layer_2=ST_Layer_2[i];
-		soil[i].ST_Layer_3=ST_Layer_3[i];
-		soil[i].ST_Layer_4=ST_Layer_4[i];
-		soil[i].ST_Layer_5=ST_Layer_5[i];
-		soil[i].ST_Layer_6=ST_Layer_6[i];
+		soil[i].r_root_decay = 0.95f;
+        SoilRootFraction(&soil[i]);
+        // 密度和有机质
+        soil[i].density_soil[0] = 1300.0f;
+        soil[i].density_soil[1] = 1500.0f;
+        soil[i].density_soil[2] = 1517.0f;
+        soil[i].density_soil[3] = 1517.0f;
+        soil[i].density_soil[4] = 1517.0f;
+        soil[i].f_org[0] = 5.0f;
+        soil[i].f_org[1] = 2.0f;
+        soil[i].f_org[2] = 1.0f;
+        soil[i].f_org[3] = 1.0f;
+        soil[i].f_org[4] = 0.3f;
+        // 温度
+        soil[i].temp_soil_c[0] = MAX(soil[i].ST_Layer_1, 5);
+        soil[i].temp_soil_c[1] = MAX(soil[i].ST_Layer_2, 5);
+        soil[i].temp_soil_c[2] = MAX(soil[i].ST_Layer_3, 5);
+        soil[i].temp_soil_c[3] = MAX(soil[i].ST_Layer_4, 5);
+        soil[i].temp_soil_c[4] = MAX(soil[i].ST_Layer_5, 5);
+        soil[i].temp_soil_p[0] = MAX(soil[i].ST_Layer_1, 5);
+        soil[i].temp_soil_p[1] = MAX(soil[i].ST_Layer_2, 5);
+        soil[i].temp_soil_p[2] = MAX(soil[i].ST_Layer_3, 5);
+        soil[i].temp_soil_p[3] = MAX(soil[i].ST_Layer_4, 5);
+        soil[i].temp_soil_p[4] = MAX(soil[i].ST_Layer_5, 5);
+    }
+    // 处理 thetam 分层数据
+    for (int k = 0; k < MAX_LAYERS; k++) {
+        for (int i = 0; i < iLength; i++) {
+            int buffer_index = k * iLength + i;
+            if (buffer_index < iLength * MAX_LAYERS) {
+                soil[i].thetam[k] = soil_thetam[buffer_index];
+            }
+        }
+    }
 
-
-		soil[i].pondwater				=pondwater[i]; //pond
-		soil[i].Max_depth_Z				= Max_depth_Z[i];
-	}
 }
 
+//将Soil_t*类型的结构体内的变量赋值给与土壤参数有关的缓冲区变量
 void DisassembleSoilArray(int iLength,float* K0_decay_m,float* soil_b,float* saturation_suction,
-						float* saturated_Kv,		float* saturated_Ks,float* saturation_deficit,float* unsaturated_storage,
+						float* saturated_Kv,float* saturated_Ks,float* saturation_deficit,float* unsaturated_storage,
 						float* water_table,float* soil_temp,float* pondwater,float* Max_depth_Z,
 						float*pool1,float*pool2,float*pool3,float*pool4,float*pool5,float*pool6,float*pool7,float*pool8,float*pool9,
 						float*poolb1,float*poolb2,float*poolb3,float*poolb4,float* nitrogen,
 						float* CNcd_m,float* CNssd_m,float* CNsmd_m,float* CNfsd_m,float* CNfmd_m,
 						float* CNsm_m,float* CNm_m,float* CNs_m,float* CNp_m,float* CNw_m,float* CNfr_m,
 						float* CNl_m,
-						float*ST_Layer_1,float*ST_Layer_2,float*ST_Layer_3,float*ST_Layer_4,float*ST_Layer_5,float*ST_Layer_6,
+						float*ST_Layer_1,float*ST_Layer_2,float*ST_Layer_3,float*ST_Layer_4,float*ST_Layer_5,float*ST_Layer_6,float* soil_thetam,
 						Soil_t* soil)
 {                                       /*pond*//* 2nov2006*/
 	for (int i=0;i<iLength;i++)
@@ -186,12 +277,25 @@ void DisassembleSoilArray(int iLength,float* K0_decay_m,float* soil_b,float* sat
 		ST_Layer_5[i]=soil[i].ST_Layer_5;
 		ST_Layer_6[i]=soil[i].ST_Layer_6;
 
-
-
 		pondwater[i]					= soil[i].pondwater; //pond
 		Max_depth_Z[i]					= soil[i].Max_depth_Z;
 	}
+
+	// 处理 thetam 分层数据
+	for (int k = 0; k < MAX_LAYERS; k++) { // 遍历层
+		for (int i=0;i<iLength;i++){
+			int buffer_index = k * iLength + i;
+			if (buffer_index < iLength * MAX_LAYERS)// 边界检查
+				soil_thetam[buffer_index] = soil[i].thetam[k];
+				// if (soil[i].thetam[k] != 1.0f){
+				// printf("%f\n", soil_thetam[buffer_index]);
+				// }
+		}
+	}
+
 }
+
+//将与冠层通量有关的缓冲区变量赋值给Canopy_t*类型的结构体
 void	AssembleCanopyArray(int iLength,float* canopy_evaporation,
 							float* canopy_transpiration_unsat,float* canopy_transpiration_sat,
 							float* canopy_intercepted,float* litter_evaporation,
@@ -200,7 +304,7 @@ void	AssembleCanopyArray(int iLength,float* canopy_evaporation,
 	for (int i=0;i<iLength;i++)
 	{
 		canopy[i].canopy_evaporation			= canopy_evaporation[i];
-		canopy[i].canopy_stomata			= canopy_stomata[i];
+		canopy[i].canopy_stomata				= canopy_stomata[i];
 		canopy[i].canopy_transpiration_unsat	= canopy_transpiration_unsat[i];
 		canopy[i].canopy_transpiration_sat		= canopy_transpiration_sat[i];
 		canopy[i].canopy_intercepted			= canopy_intercepted[i];
@@ -210,6 +314,7 @@ void	AssembleCanopyArray(int iLength,float* canopy_evaporation,
 	}
 }
 
+//将Canopy_t*类型的结构体赋值给与冠层通量有关的缓冲区变量
 void	DisassembleCanopyArray(int iLength,float* canopy_evaporation,
 							float* canopy_transpiration_unsat,float* canopy_transpiration_sat,
 							float* canopy_intercepted,float* litter_evaporation,
@@ -227,7 +332,8 @@ void	DisassembleCanopyArray(int iLength,float* canopy_evaporation,
 		soil_evaporation[i]				= canopy[i].soil_evaporation;
 	}
 }
-// Energy routines added 2005-May-3  MM/Ajit
+
+// 能量通量集合
 void	AssembleEnergyArray(int iLength,
 						//	 float* climate_snowmelt,
 							float *NRFlux,
@@ -243,6 +349,7 @@ void	AssembleEnergyArray(int iLength,
 	}
 }
 
+// 能量通量拆分
 void	DisassembleEnergyArray(int iLength,
 							float* NRFlux,
 							float* sensibleHeatFlux,
@@ -258,11 +365,7 @@ void	DisassembleEnergyArray(int iLength,
 	}
 }
 
-
-
-
-
-// snow routines added 2005-May-3  MM/Ajit
+// 雪参数集合
 void	AssembleSnowArray(int iLength,
 						//	 float* climate_snowmelt,
 							float*   swe,
@@ -278,6 +381,7 @@ void	AssembleSnowArray(int iLength,
 	}
 }
 
+// 雪参数拆分
 void	DisassembleSnowArray(int iLength,
 							float* swe,
 							float* depth,

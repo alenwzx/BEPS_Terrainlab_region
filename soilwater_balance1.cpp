@@ -67,8 +67,9 @@ void soil_water_balance1(pubv* start,float* runoff_baseflow,float * waterin,floa
 		precip	= (float)waterin[j];
 
 
-		soil_porosity	 =  (float)	soilindex[textureindext].porosity;
-     	soil_capacity    =(float)soilindex[textureindext].field_cap;
+		        // 使用第一层的参数作为代表值（或者可以根据需要修改为其他层的平均值）
+        soil_porosity	 =  (float)	soilindex[textureindext].porosity[0];
+        soil_capacity    =(float)soilindex[textureindext].field_cap[0];
 		soil_point    =(float)soilindex[textureindext].wilting_pt;
 
 		/*convert precipitation value into unit mm */

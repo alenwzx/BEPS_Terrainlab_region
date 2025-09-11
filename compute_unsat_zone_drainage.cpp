@@ -60,7 +60,7 @@ double	compute_unsat_zone_drainage(unsigned char textureindext, Soil_t soils2, d
 	{
 
 
-	Ksat_z = soils2.saturated_Kv ;
+	Ksat_z = soils2.saturated_Kv;
 
 
 	}
@@ -138,7 +138,7 @@ double	compute_unsat_zone_drainage(unsigned char textureindext, Soil_t soils2, d
 pc=1*Ksat_z*  pow(kkk/por,b) +
 	  b*f*Ksat_z*  pow(kkk/por,b-1)*(a5-kkk)/por;
 unsat_zone_drainage=pc;
-
+	return 0;
 	return(unsat_zone_drainage);
 
 } /*compute_unsat_zone_drainage*/

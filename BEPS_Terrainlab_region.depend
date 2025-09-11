@@ -1,0 +1,196 @@
+# depslib dependency file v1.0
+1754571064 source:h:\summer_2025\try\beps_terrainlab_region5.2.1\base_flow.cpp
+	<algorithm>
+	"stdafx.h"
+	"BepsHydrScience.h"
+	"math.h"
+
+1753117022 h:\summer_2025\try\beps_terrainlab_region5.2.1\stdafx.h
+	<cstdio>
+	<cstdlib>
+	<cstring>
+	<cmath>
+
+1754505890 h:\summer_2025\try\beps_terrainlab_region5.2.1\bepshydrscience.h
+	<string>
+
+1754732738 source:h:\summer_2025\try\beps_terrainlab_region5.2.1\bepshydr.cpp
+	"stdafx.h"
+	<cstdio>
+	<string>
+	<cstdlib>
+	<cmath>
+	"BepsHydrScience.h"
+
+1752142702 source:h:\summer_2025\try\beps_terrainlab_region5.2.1\carbon.cpp
+	"stdafx.h"
+	"BepsHydrScience.h"
+	<math.h>
+
+1744729670 source:h:\summer_2025\try\beps_terrainlab_region5.2.1\climatecal.cpp
+	"stdafx.h"
+	"BepsHydrScience.h"
+	"string.h"
+	"malloc.h"
+	"stdio.h"
+	<stdlib.h>
+
+1744731728 source:h:\summer_2025\try\beps_terrainlab_region5.2.1\compute_cap_rise.cpp
+	"stdafx.h"
+	"BepsHydrScience.h"
+	<math.h>
+
+1744729670 source:h:\summer_2025\try\beps_terrainlab_region5.2.1\compute_daylength.cpp
+	"stdafx.h"
+	"BepsHydrScience.h"
+	<math.h>
+
+1744729670 source:h:\summer_2025\try\beps_terrainlab_region5.2.1\compute_solar_zenith.cpp
+	"stdafx.h"
+	"BepsHydrScience.h"
+	<math.h>
+
+1744794934 source:h:\summer_2025\try\beps_terrainlab_region5.2.1\compute_unsat_zone_drainage.cpp
+	"stdafx.h"
+	"BepsHydrScience.h"
+	<math.h>
+
+1754145113 source:h:\summer_2025\try\beps_terrainlab_region5.2.1\current_tz.cpp
+	"stdafx.h"
+	"BepsHydrScience.h"
+	<math.h>
+
+1746349954 source:h:\summer_2025\try\beps_terrainlab_region5.2.1\doflux.cpp
+	<cstdio>
+	"stdafx.h"
+	"BepsHydrScience.h"
+	"math.h"
+
+1746340824 source:h:\summer_2025\try\beps_terrainlab_region5.2.1\doxx.cpp
+	"stdafx.h"
+	"BepsHydrScience.h"
+
+1754681595 source:h:\summer_2025\try\beps_terrainlab_region5.2.1\insert_day_number.cpp
+	"stdafx.h"
+	"BepsHydrScience.h"
+	"string.h"
+	"malloc.h"
+	"stdio.h"
+	"stdlib.h"
+	"tchar.h"
+
+1746343688 source:h:\summer_2025\try\beps_terrainlab_region5.2.1\inter.cpp
+	"stdafx.h"
+	"BepsHydrScience.h"
+
+1753812160 source:h:\summer_2025\try\beps_terrainlab_region5.2.1\main.cpp
+	"stdafx.h"
+	"BepsHydrScience.h"
+	"string.h"
+	"malloc.h"
+	"stdio.h"
+	"math.h"
+	<time.h>
+
+1744729670 source:h:\summer_2025\try\beps_terrainlab_region5.2.1\melt.cpp
+	"stdafx.h"
+	"BepsHydrScience.h"
+	"math.h"
+
+1754678514 source:h:\summer_2025\try\beps_terrainlab_region5.2.1\model.cpp
+	"stdafx.h"
+	"BepsHydrScience.h"
+	"string.h"
+	"malloc.h"
+	"stdio.h"
+	"math.h"
+
+1745145224 source:h:\summer_2025\try\beps_terrainlab_region5.2.1\penmon.cpp
+	"stdafx.h"
+	"BepsHydrScience.h"
+	<math.h>
+
+1744729670 source:h:\summer_2025\try\beps_terrainlab_region5.2.1\ra.cpp
+	"stdafx.h"
+	"BepsHydrScience.h"
+	<math.h>
+
+1744729670 source:h:\summer_2025\try\beps_terrainlab_region5.2.1\radiation_ratio.cpp
+	"stdafx.h"
+	"BepsHydrScience.h"
+	<math.h>
+
+1754717518 source:h:\summer_2025\try\beps_terrainlab_region5.2.1\readb.cpp
+	"stdafx.h"
+	"BepsHydrScience.h"
+
+1745145738 source:h:\summer_2025\try\beps_terrainlab_region5.2.1\readclim.cpp
+	"stdafx.h"
+	"BepsHydrScience.h"
+	<math.h>
+
+1754732483 source:h:\summer_2025\try\beps_terrainlab_region5.2.1\readconf.cpp
+	"stdafx.h"
+	"BepsHydrScience.h"
+	"string.h"
+	"malloc.h"
+	"stdio.h"
+	<stdlib.h>
+
+1744729670 source:h:\summer_2025\try\beps_terrainlab_region5.2.1\readinsoil.cpp
+	"stdafx.h"
+	"BepsHydrScience.h"
+	"string.h"
+	"malloc.h"
+	"stdio.h"
+
+1744729670 source:h:\summer_2025\try\beps_terrainlab_region5.2.1\readlai.cpp
+	"stdafx.h"
+	"BepsHydrScience.h"
+
+1752054576 source:h:\summer_2025\try\beps_terrainlab_region5.2.1\rs.cpp
+	<cstdio>
+	"stdafx.h"
+	"BepsHydrScience.h"
+	<math.h>
+
+1745147140 source:h:\summer_2025\try\beps_terrainlab_region5.2.1\rsoil.cpp
+	<cmath>
+	"stdafx.h"
+	"BepsHydrScience.h"
+
+1754732738 source:h:\summer_2025\try\beps_terrainlab_region5.2.1\soil_constructor.cpp
+	<algorithm>
+	<cmath>
+	<cstdio>
+	"stdafx.h"
+	"BepsHydrScience.h"
+	<cstdio>
+	<cmath>
+	<stdio.h>
+
+1744729670 source:h:\summer_2025\try\beps_terrainlab_region5.2.1\soil_temp.cpp
+	"stdafx.h"
+	"BepsHydrScience.h"
+	<math.h>
+
+1744729670 source:h:\summer_2025\try\beps_terrainlab_region5.2.1\soilresp.cpp
+	"stdafx.h"
+	"BepsHydrScience.h"
+	<math.h>
+
+1744729670 source:h:\summer_2025\try\beps_terrainlab_region5.2.1\stdafx.cpp
+	"stdafx.h"
+
+1745146678 source:h:\summer_2025\try\beps_terrainlab_region5.2.1\zcomp.cpp
+	<cstdio>
+	"stdafx.h"
+	"BepsHydrScience.h"
+	<math.h>
+
+1754556595 source:h:\summer_2025\try\beps_terrainlab_region5.2.1\soil_water_balance2.cpp
+	<cstdio>
+	"stdafx.h"
+	"BepsHydrScience.h"
+	<math.h>
+

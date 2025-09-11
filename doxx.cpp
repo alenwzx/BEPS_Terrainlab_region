@@ -186,6 +186,4 @@ void writexx(int pix,double *x,xvalue *xx)
 	xx[pix].x51=x[51];
 	xx[pix].x52=x[52];
 	xx[pix].x53=x[53];
-
-
 }

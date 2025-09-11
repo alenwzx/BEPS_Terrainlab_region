@@ -166,7 +166,7 @@ double	compute_cap_rise(Soil_t soils2, double por)
 		w = 0.0;
 //		w = Ksat_z * ( 1 + 1.5 / (soils2.soil_b - 1))*0.005;
 	}
-
+	return 0;
 	return(w);
 
 }
