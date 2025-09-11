@@ -46,7 +46,7 @@ void inter(double *b,double *g,double *x,double *z)
 
     /* rain vs snow */
 
-    if (/*z[14]*/ z[5]  > 0.0 ) //如果日最低气温大于0摄氏度， daytime average temperature (C deg) > 0 therefor assume rain
+    if (/*z[14]*/ z[14]  > -10.0 ) //如果日最低气温大于0摄氏度， daytime average temperature (C deg) > 0 therefor assume rain
     {
         g[1] = z[3] - g[11]; //throughfall rain :地面降雨量=降水量-树冠截留降水量
         g[2] = 0.0;          //地面雪深为0
@@ -59,10 +59,10 @@ void inter(double *b,double *g,double *x,double *z)
     }
 
     /* water loss from canopy */ /*从冠层蒸发的降水量*/
-    if (z[14]  > 0.0 ) // assume rain 白天气温大于0度，降水形式为雨
+    if (z[14]  > -10.0 ) // assume rain 白天气温大于0度，降水形式为雨
     {
-        Evap= (((penmon(z[14],z[16],z[38],g[70],1000)*z[32])+
-                (penmon(z[14],z[16],z[39],g[70],1000)*z[33])))*z[18];
+        Evap= (((penmon(z[14],z[16],z[38],g[70],1)*z[32])+
+                (penmon(z[14],z[16],z[39],g[70],1)*z[33])))*z[18];
         g[4] =  MIN(g[11], Evap);
         g[4]=MAX(0,g[4]); //EPHYSE
         //g[4]  //
@@ -78,7 +78,7 @@ void inter(double *b,double *g,double *x,double *z)
     }
 
     /* canopy water to ground */ /*从冠层流向地面的降水量*/
-    if (z[14]  > 0.0 )
+    if (z[14]  > -10.0 )
     {
         g[6] = MAX(0.0, g[11]-g[4]);
         g[7] =0.0;

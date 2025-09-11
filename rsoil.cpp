@@ -9,6 +9,8 @@
   Written by:   J. Liu
   Last update:	May 1998
 *****************************************************************************/
+#include <cmath>
+
 #include "stdafx.h"
 #include "BepsHydrScience.h"
 
@@ -28,16 +30,11 @@ void rsoil(double *b,double *g,double *x,double *z)
 	ss = x[22]; // MM assign the porosity
 
 w_table=x[19];
-if(w_table>0.05){
-vsm_us=x[2]/w_table;  // conver unsaturated_storage to volumetric soil moisture content;
 
-if(vsm_us<=sw) g[41]=0.0001;
-else if (vsm_us>sw && vsm_us<=ss) g[41]=(vsm_us-sw)/(ss-sw)*(x[23]-0.0001)+0.0001;
-//else if (vsm_us>sf )  g[41]=0.005;
-}
-else{
-g[41]=x[23];   //soil conductance/resistance
-}
+vsm_us=x[2];  // conver unsaturated_storage to volumetric soil moisture content;
+if(vsm_us<=sw) g[41]=0;
+else if (vsm_us>sw && vsm_us<=ss) g[41]=(vsm_us-sw)/(ss-sw) * x[23];//(vsm_us-sw)/(ss-sw)*(x[23]-0.001)+0.001;
+	// g[41]=x[2];
 /////////////////////////////////////////////////////////////////
 /* removed by juw  2005-Apr-22
     rsw=100*x[2]/z[22];

@@ -41,7 +41,8 @@ void readb(double *b,unsigned char lc_p,BH_SubParams2_t* pBH_SubParams2)
 
         b[17]=0; 	//Minimum Temperature for Photosynthesis (0C)
 		b[18]=40; 	//Maximum Temperature for Photosynthesis (0C)
-		b[16]=20; 	//Optimum Temperature for Photosynthesis (0C)
+		// b[16]=18; 	//Optimum Temperature for Photosynthesis (0C) --IT-Col
+		b[16]=25; 	//Optimum Temperature for Photosynthesis (0C)
 
 		b[14]=1;  /* Leaf Water Potential at Stomatal Opening (-Mpa)	*/
 
@@ -54,7 +55,7 @@ void readb(double *b,unsigned char lc_p,BH_SubParams2_t* pBH_SubParams2)
 		b[22]= -30;	/* b(22) snowpack energy deficit C 		*/
     	b[27]=0.2; /* b(27) soil characteristic parameter	*/
 
-		b[4]=0.0003;	/* b(4) Ppt Interception co. m lai-1 d-1 */
+		b[4]=0.00017;	/* b(4) Ppt Interception co. m lai-1 d-1 */
 
 
      switch(lc_p)
@@ -66,8 +67,10 @@ void readb(double *b,unsigned char lc_p,BH_SubParams2_t* pBH_SubParams2)
 		b[15] =4;//2.3;  /* Leaf Water Potential at Stomatal Closure(-Mpa)		*/
 		b[52] =62.8; // Vmax at 25 0C
         b[51] =0.6; // Canopy Clumping Index
-		b[9]  =0.002; //Maximum stomatal Conduction (m/sec)
-		b[13] =0.076;  /* Chnage of Stomatal Conductance with VPD*/
+		// b[9]  =0.002; //Maximum stomatal Conduction (m/sec)
+     	b[9]  =0.0015; //Maximum stomatal Conduction (m/sec) 参考 BEPS hourly site
+		// b[13] =0.076;  /* Chnage of Stomatal Conductance with VPD*/
+     	b[13] =0.0357;  /* Chnage of Stomatal Conductance with VPD 参考 BEPS hourly site*/
 		b[11] =2;  //Ratio of Gmax of Overstory to that of Under
 
 
@@ -77,10 +80,15 @@ void readb(double *b,unsigned char lc_p,BH_SubParams2_t* pBH_SubParams2)
         b[1]  =25;	//specific leaf area m2 kg-1 C
 		b[6]  =0.001;/* b(6) Snowmelt Temp coeff.  */
 		b[15] =8;//3.9;  /* Leaf Water Potential at Stomatal Closure(-Mpa)		*/
-		b[52] =42.4; // Vmax at 25 0C
-        b[51] =0.8; // Canopy Clumping Index
-		b[9]  =0.004; //Maximum stomatal Conduction (m/sec)
-		b[13] =0.429;  /* Chnage of Stomatal Conductance with VPD*/
+		// b[52] =42.4; // Vmax at 25 0C
+     	b[52] =100; // Vmax at 25 0C 参考 BEPS hourly site
+        // b[51] =0.8; // Canopy Clumping Index
+     	b[51] =0.63; // Canopy Clumping Index 参考 BEPS hourly site
+		// b[9]  =0.004; //Maximum stomatal Conduction (m/sec)
+     	// b[9]  =0.005; //Maximum stomatal Conduction (m/sec) 参考 BEPS hourly site
+     	b[9]  =0.0020; //Maximum stomatal Conduction (m/sec)
+		// b[13] =0.429;  /* Chnage of Stomatal Conductance with VPD*/
+     	b[13] =0.0357;  /* Chnage of Stomatal Conductance with VPD 参考 BEPS hourly site*/
 		b[11] =0.5;  //Ratio of Gmax of Overstory to that of Under
 
 
@@ -90,10 +98,14 @@ void readb(double *b,unsigned char lc_p,BH_SubParams2_t* pBH_SubParams2)
         b[1]  =22.5;	//specific leaf area m2 kg-1 C
 		b[6]  =0.0022;/* b(6) Snowmelt Temp coeff.  */
 		b[15] =4;//2.3;  /* Leaf Water Potential at Stomatal Closure(-Mpa)		*/
-		b[52] =41.7; // Vmax at 25 0C
-        b[51] =0.6; // Canopy Clumping Index
-		b[9]  =0.0025; //Maximum stomatal Conduction (m/sec)
-		b[13] =0.076;  /* Chnage of Stomatal Conductance with VPD*/
+		// b[52] =41.7; // Vmax at 25 0C
+     	b[52] =39.1; // Vmax at 25 0C 参考 BEPS hourly site
+        // b[51] =0.6; // Canopy Clumping Index
+     	b[51] =0.68; // Canopy Clumping Index 参考 BEPS hourly site
+		// b[9]  =0.0025; //Maximum stomatal Conduction (m/sec)
+     	b[9]  =0.0012; //Maximum stomatal Conduction (m/sec)  参考 BEPS hourly site
+		// b[13] =0.076;  /* Chnage of Stomatal Conductance with VPD*/
+     	b[13] =0.0357;  /* Chnage of Stomatal Conductance with VPD 参考 BEPS hourly site*/
 		b[11] =2;  //Ratio of Gmax of Overstory to that of Under
 
 
@@ -103,11 +115,13 @@ void readb(double *b,unsigned char lc_p,BH_SubParams2_t* pBH_SubParams2)
         b[1]  =26.5;	//specific leaf area m2 kg-1 C
 		b[6]  =0.001;/* b(6) Snowmelt Temp coeff.  */
 		b[15] =8;//3.9;  /* Leaf Water Potential at Stomatal Closure(-Mpa)		*/
-		b[52] =59.9; // Vmax at 25 0C
-        b[51] =0.8; // Canopy Clumping Index
-		b[9]  =0.0045; //Maximum stomatal Conduction (m/sec)
-		b[13] =0.429;  /* Chnage of Stomatal Conductance with VPD*/
-		b[11] =0.5;  //Ratio of Gmax of Overstory to that of Under
+		b[52] =49.9; // Vmax at 25 0C
+        // b[51] =0.8; // Canopy Clumping Index
+     	b[51] =0.7; // Canopy Clumping Index 参考 BEPS hourly site
+		b[9]  =0.0016; //Maximum stomatal Conduction (m/sec)
+		// b[13] =0.429;  /* Chnage of Stomatal Conductance with VPD*/
+     	b[13] =0.0357;  /* Chnage of Stomatal Conductance with VPD 参考 BEPS hourly site*/
+		b[11] =2;  //Ratio of Gmax of Overstory to that of Under
 
 
     break;
@@ -118,7 +132,7 @@ void readb(double *b,unsigned char lc_p,BH_SubParams2_t* pBH_SubParams2)
 		b[15] =8;//2.3;  /* Leaf Water Potential at Stomatal Closure(-Mpa)		*/
 		b[52] =51.7; // Vmax at 25 0C
         b[51] =0.7; // Canopy Clumping Index
-		b[9]  =0.0036; //Maximum stomatal Conduction (m/sec)
+		b[9]  =0.0022; //Maximum stomatal Conduction (m/sec)
 		b[13] =0.253;  /* Chnage of Stomatal Conductance with VPD*/
 		b[11] =1;  //Ratio of Gmax of Overstory to that of Under
 
@@ -130,11 +144,13 @@ void readb(double *b,unsigned char lc_p,BH_SubParams2_t* pBH_SubParams2)
 		b[6]  =0.002;/* b(6) Snowmelt Temp coeff.  */
 		b[15] =8;//4.2;  /* Leaf Water Potential at Stomatal Closure(-Mpa)		*/
 		b[52] =59.5; // Vmax at 25 0C
-        b[51] =0.5; // Canopy Clumping Index
-		b[9]  =0.004; //Maximum stomatal Conduction (m/sec)
-		b[13] =0.076;  /* Chnage of Stomatal Conductance with VPD*/
+        // b[51] =0.5; // Canopy Clumping Index
+     	b[51] =0.7; // Canopy Clumping Index 参考 BEPS hourly site
+		// b[9]  =0.004; //Maximum stomatal Conduction (m/sec)
+     	b[9]  =0.002; //Maximum stomatal Conduction (m/sec) 参考 BEPS hourly site
+		// b[13] =0.076;  /* Chnage of Stomatal Conductance with VPD*/
+     	b[13] =0.0357;  /* Chnage of Stomatal Conductance with VPD 参考 BEPS hourly site*/
 		b[11] =1;  //Ratio of Gmax of Overstory to that of Under
-
 
     break;
 		case 7://GRA
@@ -142,10 +158,14 @@ void readb(double *b,unsigned char lc_p,BH_SubParams2_t* pBH_SubParams2)
         b[1]  =30;	//specific leaf area m2 kg-1 C
 		b[6]  =0.001;/* b(6) Snowmelt Temp coeff.  */
 		b[15] =8;//2.7;  /* Leaf Water Potential at Stomatal Closure(-Mpa)		*/
-		b[52] =90.3; // Vmax at 25 0C
-        b[51] =0.85; // Canopy Clumping Index
-		b[9]  =0.01; //Maximum stomatal Conduction (m/sec)
-		b[13] =0.076;  /* Chnage of Stomatal Conductance with VPD*/
+		// b[52] =90.3; // Vmax at 25 0C
+     	b[52] =30; // Vmax at 25 0C  参考 BEPS hourly site C4
+        // b[51] =0.85; // Canopy Clumping Index
+     	b[51] =0.73; // Canopy Clumping Index  参考 BEPS hourly site C4
+		// b[9]  =0.01; //Maximum stomatal Conduction (m/sec)
+     	b[9]  =0.002; //Maximum stomatal Conduction (m/sec)  参考 BEPS hourly site C4
+		// b[13] =0.076;  /* Chnage of Stomatal Conductance with VPD*/
+     	b[13] =0.0357;  /* Chnage of Stomatal Conductance with VPD 参考 BEPS hourly site*/
 		b[11] =1;  //Ratio of Gmax of Overstory to that of Under
 
 
@@ -157,7 +177,7 @@ void readb(double *b,unsigned char lc_p,BH_SubParams2_t* pBH_SubParams2)
 		b[15] =8;//2.7;/* Leaf Water Potential at Stomatal Closure(-Mpa)		*/
 		b[52] =90.5; // Vmax at 25 0C
         b[51] =0.85; // Canopy Clumping Index
-		b[9]  =0.01; //Maximum stomatal Conduction (m/sec)
+		b[9]  =0.0025; //Maximum stomatal Conduction (m/sec)
 		b[13] =0.076;  /* Chnage of Stomatal Conductance with VPD*/
 		b[11] =1;  //Ratio of Gmax of Overstory to that of Under
 
@@ -169,21 +189,10 @@ void readb(double *b,unsigned char lc_p,BH_SubParams2_t* pBH_SubParams2)
 		b[6]  =0.001;/* b(6) Snowmelt Temp coeff.  */
 		b[15] =0;  /* Leaf Water Potential at Stomatal Closure(-Mpa)		*/
 		b[52] =0; // Vmax at 25 0C
-        b[51] =0; // Canopy Clumping Index
-		b[9]  =0; //Maximum stomatal Conduction (m/sec)
+        b[51] =1; // Canopy Clumping Index
+		b[9]  =0.00001; //Maximum stomatal Conduction (m/sec)
 		b[13] =0.01;  /* Chnage of Stomatal Conductance with VPD*/
 		b[11] =0;  //Ratio of Gmax of Overstory to that of Under
-
-		b[53]= 0;  // Maximum Leaf N content (%)
-        b[54]=  0; //Actural Leaf N content (%)
-        b[17]=0; 	//Minimum Temperature for Photosynthesis (0C)
-		b[18]=0; 	//Maximum Temperature for Photosynthesis (0C)
-		b[16]=0; 	//Optimum Temperature for Photosynthesis (0C)
-		b[7]=1; /* b(7) water aborption */
-		b[8]=1; /* b(8) snow absorption  */
-		b[4]=0;	/* b(4) Ppt Interception co. m lai-1 d-1 */
-		b[22]=0;	/* b(22) snowpack energy deficit C 		*/
-    	b[27]=0; /* b(27) soil characteristic parameter		*/
 		 break;
 	case 0://water
 
@@ -191,21 +200,10 @@ void readb(double *b,unsigned char lc_p,BH_SubParams2_t* pBH_SubParams2)
 		b[6]  =0.001;/* b(6) Snowmelt Temp coeff.  */
 		b[15] =0;  /* Leaf Water Potential at Stomatal Closure(-Mpa)		*/
 		b[52] =0; // Vmax at 25 0C
-        b[51] =0; // Canopy Clumping Index
-		b[9]  =0; //Maximum stomatal Conduction (m/sec)
+        b[51] =1; // Canopy Clumping Index
+		b[9]  =0.00001; //Maximum stomatal Conduction (m/sec)
 		b[13] =0.01;  /* Chnage of Stomatal Conductance with VPD*/
 		b[11] =0;  //Ratio of Gmax of Overstory to that of Under
-
-		b[53]= 0;  // Maximum Leaf N content (%)
-        b[54]=  0; //Actural Leaf N content (%)
-        b[17]=0; 	//Minimum Temperature for Photosynthesis (0C)
-		b[18]=0; 	//Maximum Temperature for Photosynthesis (0C)
-		b[16]=0; 	//Optimum Temperature for Photosynthesis (0C)
-		b[7]=1; /* b(7) water aborption */
-		b[8]=1; /* b(8) snow absorption  */
-		b[4]=0;	/* b(4) Ppt Interception co. m lai-1 d-1 */
-		b[22]=0;	/* b(22) snowpack energy deficit C 		*/
-    	b[27]=0; /* b(27) soil characteristic parameter		*/
 
     break;
 	default://ENF
@@ -215,7 +213,7 @@ void readb(double *b,unsigned char lc_p,BH_SubParams2_t* pBH_SubParams2)
 		b[15] =8;//2.8;  /* Leaf Water Potential at Stomatal Closure(-Mpa)		*/
 		b[52] =60; // Vmax at 25 0C
         b[51] =0.7; // Canopy Clumping Index
-		b[9]  =5; //Maximum stomatal Conduction (m/sec)
+		b[9]  =0.0002; //Maximum stomatal Conduction (m/sec)
 		b[13] =0.076;  /* Chnage of Stomatal Conductance with VPD*/
 		b[11] =1;  //Ratio of Gmax of Overstory to that of Under
 

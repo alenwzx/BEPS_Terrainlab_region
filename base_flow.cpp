@@ -1,10 +1,12 @@
+#include <algorithm>
+
 #include "stdafx.h"
 #include "BepsHydrScience.h"
 #include "math.h"
 
 //void base_flow(pubv *myseed,fname *myfilename, char *pathName, int iDay)						//***removed by Andriy***
 void base_flow(pubv* myseed,int iDay,int iLine,Soil_t* soil,unsigned char* watershed,float* baseflow,float* total_inflow,
-			   float* total_outflow,float* Array_Ele,int* Array_Label,unsigned char* soil_texture,Soil_index_t* soilindex,Soil_t* Soil_Array_3r)	//***added by Andriy***
+			   float* total_outflow,float* Array_Ele,int* Array_Label,unsigned char* soil_texture,Soil_index_t* soilindex,Soil_t* Soil_Array_3r,int CFL)	//***added by Andriy***
 {
 	//local variable definition
 	int iX, iY;						//for maximum dimensions of current image. k is a for loop variable
@@ -16,6 +18,7 @@ void base_flow(pubv* myseed,int iDay,int iLine,Soil_t* soil,unsigned char* water
 	double dDX2 = 1.0/(1.414*(float)(myseed->iXsize));	//contour length of diangnal neighbors. Assume
 	double dDX1 = 1.0/(float)(myseed->iXsize);			//contour length of cardinal neighbors
 	double dSUMDrainage				= 0;		//variable for sum of drainage of neighbor pixels
+	double alfa1= 0,alfa2= 0;
 	double Baseflow;							//pointer points to an array of double type
 
 	double Tz[9];								//pointer will point to 9 element array. K value at depth of z
@@ -69,7 +72,7 @@ Inf[i1]=0;Outf[i1]=0;
 
 
 		//if((Array_Ele[i*iY+j]>=9999.0f)||(Array_Label[i*iY+j]==9999)) //***Removed by Andriy
-		if ((Array_Ele[i*iY+j]>=9999.0f)||(Array_Label[i*iY+j]==9999)||(watershed[j]==0))//***Added by Andriy//�����ų��˱�����Ԫ�ļ���
+		if ((Array_Ele[i*iY+j]>=9999.0f)||(Array_Label[i*iY+j]==9999)||(watershed[j]==0))//***Added by Andriy
 		{
 			//Baseflow		= 0.0;		//***Removed by Andriy  //
 			Baseflow		= -777.0;	//***Added by Andriy   //
@@ -99,14 +102,9 @@ Inf[i1]=0;Outf[i1]=0;
 			ReadInSoil(Soil_Array_3r,current_soil,iLine,j,myseed);
 
 
-
-			//***Modified by Andriy:
-
-
 	if (Array_Ele[i*iY+j] < 0) {
 //if (Array_Ele[i*iY+j] < 0)
-				Current_Tz(iLine,j,current_soil,soil, Tz, myseed);
-
+				Current_Tz(iLine,j,current_soil,soil, Tz, myseed,CFL);
 				Tz[0] =Tz[4];
 				Tz[1] = Tz[4];
 				Tz[2] = Tz[4];
@@ -115,16 +113,22 @@ Inf[i1]=0;Outf[i1]=0;
 				Tz[6] = Tz[4];
 				Tz[7] = Tz[4];
 				Tz[8] = Tz[4];
-
-
-
-
 			} else
 
-				Current_Tz(iLine,j,current_soil, soil,Tz, myseed);
+				Current_Tz(iLine,j,current_soil, soil,Tz, myseed,CFL);
 
-
-
+		// alfa1 = exp(-50*(20/(1+125*sqrt(pow((Array_Ele[(i-1)*iY+j]-Array_Ele[(i+1)*iY+j])/2.0*dDX2,2) + pow((Array_Ele[i*iY+(j+1)]-Array_Ele[i*iY+(j-1)])/2.0*dDX2,2)))));
+		// alfa2 = exp(-50*(20/(1+125*sqrt(pow((Array_Ele[(i+1)*iY+(j+1)]-Array_Ele[(i-1)*iY+(j-1)])/2.0*dDX2,2) + pow((Array_Ele[(i-1)*iY+(j+1)]-Array_Ele[(i-1)*iY+(j-1)])/2.0*dDX2,2)))));
+		//
+		// Tz[0] *= alfa2;
+		// Tz[1] *= alfa1;
+		// Tz[2] *= alfa2;
+		// Tz[3] *= alfa1;
+		// Tz[5] *= alfa1;
+		// Tz[4] *= alfa1;
+		// Tz[6] *= alfa2;
+		// Tz[7] *= alfa1;
+		// Tz[8] *= alfa2;
 
 		//	}
 
@@ -151,8 +155,6 @@ Inf[i1]=0;Outf[i1]=0;
 						}
 						else
                                 {TAB=(Array_Ele[i*iY+(j+1)]-Array_Ele[i*iY+j])*dDX1;
-                                    //	TotalInflow += 0.5*(myseed->iXsize)*TAB*Tz[5]*bid;
-                            //if(Array_Label[i*iY+(j+1)]!=9999)                    //ע��
                                 Inf[5]= 0.5*(myseed->iXsize)*TAB*Tz[5]*bid;
                                 iInRoute++;
                                 }
@@ -830,7 +832,7 @@ Inf[i1]=0;Outf[i1]=0;
 						//	TotalInflow += 0.5*(myseed->iXsize)*TAB*Tz[1]*bid;
 						//if(Array_Label[(i-1)*iY+j]!=9999)               //�¼ӵ�����
                             Inf[1]= 0.5*(myseed->iXsize)*TAB*Tz[1]*bid;
-                            iInRoute++;                                   //�������һ��
+                            iInRoute++;                                   //�������һ��??
 
 					}
 
@@ -980,7 +982,7 @@ Inf[i1]=0;Outf[i1]=0;
 					}
 
 
-                     if(Array_Ele[i*iY+(j-1)]>=9999.0) bid=0;                      //3  ��ʼ-9999�����Ǵ�����ж�
+                     if(Array_Ele[i*iY+(j-1)]>=9999.0) bid=0;                      //3  ��ʼ-9999�����Ǵ�����ж�??
 						 else bid=1.0;
 
 					if(Array_Ele[i*iY+(j-1)]<Array_Ele[i*iY+j])
@@ -1102,26 +1104,63 @@ Inf[i1]=0;Outf[i1]=0;
 
 //	TotalInflow =Inf[0]+Inf[1]+Inf[2]+Inf[3]+Inf[4]+Inf[5]+Inf[6]+Inf[7]+Inf[8];            //���������ƺ�û�м��㡾4����ʼΪ0
 //	TotalOutflow=Outf[0]+Outf[1]+Outf[2]+Outf[3]+Outf[4]+Outf[5]+Outf[6]+Outf[7]+Outf[8];
-	TotalInflow =Inf[0]+Inf[1]+Inf[2]+Inf[3]+Inf[5]+Inf[6]+Inf[7]+Inf[8];            //���������ƺ�û�м��㡾4��
-    TotalOutflow=Outf[0]+Outf[1]+Outf[2]+Outf[3]+Outf[5]+Outf[6]+Outf[7]+Outf[8];
+	int incount=0,outcount=0;
+	for(int ii=0; ii<9; ii++)
+	{
+		if(Inf[ii]!=0)
+		{
+			incount ++;
+		}
+	}
+	for(int ii=0; ii<9; ii++)
+	{
+		if(Outf[ii]!=0)
+		{
+			outcount ++;
+		}
+	}
 
-		        Baseflow			= (TotalInflow-TotalOutflow)/(myseed->iXsize*myseed->iYsize);
-		        //OS: important: baseflow is calculated as the difference inflow-outlfow DIVIDED by the area --> i.e. results are in m and NOT in m^3
-				Array_Label[i*iY+j] = 9999;
-			}
+	if(incount > 0)
+		TotalInflow = (Inf[0]+Inf[1]+Inf[2]+Inf[3]+Inf[4]+Inf[5]+Inf[6]+Inf[7]+Inf[8]);
+	else
+		TotalInflow = 0.0;
+		
+	if(outcount > 0)
+		TotalOutflow = (Outf[0]+Outf[1]+Outf[2]+Outf[3]+Outf[4]+Outf[5]+Outf[6]+Outf[7]+Outf[8]);
+	else
+		TotalOutflow = 0.0;
+
+	Baseflow = (TotalInflow-TotalOutflow)/(myseed->iXsize*myseed->iYsize);
+	//OS: important: baseflow is calculated as the difference inflow-outlfow DIVIDED by the area --> i.e. results are in m and NOT in m^3
+	Array_Label[i*iY+j] = 9999;
+	}
 
 		}//end of if else block
 
 
-		baseflow[j]			=(float)Baseflow;
-		total_inflow[j]		=(float)TotalInflow;	//***Added by Andriy
-		total_outflow[j]	=(float)TotalOutflow;	//***Added by Andriy
+		baseflow[j]			=MIN((float)Baseflow,soilindex[textureindext].water_table_change_limit);
+		total_inflow[j]		=MIN((float)TotalInflow,soilindex[textureindext].water_table_change_limit);	//***Added by Andriy
+		total_outflow[j]	=MIN((float)TotalOutflow,soilindex[textureindext].water_table_change_limit);	//***Added by Andriy
+		float detla_water_table = baseflow[j];//(soilindex[textureindext].porosity - soil[j].unsaturated_storage);
+
+		if(!std::isfinite(detla_water_table) || std::isnan(detla_water_table))
+		{
+			detla_water_table = 0.0f;
+		}
+		// printf("\nMax_detla_water_table: %f\n", soilindex[textureindext].water_table_change_limit);
+ 		if(detla_water_table>0)
+ 			detla_water_table = MIN(detla_water_table,soilindex[textureindext].water_table_change_limit);
+ 		else
+ 			detla_water_table = MAX(detla_water_table,-soilindex[textureindext].water_table_change_limit);
+
+ 		soil[j].water_table -= detla_water_table;
+ 		soil[j].water_table = MIN(soil[j].water_table, soil[j].Max_depth_Z);
 
 	/*//################################################################
 				// USE THIS AREA TO DO BASEFLOW SCHEMES
 		if(soil[j].water_table > 0.15) //Mineral layer
 		{
-		baseflow[j]=-1*((soilindex[textureindext].porosity-soilindex[textureindext].field_cap)*1)*
+		baseflow[j]=-1*((soilindex[textureindext].porosity[0]-soilindex[textureindext].field_cap[0])*1)*
 		(soil[j].Max_depth_Z-soil[j].water_table);
 		}
 		else   //Peat layer

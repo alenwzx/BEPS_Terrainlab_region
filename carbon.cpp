@@ -100,15 +100,21 @@ MAX(0,(farq_psn_moss(b,z,x,g,pBH_SubParams2)));
 	else bz_u=1.0;
 	bz_u	    =MAX(0,bz_u);
 
-
-
+	bz_u =0;
+	beta =0;
 	//********************partitioning overstorey gpp***************
 
 
 // GPP written out together ie over, under, moss
 
-   g[24] = (((g[28]*z[32]*(1-beta))+(g[80]*z[32]*beta)+
-			  (g[29]*z[33]*(1-beta))+(g[81]*z[33]*beta)) + g[44] + g[45])*z[18]*12/1000000000;  // with understorey and moss
+   g[24] = (
+   (g[28]*z[32]*(1-beta))
+   +(g[80]*z[32]*beta)
+   +(g[29]*z[33]*(1-beta))
+   +(g[81]*z[33]*beta)
+   			  // + g[44]
+			  // + g[45]
+			  )*z[18]*12/1000000000;  // with understorey and moss
 
 g[24]=MAX(0, g[24]); //added @ EPHYSE
 
@@ -160,7 +166,7 @@ g[24]=MAX(0, g[24]); //added @ EPHYSE
 		/* g[25] is total rm in kg C/m2/day*/
 		g[30]=0.0;
 		g[31]=0.0;
-		g[25] = 0.00368*0.5*(1*z[10])*rf25*(1+pr)*pow(0.5, 0.1*(0.5*(z[4]+z[5])-25.0))/1000;
+		g[25] = 0.00368*0.5*(1*z[10])*rf25*(1+pr)*pow(0.5, 0.1*(z[14]-25.0))/1000;
    	}
 	//break;
 	//case 16:												/* pasture */
@@ -171,7 +177,7 @@ g[24]=MAX(0, g[24]); //added @ EPHYSE
 		/* g[25] is total rm in kg C/m2/day*/
 		g[30]=0.0;
 		g[31]=0.0;
-		g[25] = 0.00368*0.25*(0.250*z[10])*rf25*(1+pr)*pow(0.5, 0.1*(0.5*(z[4]+z[5])-25.0))/1000;
+		g[25] = 0.00368*0.25*(0.250*z[10])*rf25*(1+pr)*pow(0.5, 0.1*(z[14]-25.0))/1000;
 	}
 	//break;
 	// new land cover types MM 2005-Apr-25
@@ -214,7 +220,7 @@ g[24]=MAX(0, g[24]); //added @ EPHYSE
 		pr=0;
 		g[30]=0.0;
 		g[31]=0.0;
-		g[25] = 1.0368*(2*z[10])*rf25*(1+pr)*pow(2, 0.1*(0.5*(z[4]+z[5])-25.0))/1000;
+		g[25] = 1.0368*(2*z[10])*rf25*(1+pr)*pow(2, 0.1*(z[14]-25.0))/1000;
 	}
 
 

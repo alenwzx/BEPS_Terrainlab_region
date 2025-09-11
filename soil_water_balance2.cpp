@@ -2,6 +2,7 @@
  	method -->2
 */
 
+#include <cstdio>
 #include "stdafx.h"
 #include "BepsHydrScience.h"
 #include <math.h>
@@ -66,12 +67,13 @@ void soil_water_balance2(pubv* start,float* runoff_baseflow,float * waterin,floa
         runoff_total[j]=runoff_total[j]-runoff_total[j]*0.75;//new   有径流参数runoff_total[j]*0.35
 
         precip	= (float)waterin[j];     //这里定义了waterin
-        precip=precip+epsilon; //new   precip = waterin[j] + runoff_total[j]*0.35
+        //precip=precip+epsilon; //new   precip = waterin[j] + runoff_total[j]*0.35
 
         //for (iDay = 60 )
 
-        soil_porosity	 =  (float)	soilindex[textureindext].porosity;
-        soil_capacity    =(float)soilindex[textureindext].field_cap;
+        // 使用第一层的参数作为代表值（或者可以根据需要修改为其他层的平均值）
+        soil_porosity	 =  (float)	soilindex[textureindext].porosity[0];
+        soil_capacity    =(float)soilindex[textureindext].field_cap[0];
         soil_point    =(float)soilindex[textureindext].wilting_pt;
 
 
@@ -179,7 +181,7 @@ void soil_water_balance2(pubv* start,float* runoff_baseflow,float * waterin,floa
         else
         {
             //一、 soilFC代表在田间持水量下的水量
-            soilFC =(float) (soil[j].water_table * soilindex[textureindext].field_cap);
+            soilFC =(float) (soil[j].water_table * soilindex[textureindext].field_cap[0]);
 
             // OS(10/6/2006): what does that mean????? According to Ajit the amount of water in mm at field capacity...makes kinda sense to me
             //	 soil[j].unsaturated_storage= soil[j].unsaturated_storage+p1-soilET_un;
@@ -272,7 +274,7 @@ void soil_water_balance2(pubv* start,float* runoff_baseflow,float * waterin,floa
 
 
                     //1.1 如果不饱和层可获得的水量 > 不饱和层的土壤水分变化（更多可用的土壤水）
-                    if(unsat_available > unsat_delta)
+                    if(unsat_available > -unsat_delta)
                     {
                     //	soil[j].unsaturated_storage -= unsat_delta; //water losses
                     //	unsat_delta = q1;//unsat_delta indicates the change in unsaturation zone

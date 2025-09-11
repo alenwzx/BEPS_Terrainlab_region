@@ -31,6 +31,7 @@ void readclim(int np,
               short int* climate_rad_f,
               short int* climate_ti,
               short int* climate_tm,
+              short int* climate_tmean,
               short int* climate_prec,
               short int* climate_dew,
               short int* climate_wind,
@@ -50,6 +51,7 @@ void readclim(int np,
             sdat[pix].precip	= 0.0;
             sdat[pix].dewp		= 0.0;
             sdat[pix].wind		= 0.0;
+        	sdat[pix].tmean		= 0.0;
         }
         else
         {
@@ -57,6 +59,7 @@ void readclim(int np,
             sdat[pix].frad		= (double)climate_rad_f[pix]/10.0;
             sdat[pix].tmin		= (double)climate_ti[pix]/10.0;
             sdat[pix].tmax		= (double)climate_tm[pix]/10.0;
+        	sdat[pix].tmean		= (double)climate_tmean[pix]/10.0;
             sdat[pix].precip	= (double)climate_prec[pix]/10.0;
             sdat[pix].dewp		= (double)climate_dew[pix]/10.0;
             sdat[pix].wind		= (double)climate_wind[pix]/10.0;

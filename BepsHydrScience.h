@@ -1,4 +1,3 @@
-
 //Define Constants:
 #define DT_UNSIGNED_CHAR		0
 #define DT_UNSIGNED_SHORT		1
@@ -14,6 +13,8 @@
 #define PERROR					1
 #define PI						3.1415926
 #define kstep                   86400
+#define steps 	                360
+#define kloop		            10      // 10 times per hour, 360 sec. per time
 #define SIZEB					120
 #define SIZEG 					120
 #define SIZEX 					60	//11 nov ag inc to 50 from 40
@@ -31,14 +32,14 @@
 #define INDEX(x,y,C)			((x)*C+(y)) //define a formula to convert 2-D index into 1-D
 #define MAX(a,b) 				(a>b)?a:b
 #define MIN(a,b)				(a<b)?a:b
-
+#include <string>
 //define structure used for writing output climate file
 typedef struct
 {
     float	rad;
     float	ti;
     float	tm;
-    float	tmean;   //×ÔÐÐÌí¼Ó
+    float	tmean;   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     float	prec;
     float	dew;
     float	wind;
@@ -108,7 +109,7 @@ struct climatedata
 {
     int pix;
     double tmax;
-    double tmean;     //×ÔÐÐÌí¼Ó
+    double tmean;     //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     double tmin;
     double wind;
     double dewp;
@@ -148,10 +149,10 @@ struct xvalue
     double x28;     //water infiltration
     double x29;     //pond
     double x30;     //texture
-    double x33;    //buff_soil_temp ×ÔÐÐÌí¼Ó
+    double x33;    //buff_soil_temp ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     double x36;     //nitrogen
     double x37;     //Ks
-    double x38;      //prev_snowdepth ×ÔÐÐÌí¼Ó
+    double x38;      //prev_snowdepth ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     double x50;     //wood or stem
     double x51;    //coarse root
     double x52;    //leaf
@@ -203,21 +204,69 @@ typedef struct
 } Carbon_t;
 
 
-//Define Soil Object
-typedef struct
-{
-    float K0_decay_m;					//soil parameter for Kz calculation
-    float soil_b;
-    float saturation_suction;			//suction in m when soil is saturation
-    float saturated_Ks;					//at surface. m per day
-    float saturated_Kv;
-    float saturation_deficit;			//meter. Zero at saturation
-    float unsaturated_storage;			//meter....MEM: of water in the unsaturated zone!!!
-    float water_table;					//meter from soil surface measured below
-    float soil_temp;//2nov2006
-    float pondwater;						//meter from soil measured above
-    float Max_depth_Z;					//meter
+// //Define Soil Object
+// typedef struct
+// {
+//     float K0_decay_m;					//soil parameter for Kz calculation
+//     float soil_b;
+//     float saturation_suction;			//suction in m when soil is saturation
+//     float saturated_Ks;					//at surface. m per day
+//     float saturated_Kv;
+//     float saturation_deficit;			//meter. Zero at saturation
+//     float unsaturated_storage;			//meter....MEM: of water in the unsaturated zone!!!
+//     float water_table;					//meter from soil surface measured below
+//     float soil_temp;//2nov2006
+//     float pondwater;						//meter from soil measured above
+//     float Max_depth_Z;					//meter
+//     //*****************
+//     float pool1;
+//     float pool2;
+//     float pool3;
+//     float pool4;
+//     float pool5;
+//     float pool6;
+//     float pool7;
+//     float pool8;
+//     float pool9;
+//     float poolb1;
+//     float poolb2;
+//     float poolb3;
+//     float poolb4;
+//     float soil_resp;
+//     float nitrogen;
+//     float CNcd_m;
+//     float CNssd_m;
+//     float CNsmd_m;
+//     float CNfsd_m;
+//     float CNfmd_m;
+//     float CNsm_m;
+//     float CNm_m;
+//     float CNs_m;
+//     float CNp_m;
+//     float CNw_m;
+//     float CNfr_m;
+//     float CNl_m;
+//     float ST_Layer_1;
+//     float ST_Layer_2;
+//     float ST_Layer_3;
+//     float ST_Layer_4;
+//     float ST_Layer_5;
+//     float ST_Layer_6;
+//     //*****************
+// } Soil_t;
+
+#define MAX_LAYERS 5
+typedef struct {
+    // === ï¿½ï¿½ï¿½æ¼¶×´Ì¬ï¿½ï¿½ï¿½ï¿½ (Profile-level State Variables) ===
+    float water_table;                  // ï¿½ï¿½ï¿½ï¿½Ë®Î»ï¿½ï¿½ï¿½ (m)
+    float pondwater;                    // ï¿½Ø±ï¿½ï¿½ï¿½Ë®ï¿½ï¿½ï¿½ (m)
+    float soil_temp;                    // **ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½**: ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½Â¶ï¿½ (c)
+    float unsaturated_storage;          // **ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½**: ï¿½Ç±ï¿½ï¿½Í´ï¿½ï¿½ï¿½Ë®ï¿½ï¿½ (ï¿½ï¿½Ð§Ë®ï¿½ï¿½ m)
+    float saturation_deficit;          // **ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½**: ï¿½Ç±ï¿½ï¿½Í´ï¿½ï¿½Ü±ï¿½ï¿½Íºï¿½Ë®ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½Ð§Ë®ï¿½ï¿½ m)
+    int   texture_index;                // ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½
+    // Ì¼ï¿½ï¿½ï¿½ï¿½ï¿½C/Nï¿½ï¿½ - ï¿½ï¿½Ê±ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½ï¿½
     //*****************
+
     float pool1;
     float pool2;
     float pool3;
@@ -245,30 +294,117 @@ typedef struct
     float CNw_m;
     float CNfr_m;
     float CNl_m;
+
+    /* ï¿½ï¿½Ö¹Ô­ï¿½Ð´ï¿½ï¿½ë±¨ï¿½ï¿½ */
     float ST_Layer_1;
     float ST_Layer_2;
     float ST_Layer_3;
     float ST_Layer_4;
     float ST_Layer_5;
     float ST_Layer_6;
+
     //*****************
+
+    // === (Profile-level Properties/Parameters) ===
+    int n_layer;            //Êµï¿½Ê»î¶¯ï¿½ï¿½ï¿½ï¿½
+    float Max_depth_Z;
+    int flag;				// reserved for EnKF usage.
+    int step_period;
+
+    // Conditions on the top boundary
+    float Zp;				// depth of ponded water on the ground surface
+    float Zsp;              // snow depth
+    float r_rain_g;		    // the rainfall rate, un--on understory g--on ground surface  m/s
+    float soil_r;			// soil surface resistance for water, discuss with Remi - an interface here
+    float r_drainage;
+
+    // Some variable used for soil
+    float r_root_decay;	    // decay_rate_of_root_distribution
+    float psi_min;          // for fw
+    float alpha;            // for fw
+    float f_soilwater;
+    double dz;              // groundwater table depth
+    /********************************************/
+    // Properties belong to each soil horizon
+    float d_soil[MAX_LAYERS];
+    float f_root[MAX_LAYERS];       // root weight
+    float dt[MAX_LAYERS];           // the weight calculated from soil_water_factor **re-calculate in the model
+
+    // From read-param function
+    float thermal_cond[MAX_LAYERS]; // thermal conductivity. Unit:
+    float theta_vfc[MAX_LAYERS];    // field capacity (not used in this model. LHE. Feb. 01, 2013)
+    float theta_vwp[MAX_LAYERS];    // wilt point
+    float fei[MAX_LAYERS];          // porosity
+    float Ksat[MAX_LAYERS];         // saturated hydraulic conductivity
+    float psi_sat[MAX_LAYERS];      // water potential at sat
+    float b[MAX_LAYERS];            // Cambell parameter b
+    float density_soil[MAX_LAYERS]; // soil bulk density of layer. LHE. Feb. 12, 2013.
+    float f_org[MAX_LAYERS];        // volume fraction of organic matter in layer (%).
+    //read-param function (old):
+    float K0_decay_m;               // (equal pore_index and $r_root_decay)
+    float soil_b;                   // (equal $b)
+    float saturation_suction;       // (equal suction_head and $psim)
+    float saturated_Kv;             // (equal K0 and $Ksat)
+    float saturated_Ks;             // (equal K0H)
+    // Variables need to save
+    float ice_ratio[MAX_LAYERS];    // the ratio of ice of soil layer
+    float thetam[MAX_LAYERS], thetam_prev[MAX_LAYERS]; // soil water content in this layer
+    // soil temperature in this layer, don't change because it is used in soil_water_factor_v2, and UpdateSoil_Moisture.
+    float temp_soil_p[MAX_LAYERS];
+    // soil temperature in this layer. don't change because it is used in soil_water_factor_v2, and UpdateSoil_Moisture.
+    float temp_soil_c[MAX_LAYERS];
+    // Derived variables below:
+    float f_ice[MAX_LAYERS];        // derived var.
+    float psim[MAX_LAYERS];         // soil water suction in this layer. Note: this variable can be derived from other parameters. LHE.
+    float thetab[MAX_LAYERS];       // soil water content at the bottom of each layer
+    float psib[MAX_LAYERS];         // soil water suction at the bottom this layer
+    float r_waterflow[MAX_LAYERS];  // the liquid water flow rates at the soil layer interfaces  'eg. 0,1,2..., represents the surface, the bottom of layer1, the bottom of layer2,...
+
+    float km[MAX_LAYERS], Kb[MAX_LAYERS];   //the hydraulic conductivity of certain soil layer
+    float KK[MAX_LAYERS];           // The average  conductivity of two soil layers.*/
+
+    float Cs[MAX_LAYERS];
+    float lambda[MAX_LAYERS];       // thermal conductivity of each soil layer /* ={0} by LHE */ // not used in gpp-only version. derived var.
+    float Ett[MAX_LAYERS];          // ET in each layer. derived var
+
+    // define a lambda_top for ice?
+    float G[MAX_LAYERS];            // energy fluxes
+    float pn[MAX_LAYERS];             // VGM model parameter n
+    float pm[MAX_LAYERS];             // VGM model parameter m (1 - 1/n)
 } Soil_t;
 
+// typedef struct
+// {
+//     //coresponding the data columns of texture and default file
+//     int		mytexture;
+//     double	pore_index;				//m-1
+//     double	soil_b;					//unitless for b
+//     double	suction_head;			//meter
+//     double	soil_K0;
+//     double	max_z;
+//     double  wilting_pt;
+//     double  field_cap;
+//     double  porosity;
+//     double  MaxiGs;
+//     double  soil_K0H;
+// } Soil_index_t;
 
-typedef struct
-{
-    //coresponding the data columns of texture and default file
-    int		mytexture;
-    double	pore_index;				//m-1
-    double	soil_b;					//unitless for b
-    double	suction_head;			//meter
-    double	soil_K0;
-    double	max_z;
-    double  wilting_pt;
-    double  field_cap;
-    double  porosity;
-    double  MaxiGs;
-    double  soil_K0H;
+typedef struct {
+    // --- based on soil texture ---
+    int		mytexture;      /* soil texture */
+    float	pore_index;                 /* K0_decay_m (/m) - in Campbell */
+    float	soil_b[MAX_LAYERS];         /* soil param b - b */
+    float	suction_head[MAX_LAYERS];   /* water potential at sat (m) - psi_sat */
+    float	soil_K0[MAX_LAYERS];        /* vertical saturated hydraulic conductivity (m/day) - Ksat */
+    float	max_z;                      /* soil max depth (m) */
+    float   wilting_pt;                  /* wilt point (m3/m3)  - theta_vwp*/
+    float   field_cap[MAX_LAYERS];      /* field capacity (m3/m3) - theta_vfc - now layered */
+    float   porosity[MAX_LAYERS];       /* porosity (m3/m3) - fei - now layered */
+    float   MaxiGs;                      /* Max soil surface conductance */
+    float   soil_K0H[MAX_LAYERS];        /* horizontal saturated hydraulic conductivity (m/day) - Ksat_h ? */
+    float   water_table_change_limit;    /* Maximum daily water table change (m) - for baseflow calculation */
+    // --- add from soil.h ---
+    float   thermal_cond[MAX_LAYERS];    /* thermal conductivity */
 } Soil_index_t;
 
 typedef struct
@@ -322,6 +458,7 @@ typedef struct
     char			szInFileNameSWE[MAX_PATH];
     char			szInFileNameSoilInitZ[MAX_PATH];
     char			szInFileNameSoilInitTemp[MAX_PATH]; /* 2nov2006*/
+    char			szInFileNameSoilInitMoisture[MAX_PATH];  // ï¿½ï¿½ï¿½Ó³ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ë®ï¿½ï¿½ï¿½Ä¼ï¿½Â·ï¿½ï¿½
     char			szInFileNameSnowdensity[MAX_PATH];
     char			szInFileNameSoilDepth[MAX_PATH];
     //char			szInFileNameSoilInitTemp[MAX_PATH];
@@ -350,7 +487,7 @@ typedef struct
     char			szOutFileNameClimateRAD_f[MAX_PATH];   //radiation
     char			szOutFileNameClimateTi[MAX_PATH];	 //minimum temeprature
     char			szOutFileNameClimateTm[MAX_PATH];	 //maximum temperature
-    char			szOutFileNameClimateTmean[MAX_PATH];	 //mean temperature ×ÔÐÐÌí¼Ó
+    char			szOutFileNameClimateTmean[MAX_PATH];	 //mean temperature ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     char			szOutFileNameClimatePrec[MAX_PATH];  //precipitation
     char			szOutFileNameClimateDew[MAX_PATH];	 //dew temperature
     char			szOutFileNameClimateWind[MAX_PATH];   //wind speed
@@ -427,6 +564,7 @@ typedef struct
     char			szOutFileNameSoilPercolation[MAX_PATH];
     char			szOutFileNameSoilSatDeficit[MAX_PATH];
     char			szOutFileNameSoilUnsatStorage[MAX_PATH];
+    char			szOutFileNameSoilthetam[MAX_PATH];
     char			szOutFileNameSoilWaterTable[MAX_PATH];
     char			szOutFileNameSoilPondWater[MAX_PATH];//pond
     char			szOutFileNameSnowdepth[MAX_PATH];
@@ -509,20 +647,35 @@ typedef struct
 
 } BH_SubParams2_t;
 
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÒªÐ£ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½
+struct CalibrationParam {
+    std::string name;
+    int texture_idx;
+    int layer_idx;      // -1ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ã²ï¿½ï¿½ï¿½ï¿½ï¿½>=0ï¿½ï¿½Ê¾ï¿½Ö²ï¿½ï¿½ï¿½ï¿½
+    double current_value;
+    double min_value;
+    double max_value;
+    double step;
+    bool is_layered;    // ï¿½Ç·ï¿½Îªï¿½Ö²ï¿½ï¿½ï¿½ï¿½
+};
 
 void insert_day_number(char * szFileName,const char* szInFileName, int iDayNumber);
 void remove_day_number(char* szFileName,const char* szInFileName, int iDayNumber);
 
-void AssembleSoilArray(int iLength,float* K0_decay_m,float* soil_b,float* saturation_suction,
-                       float* saturated_Kv,float* saturated_Ks,float* saturation_deficit,float* unsaturated_storage,
-                       float* water_table,float* soil_temp, float* pondwater,float* Max_depth_Z,
-                       float*pool1,float*pool2,float*pool3,float*pool4,float*pool5,float*pool6,float*pool7,float*pool8,float*pool9,
-                       float*poolb1,float*poolb2,float*poolb3,float*poolb4,float* nitrogen,
-                       float* CNcd_m,float* CNssd_m,float* CNsmd_m,float* CNfsd_m,float* CNfmd_m,
-                       float* CNsm_m,float* CNm_m,float* CNs_m,float* CNp_m,float* CNw_m,float* CNfr_m,
-                       float* CNl_m,
-                       float*ST_Layer_1,float*ST_Layer_2,float*ST_Layer_3,float*ST_Layer_4,float*ST_Layer_5,float*ST_Layer_6,
-                       Soil_t* soil);
+void AssembleSoilArray(
+    int iLength,
+    float* K0_decay_m, float* soil_b, float* saturation_suction,
+    float* saturated_Kv, float* saturated_Ks, float* saturation_deficit, float* unsaturated_storage,
+    float* water_table, float* soil_temp, float* pondwater, float* Max_depth_Z,
+    float* pool1, float* pool2, float* pool3, float* pool4, float* pool5, float* pool6, float* pool7, float* pool8, float* pool9,
+    float* poolb1, float* poolb2, float* poolb3, float* poolb4, float* nitrogen,
+    float* CNcd_m, float* CNssd_m, float* CNsmd_m, float* CNfsd_m, float* CNfmd_m,
+    float* CNsm_m, float* CNm_m, float* CNs_m, float* CNp_m, float* CNw_m, float* CNfr_m,
+    float* CNl_m,
+    float* ST_Layer_1, float* ST_Layer_2, float* ST_Layer_3, float* ST_Layer_4, float* ST_Layer_5, float* ST_Layer_6, float* soil_thetam,
+    Soil_t* soil,
+    const Soil_index_t* soilindex, const unsigned char* landcover, const unsigned char* soil_texture
+);
 void DisassembleSoilArray(int iLength,float* K0_decay_m,float* soil_b,float* saturation_suction,
                           float* saturated_Kv,		float* saturated_Ks,float* saturation_deficit,float* unsaturated_storage,
                           float* water_table,float* soil_temp,float* pondwater,float* Max_depth_Z,
@@ -531,7 +684,7 @@ void DisassembleSoilArray(int iLength,float* K0_decay_m,float* soil_b,float* sat
                           float* CNcd_m,float* CNssd_m,float* CNsmd_m,float* CNfsd_m,float* CNfmd_m,
                           float* CNsm_m,float* CNm_m,float* CNs_m,float* CNp_m,float* CNw_m,float* CNfr_m,
                           float* CNl_m,
-                          float*ST_Layer_1,float*ST_Layer_2,float*ST_Layer_3,float*ST_Layer_4,float*ST_Layer_5,float*ST_Layer_6,
+                          float*ST_Layer_1,float*ST_Layer_2,float*ST_Layer_3,float*ST_Layer_4,float*ST_Layer_5,float*ST_Layer_6,float* soil_thetam,
                           Soil_t* soil);
 
 void    AssembleCanopyArray(int iLength,float* canopy_evaporation,
@@ -581,14 +734,14 @@ void Soil_constructor(pubv* pv, unsigned char* soil_texture,
                       float* soil_surf_kv,float* soil_surf_ks, float* soil_init_z, float* soil_init_temp,
                       float* carbon_pool1,float* carbon_pool2,float* carbon_pool3,float* carbon_pool4,float* carbon_pool5,float* carbon_pool6,float* carbon_pool7,float* carbon_pool8,float* carbon_pool9,
                       float* biomass_pool1,float* biomass_pool2,float* biomass_pool3,float* biomass_pool4,float* soil_depth,
-                      Soil_index_t* soilindex, int iLine, Soil_t* soil, unsigned char* watershed,int line,float*buffer_nitrogen);
+                      Soil_index_t* soilindex, int iLine, Soil_t* soil, unsigned char* watershed,int line,float*buffer_nitrogen, float** initial_soil_moisture);
 
 void zeroxx(int,double *,xvalue *);
 void writexx(int pix,double *x,xvalue *xx);
 void readxx(int pix,double *x,xvalue *xx);
 
 void readclim(int,float,short int*,short int*,short int*,short int*,short int*,
-              short int*,short int*,climatedata*);
+              short int*,short int*,short int*,climatedata*);
 void readlc(int,unsigned char*);
 void readawc(bool,int,unsigned char*,float*,float*,float*,float*,double*);
 void readlai(int,unsigned char*,double*);
@@ -643,7 +796,7 @@ void soil_temp(pubv* start, Soil_t* soil, unsigned char* soil_texture,float*prev
                unsigned char* lc, unsigned char* watershed_ptr, short int* climate_tm );
 void base_flow(pubv* myseed,int iDay,int iLine,Soil_t* soil,unsigned char* watershed,float* baseflow,float* total_inflow,
                float* total_outflow,float* Array_Ele,int* Array_Label,unsigned char* soil_texture,
-               Soil_index_t* soilindex,Soil_t* Soil_Array_3r);	//***added by Andriy***
+               Soil_index_t* soilindex,Soil_t* Soil_Array_3r,int CFL);	//***added by Andriy***
 
 void	ReadInSoil(Soil_t*,Soil_t*,unsigned int,unsigned int,pubv*);
 
@@ -660,9 +813,26 @@ void soil_resp(int jday,int iLine, pubv* start, Soil_t* soil,Canopy_t* canopy_pt
                float * waterin,float* Daily_NPP,
                unsigned char* lc,short int* climate_tm, unsigned char* watershed_ptr,float*daily_nep);
 
-void	Current_Tz(unsigned int,unsigned int,Soil_t[],Soil_t*,double[],pubv*);
+void	Current_Tz(unsigned int,unsigned int,Soil_t[],Soil_t*,double[],pubv*,int CFL);
 
 double	compute_unsat_zone_drainage(unsigned char textureindext, Soil_t soils2,
                                     double threthod,double fieldcapacity,double por );
 double	compute_cap_rise(Soil_t soils2, double por);
 
+void SoilRootFraction(Soil_t* soil);
+
+void soil_water_factor_v2(Soil_t* soil);
+
+void Soil_Water_Uptake(Soil_t* soil, float Trans_o, float Trans_u, float Evap_soil);
+
+void Init_Soil_Parameters(const pubv* pv, const unsigned  char* landcover, const Soil_index_t* soilindex,Soil_t* soil,const unsigned char* watershed, const unsigned char* soil_texture ,int line, int iDay , const Canopy_t* canopy_ptr, float* waterin, int CFL, Soil_t* Soil_Array_3r, float* Array_Ele);
+
+void UpdateSoilMoisture(Soil_t* p, float step);
+
+void UpdateSoilLateralFlow(pubv* myseed, int iLine, Soil_t* soil, 
+                          Soil_t* Soil_Array_3r, float* Array_Ele, unsigned char* watershed, 
+                          unsigned char* soil_texture, Soil_index_t* soilindex, float* baseflow, int CFL);
+
+// double calculate_exponential(double x, double alpha);
+
+void UpdateSurfaceWaterFlow(pubv* myseed,int iLine,Soil_t* soil,Soil_t* Soil_Array_3r,float* Array_Ele,unsigned char* watershed,int CFL,float manning_n);

@@ -37,6 +37,7 @@
 		(Based on BIOME-BGC)
   Last update:	May 1998
 *****************************************************************************/
+#include <cstdio>
 #include "stdafx.h"
 #include "BepsHydrScience.h"
 #include <math.h>
@@ -49,7 +50,7 @@ void rs(int jday,double *b,double *g,double *x,double *z, BH_SubParams2_t* pBH_S
 	double ppfd;
  	double tavg;
 	double tmin;
-	double Topt, Tmax,Tmin;
+	double Topt, Tmax,Tmin,Tmin_control;
 	double vpd,vpd_open,vpd_close;
 	double psi,psi_open,psi_close,psi_sat;
 	double m_tavg, m_tmin, m_psi, m_co2, m_ppfd, m_vpd,m_psi_2,m_soil;
@@ -88,18 +89,19 @@ g[83]= h1-h2;
 	/* assign variables that are used more than once */
   	tavg =      z[14];  //日均温
 	tmin =      z[5];
-	vpd =       0.1*z[16];		/* in kPa */
+	vpd =       z[16];		/* in kPa */
 	ppfd_coef=  b[12];
 	Topt=b[16];
 	Tmax=b[18];
     Tmin=b[17];
+	Tmin_control = 4.5;
 	psi =       1;
 	lai =       z[10];
 
 	psi_open = -b[14];			/* in -MPa */
 	psi_close = -b[15];
-	vpd_open =  2;		/* in mb */ // changed by Ajit from 7.5 after refering Chen (1999)
-	vpd_close =20;      //这里VPD的修改是否影响了结果呢
+	vpd_open =  5;		/* in mb */ // changed by Ajit from 7.5 after refering Chen (1999)
+	vpd_close =24;      //这里VPD的修改是否影响了结果呢
 	lc_p=(int short)z[23];
    switch(lc_p)
     {
@@ -146,8 +148,8 @@ g[83]= h1-h2;
 		}
 		//m_tavg=__max(0,m_tavg);
 
-if (jday<200)   //为什么是小于200天时这样计算
-m_tavg=0.45*m_tavg* (jday*0.01);//xtra
+// if (jday<200)   //为什么是小于200天时这样计算
+// m_tavg=0.45*m_tavg* (jday*0.01);//xtra
 
 
 
@@ -156,14 +158,14 @@ m_tavg=0.45*m_tavg* (jday*0.01);//xtra
 			//origialstarts -->
 			if (vpd < vpd_open)
 			m_vpd=1;
-			else if (vpd_open < vpd < vpd_close)
+			else if (vpd_open < vpd && vpd < vpd_close)
 			m_vpd= ((vpd_close-vpd)/(vpd_close-vpd_open));
 		//	m_vpd=__max(0,m_vpd);
 			if (vpd> vpd_close)
 				m_vpd=0;
 
-if (jday<200)
-m_vpd=0.45*m_vpd* (jday*0.01); //xtra
+// if (jday<200)
+// m_vpd=0.45*m_vpd* (jday*0.01); //xtra
 
             //today m_vpd=1/(1+b[13]*vpd);
 
@@ -178,21 +180,22 @@ m_vpd=0.45*m_vpd* (jday*0.01); //xtra
 		sf = x[21]; // MM assign the field capacity
 		ss = x[22]; // MM assign the porosity
 
-// This modifier of soil water to stomatal cinductance is based on Jing's paper on Journal of Hydrology, 2005
+
+
+// This modifier of soil water to stomatal cinductance is based on Jing's paper on Journal of Hydrology, 2005 --old
 w_table=x[19];
 if(w_table>0.0){
-vsm_us=x[2]/w_table;  // conver unsaturated_storage to volumetric soil moisture content;
+vsm_us=x[2];  // conver unsaturated_storage to volumetric soil moisture content;
 //r1=1-pow(b[37],w_table*100.0); r1=__min(1.0,r1);r1=__max(0,r1); r2=1.0-r1;
-
 if(vsm_us<=sw) psi1=0;
 else if ((vsm_us>sw && vsm_us<=sf) ) psi1=(vsm_us-sw)/(sf-sw);
-else if ((vsm_us>sf))  psi1=1.0-0.5*(vsm_us-sf)/(ss-sf);
+else if ((vsm_us>sf))  psi1=1.0 - 0.2 * (vsm_us-sf)/(ss-sf);
 }
-else psi1=0.5; //if WT  <0
+else psi1=1;
 psi=psi1;               //psi:不同情况下非饱和带土壤体积含水量对气孔导度的影响
+// psi= x[2];					//使用f_soilwater表示原有的水分限制
 
 //SSaturated Zone
-
 m_psi=psi;
 m_psi_2=0.5; 	//Ajit adedd for saturated case
 
@@ -201,15 +204,20 @@ m_psi_2=0.5; 	//Ajit adedd for saturated case
 		m_co2 = 1.0;
 
 		/* freezing night minimum temperature multiplier */
-		if (tmin > 0.0)        /* no effect */
+		//if (tmin > 0.0)        /* no effect */
+		//	m_tmin = 1.0;
+		//else if (tmin < -8.0)  /* full tmin effect */
+		//	m_tmin = 0.0;
+		//else                   /* partial reduction (0.0 to -8.0 C) */
+		//	m_tmin = 1.0 + (0.125 * tmin);
+		if (tmin > Tmin_control)        /* no effect */
 			m_tmin = 1.0;
-		else if (tmin < -8.0)  /* full tmin effect */
-			m_tmin = 0.0;
+		else if (tmin < Tmin_control && tmin > -5)  /* full tmin effect */
+			m_tmin = pow((tmin+5)/(Tmin_control+5),3);
 		else                   /* partial reduction (0.0 to -8.0 C) */
-			m_tmin = 1.0 + (0.125 * tmin);
-
-		m_tmin = 1.0; // cancelling m-tmin !!!!!!!!!
-
+			m_tmin = 0.001;
+		//m_tmin = 1.0; // cancelling m-tmin !!!!!!!!!
+		
 		//Soil temperature multiplier
 		m_soil= 0.176+(0.0770*z[14])-(0.0018*pow(z[14],2));
 
@@ -217,6 +225,7 @@ m_psi_2=0.5; 	//Ajit adedd for saturated case
 		{
 			m_soil=MAX(0,m_soil);
 		}
+		m_soil = 1;
 
 
 
@@ -289,7 +298,7 @@ m_psi_2=0.5; 	//Ajit adedd for saturated case
 	ppfd=0.5*4.55*(z[9]-z[20]);
 
 	m_ppfd = ppfd * ppfd_coef / (1.0 + (ppfd * ppfd_coef));
-	g[19]=(b[9]/b[11])*m_ppfd*m_most*(lai_under);//lai_under*g[20];//
+	g[19]=(b[9]/b[11])*m_ppfd*m_most*(lai_under);//lai_under*g[20];
 	g[77]=(b[9]/b[11])*m_ppfd*m_most_2*(lai_under);//*lai_under;
 	//g[78]=lai_under;
     return;

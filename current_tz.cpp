@@ -51,7 +51,7 @@
 #define f_moss 7.5048
 float moss_peat;
 unsigned char lc_p;							 /*land cover criteria*/
-void Current_Tz(unsigned int iR, unsigned int iC,Soil_t soils[],  Soil_t* soil, double Tz[], pubv *myseed)
+void Current_Tz(unsigned int iR, unsigned int iC,Soil_t soils[],  Soil_t* soil, double Tz[], pubv *myseed,int CFL)
 {
 
 	unsigned int i, j, iX, iY;
@@ -77,22 +77,32 @@ else ft=1.0;//0.05+(soilt+5)/5.0*0.95;
 
 
 //******************************PEAT LAYER CRITERIA**********************************************
+								  // moss_peat=0.15; //进行了修改，这里的泥炭层标准应该不同地方不一样吧  moss_peat=0.15
 								  moss_peat=0.15; //进行了修改，这里的泥炭层标准应该不同地方不一样吧  moss_peat=0.15
 /*This a hypothetical case of 0.20m deep peat-moss complex above the mineral soil, irrespective of
   land cover. But in reality this varies with LC, with Black Spruce dominated one having thick layer
   To do this, LC has to be read in 3 rows similar to the hydrological parameters and assigned specific
 								peat depth criteria--->things for future*/
 //***********************************************************************************************
+	soils[0].saturated_Ks /= (float)CFL/0.04; //value is the same but the units. m^2/day
+	soils[1].saturated_Ks /= (float)CFL/0.04; //value is the same but the units. m^2/day
+	soils[2].saturated_Ks /= (float)CFL/0.04; //value is the same but the units. m^2/day
+	soils[3].saturated_Ks /= (float)CFL/0.04; //value is the same but the units. m^2/day
+	soils[4].saturated_Ks /= (float)CFL/0.04; //value is the same but the units. m^2/day
+	soils[5].saturated_Ks /= (float)CFL/0.04; //value is the same but the units. m^2/day
+	soils[6].saturated_Ks /= (float)CFL/0.04; //value is the same but the units. m^2/day
+	soils[7].saturated_Ks /= (float)CFL/0.04; //value is the same but the units. m^2/day
+	soils[8].saturated_Ks /= (float)CFL/0.04; //value is the same but the units. m^2/day
 
-	Tz[0]=(soils[0].saturated_Ks); //value is the same but the units. m^2/day
-	Tz[1]=(soils[1].saturated_Ks); //value is the same but the units. m^2/day
-	Tz[2]=(soils[2].saturated_Ks); //value is the same but the units. m^2/day
-	Tz[3]=(soils[3].saturated_Ks); //value is the same but the units. m^2/day
-	Tz[4]=(soils[4].saturated_Ks); //value is the same but the units. m^2/day
-	Tz[5]=(soils[5].saturated_Ks); //value is the same but the units. m^2/day
-	Tz[6]=(soils[6].saturated_Ks); //value is the same but the units. m^2/day
-	Tz[7]=(soils[7].saturated_Ks); //value is the same but the units. m^2/day
-	Tz[8]=(soils[8].saturated_Ks); //value is the same but the units. m^2/day
+	Tz[0]=(soils[0].saturated_Ks);
+	Tz[1]=(soils[1].saturated_Ks);
+	Tz[2]=(soils[2].saturated_Ks);
+	Tz[3]=(soils[3].saturated_Ks);
+	Tz[4]=(soils[4].saturated_Ks);
+	Tz[5]=(soils[5].saturated_Ks);
+	Tz[6]=(soils[6].saturated_Ks);
+	Tz[7]=(soils[7].saturated_Ks);
+	Tz[8]=(soils[8].saturated_Ks);
 
 	//recalculate the Tz values in the rest of this routine
 

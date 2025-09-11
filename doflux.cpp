@@ -63,6 +63,8 @@
   Last update:	December 2000
 *****************************************************************************/
 
+#include <cstdio>
+
 #include "stdafx.h"
 #include "BepsHydrScience.h"
 #include "math.h"
@@ -126,7 +128,9 @@ void doflux(int jday,float T_m,double sad, double soilt,double snow_acc,double s
     else
         bz_u=1.0;
     bz_u	    =MAX(0,bz_u);
-
+    // no sat region ！！！
+    bz_u=0;
+    bz  =0;
     /********************partitioning overstorey transpiration***************/
     //整个冠层的蒸腾作用，分阴阳叶片，好像并没有分上下层
     g[16]=	       (penmon(z[14],z[16],z[38],g[70],gsun_unsat  )*z[32]*(1-bz))+ //earlier g[70] was g[40]
@@ -190,7 +194,7 @@ void doflux(int jday,float T_m,double sad, double soilt,double snow_acc,double s
     {
     case 1:
     case 3:
-        moss_frac=0.85;
+        moss_frac=0;
         soil_frac=(1-moss_frac);
 
         if((z[14]<0) || (z[23]==31))
@@ -202,7 +206,7 @@ void doflux(int jday,float T_m,double sad, double soilt,double snow_acc,double s
         break;
     case 2:
     case 4:
-        moss_frac=0.75;
+        moss_frac=0;
         soil_frac=(1-moss_frac);
 
         if((z[14]<0) || (z[23]==31))
@@ -214,7 +218,7 @@ void doflux(int jday,float T_m,double sad, double soilt,double snow_acc,double s
 
         break;
     case 5:
-        moss_frac=0.80;
+        moss_frac=0;
         soil_frac=(1-moss_frac);
 
         if((z[14]<0) || (z[23]==31))
@@ -228,7 +232,7 @@ void doflux(int jday,float T_m,double sad, double soilt,double snow_acc,double s
     case 6:
     case 7:
     case 8:
-        moss_frac=0.50;
+        moss_frac=0;
         soil_frac=(1-moss_frac);
 
         if((z[14]<0) || (z[23]==31))
@@ -281,12 +285,12 @@ void doflux(int jday,float T_m,double sad, double soilt,double snow_acc,double s
     //trans
     x[4] = 0;
     /* trans = old trans + canopy trans + understory trans */
-    x[4] = x[4] + g[17] +g[37];
-
+    x[4] = x[4] + g[17];// +g[37];
+    x[18]= g[37];
     //evapo
     x[5]=0;
     /*  evapo = evapo + evap_canopy + sublimatio_canopy + evap_soil + sublimation_snow */
-    x[5] =x[5] +g[4]+ g[5];//+g[12]+g[13];
+    x[5] =x[5] + g[4] + g[12] + g[13];
 
 
     /********* carbon update **********/

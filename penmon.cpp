@@ -53,13 +53,14 @@ double penmon(double tair,	// daylight mean temperature 白天的平均温度
 
 
 	//if(acond <0) slope=0; //ensuring nothing evaporates in winter
-
+	double es = 6.1078 * exp((17.27 * tair) / (tair + 237.3));
+	slope = (4098.0 * es) / pow((tair + 237.3), 2);
     cp		= 1.01e+3;
     pa		= 1.292-0.00428*tair;
     ra		= 1.0/acond;
-	rs		= 1.0 /(scond);
+	rs		= 1.0 /scond;
     xlat	= 2.20*1.0e+6;
-    xtrans	= ((slope*wrad)+(cp*pa)* (vpd/ra)) /(slope+gamma* (1.0+rs/ra));
+    xtrans	= ( slope * wrad + cp * pa * ( vpd / ra )) / ( slope + gamma * ( 1.0 + rs / ra) );
 
     penmon = xtrans/(xlat * 1000.0);
 

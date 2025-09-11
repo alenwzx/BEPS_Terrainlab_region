@@ -55,6 +55,7 @@
   Written by:   J. Liu
   Last update:	May 2000
 *****************************************************************************/
+#include <cstdio>
 #include "stdafx.h"
 #include "BepsHydrScience.h"
 #include <math.h>
@@ -63,7 +64,7 @@ void zcomp(int jday,int pix,double lat_p,unsigned char lc_p,double soil_depth,
            double lai_p,double *b,double *x,double *z,climatedata *sdat,
            BH_SubParams2_t* pBH_SubParams2)
 {
-    double   xtmax, xtmin, xrad,frad, xppt, tave, dewpt;
+    double   xtmax, xtmin,xtmean, xrad,frad, xppt, tave, dewpt;
     double	xwind;                              // x snow depth, x water table
     double   esd, es, ampl, day, xd;
     int kkk;
@@ -91,7 +92,7 @@ void zcomp(int jday,int pix,double lat_p,unsigned char lc_p,double soil_depth,
 
     xtmax = sdat[pix].tmax;
     xtmin = sdat[pix].tmin;
-
+    xtmean = sdat[pix].tmean;
     xwind = sdat[pix].wind;//ajit
     dewpt = sdat[pix].dewp;				        //note: In this program, it is dew-point
     xrad  = sdat[pix].srad;
@@ -102,8 +103,8 @@ void zcomp(int jday,int pix,double lat_p,unsigned char lc_p,double soil_depth,
     z[3] = xppt / 1000.0;                       // convert mm to meter
     z[4] = xtmax;
     z[5] = xtmin;
-
-    tave = (z[4]+z[5])/2.0;
+    // tave = (xtmax + xtmin)/2.0;
+    tave = xtmean;
 
     if (jday <= 1)
         z[1] = b[22];

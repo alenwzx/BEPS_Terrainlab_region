@@ -63,7 +63,7 @@ void model(double soilt,double snow_acc,double snow_today,float T_m,int jday,dou
 	/* 冠层的截留 */
 	canopy->canopy_intercepted			= (float)(g[11]	*1000.0);	//mm
 	/* 凋落物蒸发 */
-	canopy->litter_evaporation			= (float)(g[37]	*1000.0);	//mm
+	canopy->litter_evaporation			= (float)0.0;//(g[37]	*1000.0);	//mm
 	/* 苔藓蒸发 */
 	canopy->moss_transpiration			= (float)0.0;				//mm
 	/* 土壤蒸发 */
